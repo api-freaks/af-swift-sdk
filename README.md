@@ -1,4 +1,4 @@
-# Apifreaks Swift Library
+# Apifreaks Swift SDK
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Apifreaks%2FSwift)
 ![SwiftPM compatible](https://img.shields.io/badge/SwiftPM-compatible-orange.svg)

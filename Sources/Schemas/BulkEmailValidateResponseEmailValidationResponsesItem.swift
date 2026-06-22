@@ -10,7 +10,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItem: Codable, Ha
     public let domain: BulkEmailValidateResponseEmailValidationResponsesItemDomain
     public let account: BulkEmailValidateResponseEmailValidationResponsesItemAccount
     public let dns: BulkEmailValidateResponseEmailValidationResponsesItemDns
-    public let ip: String?
+    public let ipAddress: String?
     public let address: BulkEmailValidateResponseEmailValidationResponsesItemAddress?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
@@ -25,7 +25,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItem: Codable, Ha
         domain: BulkEmailValidateResponseEmailValidationResponsesItemDomain,
         account: BulkEmailValidateResponseEmailValidationResponsesItemAccount,
         dns: BulkEmailValidateResponseEmailValidationResponsesItemDns,
-        ip: String? = nil,
+        ipAddress: String? = nil,
         address: BulkEmailValidateResponseEmailValidationResponsesItemAddress? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -38,7 +38,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItem: Codable, Ha
         self.domain = domain
         self.account = account
         self.dns = dns
-        self.ip = ip
+        self.ipAddress = ipAddress
         self.address = address
         self.additionalProperties = additionalProperties
     }
@@ -54,7 +54,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItem: Codable, Ha
         self.domain = try container.decode(BulkEmailValidateResponseEmailValidationResponsesItemDomain.self, forKey: .domain)
         self.account = try container.decode(BulkEmailValidateResponseEmailValidationResponsesItemAccount.self, forKey: .account)
         self.dns = try container.decode(BulkEmailValidateResponseEmailValidationResponsesItemDns.self, forKey: .dns)
-        self.ip = try container.decodeIfPresent(String.self, forKey: .ip)
+        self.ipAddress = try container.decodeIfPresent(String.self, forKey: .ipAddress)
         self.address = try container.decodeIfPresent(BulkEmailValidateResponseEmailValidationResponsesItemAddress.self, forKey: .address)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -71,7 +71,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItem: Codable, Ha
         try container.encode(self.domain, forKey: .domain)
         try container.encode(self.account, forKey: .account)
         try container.encode(self.dns, forKey: .dns)
-        try container.encodeIfPresent(self.ip, forKey: .ip)
+        try container.encodeIfPresent(self.ipAddress, forKey: .ipAddress)
         try container.encodeIfPresent(self.address, forKey: .address)
     }
 
@@ -86,7 +86,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItem: Codable, Ha
         case domain
         case account
         case dns
-        case ip
+        case ipAddress
         case address
     }
 }

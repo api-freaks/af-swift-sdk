@@ -2,11 +2,11 @@ import Foundation
 
 public struct DomainSslChainLookupResponseSslCertificatesItemIssuer: Codable, Hashable, Sendable {
     public let commonName: String
-    public let organization: String?
+    public let organization: String
     public let organizationalUnit: String?
     public let locality: String?
     public let state: String?
-    public let country: String?
+    public let country: String
     public let incCountry: String?
     public let incState: String?
     public let businessCategory: String?
@@ -18,11 +18,11 @@ public struct DomainSslChainLookupResponseSslCertificatesItemIssuer: Codable, Ha
 
     public init(
         commonName: String,
-        organization: String? = nil,
+        organization: String,
         organizationalUnit: String? = nil,
         locality: String? = nil,
         state: String? = nil,
-        country: String? = nil,
+        country: String,
         incCountry: String? = nil,
         incState: String? = nil,
         businessCategory: String? = nil,
@@ -49,11 +49,11 @@ public struct DomainSslChainLookupResponseSslCertificatesItemIssuer: Codable, Ha
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.commonName = try container.decode(String.self, forKey: .commonName)
-        self.organization = try container.decodeIfPresent(String.self, forKey: .organization)
+        self.organization = try container.decode(String.self, forKey: .organization)
         self.organizationalUnit = try container.decodeIfPresent(String.self, forKey: .organizationalUnit)
         self.locality = try container.decodeIfPresent(String.self, forKey: .locality)
         self.state = try container.decodeIfPresent(String.self, forKey: .state)
-        self.country = try container.decodeIfPresent(String.self, forKey: .country)
+        self.country = try container.decode(String.self, forKey: .country)
         self.incCountry = try container.decodeIfPresent(String.self, forKey: .incCountry)
         self.incState = try container.decodeIfPresent(String.self, forKey: .incState)
         self.businessCategory = try container.decodeIfPresent(String.self, forKey: .businessCategory)
@@ -67,11 +67,11 @@ public struct DomainSslChainLookupResponseSslCertificatesItemIssuer: Codable, Ha
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.commonName, forKey: .commonName)
-        try container.encodeIfPresent(self.organization, forKey: .organization)
+        try container.encode(self.organization, forKey: .organization)
         try container.encodeIfPresent(self.organizationalUnit, forKey: .organizationalUnit)
         try container.encodeIfPresent(self.locality, forKey: .locality)
         try container.encodeIfPresent(self.state, forKey: .state)
-        try container.encodeIfPresent(self.country, forKey: .country)
+        try container.encode(self.country, forKey: .country)
         try container.encodeIfPresent(self.incCountry, forKey: .incCountry)
         try container.encodeIfPresent(self.incState, forKey: .incState)
         try container.encodeIfPresent(self.businessCategory, forKey: .businessCategory)

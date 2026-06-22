@@ -10,7 +10,7 @@ public struct BulkGeolocationLookupResponseItem: Codable, Hashable, Sendable {
     public let network: BulkGeolocationLookupResponseItemNetwork?
     public let currency: BulkGeolocationLookupResponseItemCurrency?
     public let security: BulkGeolocationLookupResponseItemSecurity?
-    public let abuse: [BulkGeolocationLookupResponseItemAbuseItem]?
+    public let abuse: BulkGeolocationLookupResponseItemAbuseItem?
     public let timeZone: BulkGeolocationLookupResponseItemTimeZone?
     public let userAgent: BulkGeolocationLookupResponseItemUserAgent?
     /// Additional properties that are not explicitly defined in the schema
@@ -24,7 +24,7 @@ public struct BulkGeolocationLookupResponseItem: Codable, Hashable, Sendable {
         network: BulkGeolocationLookupResponseItemNetwork? = nil,
         currency: BulkGeolocationLookupResponseItemCurrency? = nil,
         security: BulkGeolocationLookupResponseItemSecurity? = nil,
-        abuse: [BulkGeolocationLookupResponseItemAbuseItem]? = nil,
+        abuse: BulkGeolocationLookupResponseItemAbuseItem? = nil,
         timeZone: BulkGeolocationLookupResponseItemTimeZone? = nil,
         userAgent: BulkGeolocationLookupResponseItemUserAgent? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -51,7 +51,7 @@ public struct BulkGeolocationLookupResponseItem: Codable, Hashable, Sendable {
         self.network = try container.decodeIfPresent(BulkGeolocationLookupResponseItemNetwork.self, forKey: .network)
         self.currency = try container.decodeIfPresent(BulkGeolocationLookupResponseItemCurrency.self, forKey: .currency)
         self.security = try container.decodeIfPresent(BulkGeolocationLookupResponseItemSecurity.self, forKey: .security)
-        self.abuse = try container.decodeIfPresent([BulkGeolocationLookupResponseItemAbuseItem].self, forKey: .abuse)
+        self.abuse = try container.decodeIfPresent(BulkGeolocationLookupResponseItemAbuseItem.self, forKey: .abuse)
         self.timeZone = try container.decodeIfPresent(BulkGeolocationLookupResponseItemTimeZone.self, forKey: .timeZone)
         self.userAgent = try container.decodeIfPresent(BulkGeolocationLookupResponseItemUserAgent.self, forKey: .userAgent)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)

@@ -10,7 +10,7 @@ public struct EmailValidateResponse: Codable, Hashable, Sendable {
     public let domain: EmailValidateResponseDomain
     public let account: EmailValidateResponseAccount
     public let dns: EmailValidateResponseDns
-    public let ip: String?
+    public let ipAddress: String?
     public let address: EmailValidateResponseAddress?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
@@ -25,7 +25,7 @@ public struct EmailValidateResponse: Codable, Hashable, Sendable {
         domain: EmailValidateResponseDomain,
         account: EmailValidateResponseAccount,
         dns: EmailValidateResponseDns,
-        ip: String? = nil,
+        ipAddress: String? = nil,
         address: EmailValidateResponseAddress? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -38,7 +38,7 @@ public struct EmailValidateResponse: Codable, Hashable, Sendable {
         self.domain = domain
         self.account = account
         self.dns = dns
-        self.ip = ip
+        self.ipAddress = ipAddress
         self.address = address
         self.additionalProperties = additionalProperties
     }
@@ -54,7 +54,7 @@ public struct EmailValidateResponse: Codable, Hashable, Sendable {
         self.domain = try container.decode(EmailValidateResponseDomain.self, forKey: .domain)
         self.account = try container.decode(EmailValidateResponseAccount.self, forKey: .account)
         self.dns = try container.decode(EmailValidateResponseDns.self, forKey: .dns)
-        self.ip = try container.decodeIfPresent(String.self, forKey: .ip)
+        self.ipAddress = try container.decodeIfPresent(String.self, forKey: .ipAddress)
         self.address = try container.decodeIfPresent(EmailValidateResponseAddress.self, forKey: .address)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -71,7 +71,7 @@ public struct EmailValidateResponse: Codable, Hashable, Sendable {
         try container.encode(self.domain, forKey: .domain)
         try container.encode(self.account, forKey: .account)
         try container.encode(self.dns, forKey: .dns)
-        try container.encodeIfPresent(self.ip, forKey: .ip)
+        try container.encodeIfPresent(self.ipAddress, forKey: .ipAddress)
         try container.encodeIfPresent(self.address, forKey: .address)
     }
 
@@ -86,7 +86,7 @@ public struct EmailValidateResponse: Codable, Hashable, Sendable {
         case domain
         case account
         case dns
-        case ip
+        case ipAddress
         case address
     }
 }

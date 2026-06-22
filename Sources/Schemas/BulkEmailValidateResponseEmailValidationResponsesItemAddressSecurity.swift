@@ -1,7 +1,7 @@
 import Foundation
 
 public struct BulkEmailValidateResponseEmailValidationResponsesItemAddressSecurity: Codable, Hashable, Sendable {
-    public let threatScore: Double
+    public let threatScore: Int
     public let isTor: Bool
     public let isProxy: Bool
     public let proxyType: String
@@ -16,7 +16,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItemAddressSecuri
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        threatScore: Double,
+        threatScore: Int,
         isTor: Bool,
         isProxy: Bool,
         proxyType: String,
@@ -45,7 +45,7 @@ public struct BulkEmailValidateResponseEmailValidationResponsesItemAddressSecuri
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.threatScore = try container.decode(Double.self, forKey: .threatScore)
+        self.threatScore = try container.decode(Int.self, forKey: .threatScore)
         self.isTor = try container.decode(Bool.self, forKey: .isTor)
         self.isProxy = try container.decode(Bool.self, forKey: .isProxy)
         self.proxyType = try container.decode(String.self, forKey: .proxyType)

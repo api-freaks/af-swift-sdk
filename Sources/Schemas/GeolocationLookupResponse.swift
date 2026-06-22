@@ -10,7 +10,7 @@ public struct GeolocationLookupResponse: Codable, Hashable, Sendable {
     public let network: GeolocationLookupResponseNetwork?
     public let currency: GeolocationLookupResponseCurrency?
     public let security: GeolocationLookupResponseSecurity?
-    public let abuse: [GeolocationLookupResponseAbuseItem]?
+    public let abuse: GeolocationLookupResponseAbuseItem?
     public let timeZone: GeolocationLookupResponseTimeZone?
     public let userAgent: GeolocationLookupResponseUserAgent?
     /// Additional properties that are not explicitly defined in the schema
@@ -24,7 +24,7 @@ public struct GeolocationLookupResponse: Codable, Hashable, Sendable {
         network: GeolocationLookupResponseNetwork? = nil,
         currency: GeolocationLookupResponseCurrency? = nil,
         security: GeolocationLookupResponseSecurity? = nil,
-        abuse: [GeolocationLookupResponseAbuseItem]? = nil,
+        abuse: GeolocationLookupResponseAbuseItem? = nil,
         timeZone: GeolocationLookupResponseTimeZone? = nil,
         userAgent: GeolocationLookupResponseUserAgent? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -51,7 +51,7 @@ public struct GeolocationLookupResponse: Codable, Hashable, Sendable {
         self.network = try container.decodeIfPresent(GeolocationLookupResponseNetwork.self, forKey: .network)
         self.currency = try container.decodeIfPresent(GeolocationLookupResponseCurrency.self, forKey: .currency)
         self.security = try container.decodeIfPresent(GeolocationLookupResponseSecurity.self, forKey: .security)
-        self.abuse = try container.decodeIfPresent([GeolocationLookupResponseAbuseItem].self, forKey: .abuse)
+        self.abuse = try container.decodeIfPresent(GeolocationLookupResponseAbuseItem.self, forKey: .abuse)
         self.timeZone = try container.decodeIfPresent(GeolocationLookupResponseTimeZone.self, forKey: .timeZone)
         self.userAgent = try container.decodeIfPresent(GeolocationLookupResponseUserAgent.self, forKey: .userAgent)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)

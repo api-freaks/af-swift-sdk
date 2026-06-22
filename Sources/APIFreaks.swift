@@ -357,7 +357,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter ipAddress: The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
     /// - Parameter type: A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainDnsLookup(apiKey: String, format: DomainDnsLookupRequestFormat? = nil, hostName: String? = nil, ipAddress: String? = nil, type: String? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsLookupResponse {
+    public func domainDnsLookup(apiKey: String, format: DomainDnsLookupRequestFormat? = nil, hostName: String? = nil, ipAddress: String? = nil, type: String, requestOptions: RequestOptions? = nil) async throws -> DomainDnsLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/dns/live",
@@ -365,8 +365,8 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "host-name": hostName.map { .string($0) }, 
-                "ipAddress": ipAddress.map { .string($0) }, 
-                "type": type.map { .string($0) }
+                "ipAddress": ipAddress.map { .string($0) },
+                "type": .string(type)
             ],
             requestOptions: requestOptions,
             responseType: DomainDnsLookupResponse.self
@@ -381,14 +381,14 @@ public final class APIFreaks: Sendable {
     /// - Parameter type: A comma-separated list of DNS record types for lookup.
     /// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func bulkDomainDnsLookup(apiKey: String, format: BulkDomainDnsLookupRequestFormat? = nil, type: String? = nil, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainDnsLookupResponse {
+    public func bulkDomainDnsLookup(apiKey: String, format: BulkDomainDnsLookupRequestFormat? = nil, type: String, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainDnsLookupResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/domain/dns/live",
             queryParams: [
-                "apiKey": .string(apiKey), 
-                "format": format.map { .string($0.rawValue) }, 
-                "type": type.map { .string($0) }
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "type": .string(type)
             ],
             body: request,
             requestOptions: requestOptions,
@@ -406,15 +406,15 @@ public final class APIFreaks: Sendable {
     /// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
     /// - Parameter page: Page number for paginated results
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainDnsHistory(apiKey: String, format: DomainDnsHistoryRequestFormat? = nil, hostName: String, type: String? = nil, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsHistoryResponse {
+    public func domainDnsHistory(apiKey: String, format: DomainDnsHistoryRequestFormat? = nil, hostName: String, type: String, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsHistoryResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/dns/history",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "host-name": .string(hostName), 
-                "type": type.map { .string($0) }, 
+                "host-name": .string(hostName),
+                "type": .string(type),
                 "page": page.map { .int($0) }
             ],
             requestOptions: requestOptions,
@@ -678,17 +678,19 @@ public final class APIFreaks: Sendable {
     /// - Parameter domain: Domain name for availability and suggestions.
     /// - Parameter source: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
     /// - Parameter count: Number of suggestions to retrieve.
+    /// - Parameter sug: Whether to include name suggestions in the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainAvailabilitySuggestions(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat? = nil, domain: String, source: DomainAvailabilitySuggestionsRequestSource? = nil, count: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainAvailabilitySuggestionsResponse {
+    public func domainAvailabilitySuggestions(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat? = nil, domain: String, source: DomainAvailabilitySuggestionsRequestSource? = nil, count: Int? = nil, sug: Bool? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainAvailabilitySuggestionsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/availability/suggestions",
             queryParams: [
-                "apiKey": .string(apiKey), 
-                "format": format.map { .string($0.rawValue) }, 
-                "domain": .string(domain), 
-                "source": source.map { .string($0.rawValue) }, 
-                "count": count.map { .int($0) }
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "domain": .string(domain),
+                "source": source.map { .string($0.rawValue) },
+                "count": count.map { .int($0) },
+                "sug": sug.map { .bool($0) }
             ],
             requestOptions: requestOptions,
             responseType: DomainAvailabilitySuggestionsResponse.self
@@ -1737,7 +1739,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter amount: Amount to convert
     /// - Parameter updates: Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyConvertLatest(apiKey: String, format: CurrencyConvertLatestRequestFormat? = nil, from: String, to: String, amount: Double? = nil, updates: CurrencyConvertLatestRequestUpdates? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertLatestResponse {
+    public func currencyConvertLatest(apiKey: String, format: CurrencyConvertLatestRequestFormat? = nil, from: String, to: String, amount: String? = nil, updates: CurrencyConvertLatestRequestUpdates? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertLatestResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/converter/latest/prices",
@@ -1746,7 +1748,7 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "from": .string(from), 
                 "to": .string(to), 
-                "amount": amount.map { .double($0) }, 
+                "amount": amount.map { .string($0) },
                 "updates": updates.map { .string($0.rawValue) }
             ],
             requestOptions: requestOptions,
@@ -1763,7 +1765,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter amount: The Amount to be converted
     /// - Parameter date: specific date (format YYYY-MM-DD) of which exchange rates is used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyConvertHistorical(apiKey: String, format: CurrencyConvertHistoricalRequestFormat? = nil, from: String, to: String, amount: Double? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertHistoricalResponse {
+    public func currencyConvertHistorical(apiKey: String, format: CurrencyConvertHistoricalRequestFormat? = nil, from: String, to: String, amount: String? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertHistoricalResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/converter/historical/prices",
@@ -1772,7 +1774,7 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "from": .string(from), 
                 "to": .string(to), 
-                "amount": amount.map { .double($0) }, 
+                "amount": amount.map { .string($0) },
                 "date": .calendarDate(date)
             ],
             requestOptions: requestOptions,
@@ -1841,7 +1843,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter ip: IPv4 or IPv6 geolocated currency
     /// - Parameter amount: Amount to convert
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyConvertByIp(apiKey: String, format: CurrencyConvertByIpRequestFormat? = nil, updates: CurrencyConvertByIpRequestUpdates? = nil, from: String, ip: String? = nil, amount: Double? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertByIpResponse {
+    public func currencyConvertByIp(apiKey: String, format: CurrencyConvertByIpRequestFormat? = nil, updates: CurrencyConvertByIpRequestUpdates? = nil, from: String, ip: String? = nil, amount: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertByIpResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/converter/ip-to-currency",
@@ -1850,8 +1852,8 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "updates": updates.map { .string($0.rawValue) }, 
                 "from": .string(from), 
-                "ip": ip.map { .string($0) }, 
-                "amount": amount.map { .double($0) }
+                "ip": ip.map { .string($0) },
+                "amount": amount.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: CurrencyConvertByIpResponse.self
@@ -1920,15 +1922,15 @@ public final class APIFreaks: Sendable {
     /// - Parameter updates: Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
     /// - Parameter quote: Specifies the target currency for the exchange rate; default quote currency is the market currency of commodity *(e.g. USD, EUR, INR)*
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityLatestRates(apiKey: String, format: CommodityLatestRatesRequestFormat? = nil, symbols: String? = nil, updates: CommodityLatestRatesRequestUpdates, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesResponse {
+    public func commodityLatestRates(apiKey: String, format: CommodityLatestRatesRequestFormat? = nil, symbols: String, updates: CommodityLatestRatesRequestUpdates, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/rates/latest",
             queryParams: [
-                "apiKey": .string(apiKey), 
-                "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
-                "updates": .string(updates.rawValue), 
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "symbols": .string(symbols),
+                "updates": .string(updates.rawValue),
                 "quote": quote.map { .string($0) }
             ],
             requestOptions: requestOptions,
@@ -1943,15 +1945,15 @@ public final class APIFreaks: Sendable {
     /// - Parameter date: Historical date (YYYY-MM-DD)
     /// - Parameter symbols: Comma-separated list of commodity symbols
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityHistoricalRates(apiKey: String, format: CommodityHistoricalRatesRequestFormat? = nil, date: CalendarDate, symbols: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesResponse {
+    public func commodityHistoricalRates(apiKey: String, format: CommodityHistoricalRatesRequestFormat? = nil, date: CalendarDate, symbols: String, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/rates/historical",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "date": .calendarDate(date), 
-                "symbols": symbols.map { .string($0) }
+                "date": .calendarDate(date),
+                "symbols": .string(symbols)
             ],
             requestOptions: requestOptions,
             responseType: CommodityHistoricalRatesResponse.self
@@ -1966,14 +1968,14 @@ public final class APIFreaks: Sendable {
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityFluctuation(apiKey: String, format: CommodityFluctuationRequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationResponse {
+    public func commodityFluctuation(apiKey: String, format: CommodityFluctuationRequestFormat? = nil, symbols: String, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/fluctuation",
             queryParams: [
-                "apiKey": .string(apiKey), 
-                "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "symbols": .string(symbols),
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -1990,14 +1992,14 @@ public final class APIFreaks: Sendable {
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityTimeSeries(apiKey: String, format: CommodityTimeSeriesRequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesResponse {
+    public func commodityTimeSeries(apiKey: String, format: CommodityTimeSeriesRequestFormat? = nil, symbols: String, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/time-series",
             queryParams: [
-                "apiKey": .string(apiKey), 
-                "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "symbols": .string(symbols),
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -2848,13 +2850,17 @@ public final class APIFreaks: Sendable {
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
+    /// - Parameter userAgent: User-Agent string to parse. Sent as the `User-Agent` HTTP header.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func userAgentLookup(apiKey: String, format: UserAgentLookupRequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> UserAgentLookupResponse {
+    public func userAgentLookup(apiKey: String, format: UserAgentLookupRequestFormat? = nil, userAgent: String, requestOptions: RequestOptions? = nil) async throws -> UserAgentLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/user-agent/lookup",
+            headers: [
+                "User-Agent": userAgent
+            ],
             queryParams: [
-                "apiKey": .string(apiKey), 
+                "apiKey": .string(apiKey),
                 "format": format.map { .string($0.rawValue) }
             ],
             requestOptions: requestOptions,

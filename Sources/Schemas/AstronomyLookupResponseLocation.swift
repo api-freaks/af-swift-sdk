@@ -7,18 +7,18 @@ public struct AstronomyLookupResponseLocation: Codable, Hashable, Sendable {
     public let continentName: String?
     public let countryCode2: String?
     public let countryCode3: String?
-    public let countryName: String
+    public let countryName: String?
     public let countryNameOfficial: String?
     public let isEu: Bool?
-    public let stateProv: String
+    public let stateProv: String?
     public let stateCode: String?
     public let district: String?
-    public let city: String
+    public let city: String?
     public let zipcode: String?
-    public let latitude: String
-    public let longitude: String
-    public let locality: String
-    public let elevation: String
+    public let latitude: String?
+    public let longitude: String?
+    public let locality: String?
+    public let elevation: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -28,18 +28,18 @@ public struct AstronomyLookupResponseLocation: Codable, Hashable, Sendable {
         continentName: String? = nil,
         countryCode2: String? = nil,
         countryCode3: String? = nil,
-        countryName: String,
+        countryName: String? = nil,
         countryNameOfficial: String? = nil,
         isEu: Bool? = nil,
-        stateProv: String,
+        stateProv: String? = nil,
         stateCode: String? = nil,
         district: String? = nil,
-        city: String,
+        city: String? = nil,
         zipcode: String? = nil,
-        latitude: String,
-        longitude: String,
-        locality: String,
-        elevation: String,
+        latitude: String? = nil,
+        longitude: String? = nil,
+        locality: String? = nil,
+        elevation: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.locationString = locationString
@@ -69,18 +69,18 @@ public struct AstronomyLookupResponseLocation: Codable, Hashable, Sendable {
         self.continentName = try container.decodeIfPresent(String.self, forKey: .continentName)
         self.countryCode2 = try container.decodeIfPresent(String.self, forKey: .countryCode2)
         self.countryCode3 = try container.decodeIfPresent(String.self, forKey: .countryCode3)
-        self.countryName = try container.decode(String.self, forKey: .countryName)
+        self.countryName = try container.decodeIfPresent(String.self, forKey: .countryName)
         self.countryNameOfficial = try container.decodeIfPresent(String.self, forKey: .countryNameOfficial)
         self.isEu = try container.decodeIfPresent(Bool.self, forKey: .isEu)
-        self.stateProv = try container.decode(String.self, forKey: .stateProv)
+        self.stateProv = try container.decodeIfPresent(String.self, forKey: .stateProv)
         self.stateCode = try container.decodeIfPresent(String.self, forKey: .stateCode)
         self.district = try container.decodeIfPresent(String.self, forKey: .district)
-        self.city = try container.decode(String.self, forKey: .city)
+        self.city = try container.decodeIfPresent(String.self, forKey: .city)
         self.zipcode = try container.decodeIfPresent(String.self, forKey: .zipcode)
-        self.latitude = try container.decode(String.self, forKey: .latitude)
-        self.longitude = try container.decode(String.self, forKey: .longitude)
-        self.locality = try container.decode(String.self, forKey: .locality)
-        self.elevation = try container.decode(String.self, forKey: .elevation)
+        self.latitude = try container.decodeIfPresent(String.self, forKey: .latitude)
+        self.longitude = try container.decodeIfPresent(String.self, forKey: .longitude)
+        self.locality = try container.decodeIfPresent(String.self, forKey: .locality)
+        self.elevation = try container.decodeIfPresent(String.self, forKey: .elevation)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -92,18 +92,18 @@ public struct AstronomyLookupResponseLocation: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.continentName, forKey: .continentName)
         try container.encodeIfPresent(self.countryCode2, forKey: .countryCode2)
         try container.encodeIfPresent(self.countryCode3, forKey: .countryCode3)
-        try container.encode(self.countryName, forKey: .countryName)
+        try container.encodeIfPresent(self.countryName, forKey: .countryName)
         try container.encodeIfPresent(self.countryNameOfficial, forKey: .countryNameOfficial)
         try container.encodeIfPresent(self.isEu, forKey: .isEu)
-        try container.encode(self.stateProv, forKey: .stateProv)
+        try container.encodeIfPresent(self.stateProv, forKey: .stateProv)
         try container.encodeIfPresent(self.stateCode, forKey: .stateCode)
         try container.encodeIfPresent(self.district, forKey: .district)
-        try container.encode(self.city, forKey: .city)
+        try container.encodeIfPresent(self.city, forKey: .city)
         try container.encodeIfPresent(self.zipcode, forKey: .zipcode)
-        try container.encode(self.latitude, forKey: .latitude)
-        try container.encode(self.longitude, forKey: .longitude)
-        try container.encode(self.locality, forKey: .locality)
-        try container.encode(self.elevation, forKey: .elevation)
+        try container.encodeIfPresent(self.latitude, forKey: .latitude)
+        try container.encodeIfPresent(self.longitude, forKey: .longitude)
+        try container.encodeIfPresent(self.locality, forKey: .locality)
+        try container.encodeIfPresent(self.elevation, forKey: .elevation)
     }
 
     /// Keys for encoding/decoding struct properties.

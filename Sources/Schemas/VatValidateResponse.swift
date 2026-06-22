@@ -3,8 +3,8 @@ import Foundation
 public struct VatValidateResponse: Codable, Hashable, Sendable {
     public let countryCode: String
     public let vatNumber: String
-    public let requesterCountryCode: String?
-    public let requesterVatNumber: String?
+    public let requesterCountryCode: String
+    public let requesterVatNumber: String
     public let requestedAt: Date
     public let validation: VatValidateResponseValidation
     public let company: VatValidateResponseCompany
@@ -14,8 +14,8 @@ public struct VatValidateResponse: Codable, Hashable, Sendable {
     public init(
         countryCode: String,
         vatNumber: String,
-        requesterCountryCode: String? = nil,
-        requesterVatNumber: String? = nil,
+        requesterCountryCode: String,
+        requesterVatNumber: String,
         requestedAt: Date,
         validation: VatValidateResponseValidation,
         company: VatValidateResponseCompany,
@@ -35,8 +35,8 @@ public struct VatValidateResponse: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.countryCode = try container.decode(String.self, forKey: .countryCode)
         self.vatNumber = try container.decode(String.self, forKey: .vatNumber)
-        self.requesterCountryCode = try container.decodeIfPresent(String.self, forKey: .requesterCountryCode)
-        self.requesterVatNumber = try container.decodeIfPresent(String.self, forKey: .requesterVatNumber)
+        self.requesterCountryCode = try container.decode(String.self, forKey: .requesterCountryCode)
+        self.requesterVatNumber = try container.decode(String.self, forKey: .requesterVatNumber)
         self.requestedAt = try container.decode(Date.self, forKey: .requestedAt)
         self.validation = try container.decode(VatValidateResponseValidation.self, forKey: .validation)
         self.company = try container.decode(VatValidateResponseCompany.self, forKey: .company)
@@ -48,8 +48,8 @@ public struct VatValidateResponse: Codable, Hashable, Sendable {
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.countryCode, forKey: .countryCode)
         try container.encode(self.vatNumber, forKey: .vatNumber)
-        try container.encodeIfPresent(self.requesterCountryCode, forKey: .requesterCountryCode)
-        try container.encodeIfPresent(self.requesterVatNumber, forKey: .requesterVatNumber)
+        try container.encode(self.requesterCountryCode, forKey: .requesterCountryCode)
+        try container.encode(self.requesterVatNumber, forKey: .requesterVatNumber)
         try container.encode(self.requestedAt, forKey: .requestedAt)
         try container.encode(self.validation, forKey: .validation)
         try container.encode(self.company, forKey: .company)

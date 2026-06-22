@@ -6,9 +6,11 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItem: Codable, Hashable, Sen
     /// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
     public let queryTime: Date
     /// Queried domain.
-    public let domainName: String
+    public let domainName: String?
     /// Indicates whether the domain is registered.
-    public let domainRegistered: Bool
+    public let domainRegistered: Bool?
+    /// IP address associated with the queried domain.
+    public let ipAddress: String?
     public let dnsTypes: BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes
     /// List of DNS records, each based on its type.
     public let dnsRecords: [BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItem]
@@ -18,8 +20,9 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItem: Codable, Hashable, Sen
     public init(
         status: Bool,
         queryTime: Date,
-        domainName: String,
-        domainRegistered: Bool,
+        domainName: String? = nil,
+        domainRegistered: Bool? = nil,
+        ipAddress: String? = nil,
         dnsTypes: BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes,
         dnsRecords: [BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItem],
         additionalProperties: [String: JSONValue] = .init()
@@ -28,6 +31,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItem: Codable, Hashable, Sen
         self.queryTime = queryTime
         self.domainName = domainName
         self.domainRegistered = domainRegistered
+        self.ipAddress = ipAddress
         self.dnsTypes = dnsTypes
         self.dnsRecords = dnsRecords
         self.additionalProperties = additionalProperties
@@ -37,8 +41,9 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItem: Codable, Hashable, Sen
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.status = try container.decode(Bool.self, forKey: .status)
         self.queryTime = try container.decode(Date.self, forKey: .queryTime)
-        self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.domainRegistered = try container.decode(Bool.self, forKey: .domainRegistered)
+        self.domainName = try container.decodeIfPresent(String.self, forKey: .domainName)
+        self.domainRegistered = try container.decodeIfPresent(Bool.self, forKey: .domainRegistered)
+        self.ipAddress = try container.decodeIfPresent(String.self, forKey: .ipAddress)
         self.dnsTypes = try container.decode(BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes.self, forKey: .dnsTypes)
         self.dnsRecords = try container.decode([BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItem].self, forKey: .dnsRecords)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -49,8 +54,9 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItem: Codable, Hashable, Sen
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.queryTime, forKey: .queryTime)
-        try container.encode(self.domainName, forKey: .domainName)
-        try container.encode(self.domainRegistered, forKey: .domainRegistered)
+        try container.encodeIfPresent(self.domainName, forKey: .domainName)
+        try container.encodeIfPresent(self.domainRegistered, forKey: .domainRegistered)
+        try container.encodeIfPresent(self.ipAddress, forKey: .ipAddress)
         try container.encode(self.dnsTypes, forKey: .dnsTypes)
         try container.encode(self.dnsRecords, forKey: .dnsRecords)
     }
@@ -61,6 +67,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItem: Codable, Hashable, Sen
         case queryTime
         case domainName
         case domainRegistered
+        case ipAddress
         case dnsTypes
         case dnsRecords
     }

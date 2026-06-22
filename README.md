@@ -36,7 +36,7 @@ With Swift Package Manager (SPM), add the following to the top-level `dependenci
 
 ```swift
 dependencies: [
-    .package(url: "<git-url>", from: "1.0.0"),
+    .package(url: "<git-url>", from: "1.0.1"),
 ]
 ```
 

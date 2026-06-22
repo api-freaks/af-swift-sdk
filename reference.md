@@ -1289,7 +1289,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsLookup</a>(apiKey: String, format: DomainDnsLookupRequestFormat?, hostName: String?, ipAddress: String?, type: String?, requestOptions: RequestOptions?) -> DomainDnsLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsLookup</a>(apiKey: String, format: DomainDnsLookupRequestFormat?, hostName: String?, ipAddress: String?, type: String, requestOptions: RequestOptions?) -> DomainDnsLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -1324,9 +1324,7 @@ private func main() async throws {
 
     _ = try await client.domainDnsLookup(
         apiKey: "apiKey",
-        type: [
-            "type"
-        ]
+        type: "type"
     )
 }
 
@@ -1377,7 +1375,7 @@ try await main()
 <dl>
 <dd>
 
-**type:** `String?` — A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
+**type:** `String` — A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all". **Required**
     
 </dd>
 </dl>
@@ -1397,7 +1395,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainDnsLookup</a>(apiKey: String, format: BulkDomainDnsLookupRequestFormat?, type: String?, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions?) -> BulkDomainDnsLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainDnsLookup</a>(apiKey: String, format: BulkDomainDnsLookupRequestFormat?, type: String, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions?) -> BulkDomainDnsLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -1433,9 +1431,7 @@ private func main() async throws {
 
     _ = try await client.bulkDomainDnsLookup(
         apiKey: "apiKey",
-        type: [
-            "type"
-        ],
+        type: "type",
         request: .init(domainNames: [
             "domainNames"
         ])
@@ -1473,10 +1469,10 @@ try await main()
 <dl>
 <dd>
 
-**type:** `String?` 
+**type:** `String` 
 
 A comma-separated list of DNS record types for lookup.
-Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
+Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all **Required**
     
 </dd>
 </dl>
@@ -1504,7 +1500,7 @@ Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsHistory</a>(apiKey: String, format: DomainDnsHistoryRequestFormat?, hostName: String, type: String?, page: Int?, requestOptions: RequestOptions?) -> DomainDnsHistoryResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsHistory</a>(apiKey: String, format: DomainDnsHistoryRequestFormat?, hostName: String, type: String, page: Int?, requestOptions: RequestOptions?) -> DomainDnsHistoryResponse</code></summary>
 <dl>
 <dd>
 
@@ -1541,9 +1537,7 @@ private func main() async throws {
     _ = try await client.domainDnsHistory(
         apiKey: "apiKey",
         hostName: "host-name",
-        type: [
-            "type"
-        ]
+        type: "type"
     )
 }
 
@@ -1586,10 +1580,10 @@ try await main()
 <dl>
 <dd>
 
-**type:** `String?` 
+**type:** `String` 
 
 A comma-separated list of DNS record types for lookup.
-Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
+Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all **Required**
     
 </dd>
 </dl>
@@ -2752,7 +2746,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainAvailabilitySuggestions</a>(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat?, domain: String, source: DomainAvailabilitySuggestionsRequestSource?, count: Int?, requestOptions: RequestOptions?) -> DomainAvailabilitySuggestionsResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainAvailabilitySuggestions</a>(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat?, domain: String, source: DomainAvailabilitySuggestionsRequestSource?, count: Int?, sug: Bool?, requestOptions: RequestOptions?) -> DomainAvailabilitySuggestionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2839,6 +2833,14 @@ try await main()
 <dd>
 
 **count:** `Int?` — Number of suggestions to retrieve.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sug:** `Bool?` — Whether to include name suggestions in the response.
     
 </dd>
 </dl>
@@ -7012,7 +7014,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertLatest</a>(apiKey: String, format: CurrencyConvertLatestRequestFormat?, from: String, to: String, amount: Double?, updates: CurrencyConvertLatestRequestUpdates?, requestOptions: RequestOptions?) -> CurrencyConvertLatestResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertLatest</a>(apiKey: String, format: CurrencyConvertLatestRequestFormat?, from: String, to: String, amount: String?, updates: CurrencyConvertLatestRequestUpdates?, requestOptions: RequestOptions?) -> CurrencyConvertLatestResponse</code></summary>
 <dl>
 <dd>
 
@@ -7099,7 +7101,7 @@ try await main()
 <dl>
 <dd>
 
-**amount:** `Double?` — Amount to convert
+**amount:** `String?` — Amount to convert
     
 </dd>
 </dl>
@@ -7127,7 +7129,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertHistorical</a>(apiKey: String, format: CurrencyConvertHistoricalRequestFormat?, from: String, to: String, amount: Double?, date: CalendarDate, requestOptions: RequestOptions?) -> CurrencyConvertHistoricalResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertHistorical</a>(apiKey: String, format: CurrencyConvertHistoricalRequestFormat?, from: String, to: String, amount: String?, date: CalendarDate, requestOptions: RequestOptions?) -> CurrencyConvertHistoricalResponse</code></summary>
 <dl>
 <dd>
 
@@ -7215,7 +7217,7 @@ try await main()
 <dl>
 <dd>
 
-**amount:** `Double?` — The Amount to be converted
+**amount:** `String?` — The Amount to be converted
     
 </dd>
 </dl>
@@ -7472,7 +7474,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertByIp</a>(apiKey: String, format: CurrencyConvertByIpRequestFormat?, updates: CurrencyConvertByIpRequestUpdates?, from: String, ip: String?, amount: Double?, requestOptions: RequestOptions?) -> CurrencyConvertByIpResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertByIp</a>(apiKey: String, format: CurrencyConvertByIpRequestFormat?, updates: CurrencyConvertByIpRequestUpdates?, from: String, ip: String?, amount: String?, requestOptions: RequestOptions?) -> CurrencyConvertByIpResponse</code></summary>
 <dl>
 <dd>
 
@@ -7566,7 +7568,7 @@ try await main()
 <dl>
 <dd>
 
-**amount:** `Double?` — Amount to convert
+**amount:** `String?` — Amount to convert
     
 </dd>
 </dl>
@@ -7823,7 +7825,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityLatestRates</a>(apiKey: String, format: CommodityLatestRatesRequestFormat?, symbols: String?, updates: CommodityLatestRatesRequestUpdates, quote: String?, requestOptions: RequestOptions?) -> CommodityLatestRatesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityLatestRates</a>(apiKey: String, format: CommodityLatestRatesRequestFormat?, symbols: String, updates: CommodityLatestRatesRequestUpdates, quote: String?, requestOptions: RequestOptions?) -> CommodityLatestRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7858,9 +7860,7 @@ private func main() async throws {
 
     _ = try await client.commodityLatestRates(
         apiKey: "apiKey",
-        symbols: [
-            "symbols"
-        ],
+        symbols: "symbols",
         updates: .tenM
     )
 }
@@ -7896,7 +7896,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — Comma separated list of desired commodities symbols *(e.g. XAU,XAG,WTI,BRENT)* **Required**
+**symbols:** `String` — Comma separated list of desired commodities symbols *(e.g. XAU,XAG,WTI,BRENT)* **Required**
     
 </dd>
 </dl>
@@ -7932,7 +7932,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityHistoricalRates</a>(apiKey: String, format: CommodityHistoricalRatesRequestFormat?, date: CalendarDate, symbols: String?, requestOptions: RequestOptions?) -> CommodityHistoricalRatesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityHistoricalRates</a>(apiKey: String, format: CommodityHistoricalRatesRequestFormat?, date: CalendarDate, symbols: String, requestOptions: RequestOptions?) -> CommodityHistoricalRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7968,9 +7968,7 @@ private func main() async throws {
     _ = try await client.commodityHistoricalRates(
         apiKey: "apiKey",
         date: CalendarDate("2023-01-15")!,
-        symbols: [
-            "symbols"
-        ]
+        symbols: "symbols"
     )
 }
 
@@ -8013,7 +8011,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — Comma-separated list of commodity symbols
+**symbols:** `String` — Comma-separated list of commodity symbols **Required**
     
 </dd>
 </dl>
@@ -8068,9 +8066,7 @@ private func main() async throws {
 
     _ = try await client.commodityFluctuation(
         apiKey: "apiKey",
-        symbols: [
-            "symbols"
-        ],
+        symbols: "symbols",
         startDate: CalendarDate("2023-01-15")!,
         endDate: CalendarDate("2023-01-15")!
     )
@@ -8107,7 +8103,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — Comma-separated list of commodity symbols
+**symbols:** `String` — Comma-separated list of commodity symbols **Required**
     
 </dd>
 </dl>
@@ -8143,7 +8139,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityTimeSeries</a>(apiKey: String, format: CommodityTimeSeriesRequestFormat?, symbols: String?, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityTimeSeriesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityTimeSeries</a>(apiKey: String, format: CommodityTimeSeriesRequestFormat?, symbols: String, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityTimeSeriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -8178,9 +8174,7 @@ private func main() async throws {
 
     _ = try await client.commodityTimeSeries(
         apiKey: "apiKey",
-        symbols: [
-            "symbols"
-        ],
+        symbols: "symbols",
         startDate: CalendarDate("2023-01-15")!,
         endDate: CalendarDate("2023-01-15")!
     )
@@ -8217,7 +8211,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — Comma-separated list of commodity symbols
+**symbols:** `String` — Comma-separated list of commodity symbols **Required**
     
 </dd>
 </dl>
@@ -12101,7 +12095,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">userAgentLookup</a>(apiKey: String, format: UserAgentLookupRequestFormat?, requestOptions: RequestOptions?) -> UserAgentLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">userAgentLookup</a>(apiKey: String, format: UserAgentLookupRequestFormat?, userAgent: String, requestOptions: RequestOptions?) -> UserAgentLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -12134,7 +12128,7 @@ import APIFreaks
 private func main() async throws {
     let client = APIFreaks()
 
-    _ = try await client.userAgentLookup(apiKey: "apiKey")
+    _ = try await client.userAgentLookup(apiKey: "apiKey", userAgent: "User-Agent")
 }
 
 try await main()
@@ -12161,6 +12155,14 @@ try await main()
 <dd>
 
 **format:** `UserAgentLookupRequestFormat?` — Format of the response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**userAgent:** `String` — User-Agent string to parse. Sent as the `User-Agent` HTTP header. **Required**
     
 </dd>
 </dl>

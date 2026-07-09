@@ -81,6 +81,34 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information (v2.0 endpoint).
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter ip: IPv4, IPv6, or hostname for geolocation lookup
+    /// - Parameter lang: Response language for location fields
+    /// - Parameter fields: Comma separated list of fields to include in response
+    /// - Parameter excludes: Comma separated list of fields to exclude from response
+    /// - Parameter include: Additional data to include (location, network, security, currency, time_zone, user_agent, country_metadata , hostname, liveHostname, hostnameFallbackLivet)
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func geolocationLookupV2(apiKey: String, format: GeolocationLookupRequestFormat? = nil, ip: String? = nil, lang: GeolocationLookupRequestLang? = nil, fields: String? = nil, excludes: String? = nil, include: String? = nil, requestOptions: RequestOptions? = nil) async throws -> GeolocationLookupResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/geolocation/lookup",
+            queryParams: [
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "ip": ip.map { .string($0) },
+                "lang": lang.map { .string($0.rawValue) },
+                "fields": fields.map { .string($0) },
+                "excludes": excludes.map { .string($0) },
+                "include": include.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: GeolocationLookupResponse.self
+        )
+    }
+
     /// Retrieve detailed geolocation data for multiple IP addresses in a single request.
     /// Supports up to `50,000` IP-addresses/host-names per request.
     ///
@@ -101,6 +129,34 @@ public final class APIFreaks: Sendable {
                 "lang": lang.map { .string($0) }, 
                 "fields": fields.map { .string($0) }, 
                 "excludes": excludes.map { .string($0) }, 
+                "include": include.map { .string($0) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: [BulkGeolocationLookupResponseItem].self
+        )
+    }
+
+    /// Retrieve detailed geolocation data for multiple IP addresses in a single request (v2.0 endpoint).
+    /// Supports up to `50,000` IP-addresses/host-names per request.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter lang: Language of the response.
+    /// - Parameter fields: Comma-separated list of fields to include in the response. Can include "geo".
+    /// - Parameter excludes: Comma-separated list of fields to exclude from the response (except "ip").
+    /// - Parameter include: Comma-separated list of additional information to include in the response.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func bulkGeolocationLookupV2(apiKey: String, format: BulkGeolocationLookupRequestFormat? = nil, lang: String? = nil, fields: String? = nil, excludes: String? = nil, include: String? = nil, request: Requests.BulkGeolocationLookupRequest, requestOptions: RequestOptions? = nil) async throws -> [BulkGeolocationLookupResponseItem] {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v2.0/geolocation/lookup",
+            queryParams: [
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "lang": lang.map { .string($0) },
+                "fields": fields.map { .string($0) },
+                "excludes": excludes.map { .string($0) },
                 "include": include.map { .string($0) }
             ],
             body: request,
@@ -238,6 +294,28 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// Retrieve current WHOIS information for a domain name (v2.0 endpoint).
+    /// This endpoint provides detailed registration information including registrar details,
+    /// dates, nameservers, and registrant information.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Response format (defaults to json)
+    /// - Parameter domainName: Domain name for WHOIS lookup
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func domainWhoisLookupV2(apiKey: String, format: DomainWhoisLookupRequestFormat? = nil, domainName: String, requestOptions: RequestOptions? = nil) async throws -> DomainWhoisLookupResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/domain/whois/live",
+            queryParams: [
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "domainName": .string(domainName)
+            ],
+            requestOptions: requestOptions,
+            responseType: DomainWhoisLookupResponse.self
+        )
+    }
+
     /// Retrieve WHOIS information for `100 Domains per Request`.
     ///
     /// - Parameter apiKey: Your API key
@@ -249,6 +327,25 @@ public final class APIFreaks: Sendable {
             path: "/v1.0/domain/whois/live",
             queryParams: [
                 "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: BulkDomainWhoisLookupResponse.self
+        )
+    }
+
+    /// Retrieve WHOIS information for `100 Domains per Request` (v2.0 endpoint).
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func bulkDomainWhoisLookupV2(apiKey: String, format: BulkDomainWhoisLookupRequestFormat? = nil, request: Requests.BulkDomainWhoisLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainWhoisLookupResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v2.0/domain/whois/live",
+            queryParams: [
+                "apiKey": .string(apiKey),
                 "format": format.map { .string($0.rawValue) }
             ],
             body: request,
@@ -2798,6 +2895,42 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed (v2.0 endpoint).
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response
+    /// - Parameter ip: IPv4 or IPv6 address to extract timezone information.
+    /// - Parameter tz: Timezone name (e.g., "Asia/Kolkata") to retrieve information directly.
+    /// - Parameter location: Location string (preferably city and country) to extract timezone.
+    /// - Parameter lat: Latitude for geolocation lookup.
+    /// - Parameter long: Longitude for geolocation lookup.
+    /// - Parameter lang: Language code for response localization (default is "en").
+    /// - Parameter iataCode: 3-letter IATA airport code (e.g., JFK).
+    /// - Parameter icaoCode: 4-letter ICAO airport code (e.g., KJFK).
+    /// - Parameter loCode: 5-letter UN/LO city code.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func timezoneLookupV2(apiKey: String, format: TimezoneLookupRequestFormat? = nil, ip: String? = nil, tz: String? = nil, location: String? = nil, lat: Float? = nil, long: Float? = nil, lang: TimezoneLookupRequestLang? = nil, iataCode: String? = nil, icaoCode: String? = nil, loCode: String? = nil, requestOptions: RequestOptions? = nil) async throws -> TimezoneLookupResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/geolocation/timezone",
+            queryParams: [
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "ip": ip.map { .string($0) },
+                "tz": tz.map { .string($0) },
+                "location": location.map { .string($0) },
+                "lat": lat.map { .float($0) },
+                "long": long.map { .float($0) },
+                "lang": lang.map { .string($0.rawValue) },
+                "iata_code": iataCode.map { .string($0) },
+                "icao_code": icaoCode.map { .string($0) },
+                "lo_code": loCode.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: TimezoneLookupResponse.self
+        )
+    }
+
     /// Converts a given time from one timezone to another using various input types like timezone name, coordinates, location, or codes.
     ///
     /// - Parameter apiKey: Your API key
@@ -3019,6 +3152,38 @@ public final class APIFreaks: Sendable {
                 "lang": lang.map { .string($0) }, 
                 "date": date.map { .calendarDate($0) }, 
                 "elevation": elevation.map { .double($0) }, 
+                "time_zone": timeZone.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: AstronomyLookupResponse.self
+        )
+    }
+
+    /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed (v2.0 endpoint).
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter location: Location name or address
+    /// - Parameter lat: Latitude for location coordinates
+    /// - Parameter long: Longitude for location coordinates
+    /// - Parameter ip: IP address for location detection
+    /// - Parameter date: Date for astronomy data (YYYY-MM-DD)
+    /// - Parameter elevation: Timezone of the location for which astronomy data is required
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func astronomyLookupV2(apiKey: String, format: AstronomyLookupRequestFormat? = nil, location: String? = nil, lat: Float? = nil, long: Float? = nil, ip: String? = nil, lang: String? = nil, date: CalendarDate? = nil, elevation: Double? = nil, timeZone: String? = nil, requestOptions: RequestOptions? = nil) async throws -> AstronomyLookupResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/geolocation/astronomy",
+            queryParams: [
+                "apiKey": .string(apiKey),
+                "format": format.map { .string($0.rawValue) },
+                "location": location.map { .string($0) },
+                "lat": lat.map { .float($0) },
+                "long": long.map { .float($0) },
+                "ip": ip.map { .string($0) },
+                "lang": lang.map { .string($0) },
+                "date": date.map { .calendarDate($0) },
+                "elevation": elevation.map { .double($0) },
                 "time_zone": timeZone.map { .string($0) }
             ],
             requestOptions: requestOptions,

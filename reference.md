@@ -118,6 +118,125 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">geolocationLookupV2</a>(apiKey: String, format: GeolocationLookupRequestFormat?, ip: String?, lang: GeolocationLookupRequestLang?, fields: String?, excludes: String?, include: String?, requestOptions: RequestOptions?) -> GeolocationLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information (v2.0 endpoint).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.geolocationLookupV2(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `GeolocationLookupRequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `String?` — IPv4, IPv6, or hostname for geolocation lookup
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `GeolocationLookupRequestLang?` — Response language for location fields
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `String?` — Comma separated list of fields to include in response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**excludes:** `String?` — Comma separated list of fields to exclude from response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include:** `String?` — Additional data to include (location, network, security, currency, time_zone, user_agent, country_metadata , hostname, liveHostname, hostnameFallbackLivet)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkGeolocationLookup</a>(apiKey: String, format: BulkGeolocationLookupRequestFormat?, lang: String?, fields: String?, excludes: String?, include: String?, request: Requests.BulkGeolocationLookupRequest, requestOptions: RequestOptions?) -> [BulkGeolocationLookupResponseItem]</code></summary>
 <dl>
 <dd>
@@ -153,6 +272,131 @@ private func main() async throws {
     let client = APIFreaks()
 
     _ = try await client.bulkGeolocationLookup(
+        apiKey: "apiKey",
+        request: .init(ips: [
+            "ips"
+        ])
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `BulkGeolocationLookupRequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `String?` — Language of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `String?` — Comma-separated list of fields to include in the response. Can include "geo".
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**excludes:** `String?` — Comma-separated list of fields to exclude from the response (except "ip").
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include:** `String?` — Comma-separated list of additional information to include in the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.BulkGeolocationLookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkGeolocationLookupV2</a>(apiKey: String, format: BulkGeolocationLookupRequestFormat?, lang: String?, fields: String?, excludes: String?, include: String?, request: Requests.BulkGeolocationLookupRequest, requestOptions: RequestOptions?) -> [BulkGeolocationLookupResponseItem]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve detailed geolocation data for multiple IP addresses in a single request (v2.0 endpoint).
+Supports up to `50,000` IP-addresses/host-names per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.bulkGeolocationLookupV2(
         apiKey: "apiKey",
         request: .init(ips: [
             "ips"
@@ -791,6 +1035,98 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainWhoisLookupV2</a>(apiKey: String, format: DomainWhoisLookupRequestFormat?, domainName: String, requestOptions: RequestOptions?) -> DomainWhoisLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve current WHOIS information for a domain name (v2.0 endpoint).
+This endpoint provides detailed registration information including registrar details,
+dates, nameservers, and registrant information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.domainWhoisLookupV2(
+        apiKey: "apiKey",
+        domainName: "domainName"
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `DomainWhoisLookupRequestFormat?` — Response format (defaults to json)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainName:** `String` — Domain name for WHOIS lookup
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainWhoisLookup</a>(apiKey: String, format: BulkDomainWhoisLookupRequestFormat?, request: Requests.BulkDomainWhoisLookupRequest, requestOptions: RequestOptions?) -> BulkDomainWhoisLookupResponse</code></summary>
 <dl>
 <dd>
@@ -825,6 +1161,98 @@ private func main() async throws {
     let client = APIFreaks()
 
     _ = try await client.bulkDomainWhoisLookup(
+        apiKey: "apiKey",
+        request: .init(domainNames: [
+            "domainNames"
+        ])
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `BulkDomainWhoisLookupRequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.BulkDomainWhoisLookupRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainWhoisLookupV2</a>(apiKey: String, format: BulkDomainWhoisLookupRequestFormat?, request: Requests.BulkDomainWhoisLookupRequest, requestOptions: RequestOptions?) -> BulkDomainWhoisLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve WHOIS information for `100 Domains per Request` (v2.0 endpoint).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.bulkDomainWhoisLookupV2(
         apiKey: "apiKey",
         request: .init(domainNames: [
             "domainNames"
@@ -11896,6 +12324,157 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">timezoneLookupV2</a>(apiKey: String, format: TimezoneLookupRequestFormat?, ip: String?, tz: String?, location: String?, lat: Float?, long: Float?, lang: TimezoneLookupRequestLang?, iataCode: String?, icaoCode: String?, loCode: String?, requestOptions: RequestOptions?) -> TimezoneLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed (v2.0 endpoint).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.timezoneLookupV2(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `TimezoneLookupRequestFormat?` — Format of the response
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `String?` — IPv4 or IPv6 address to extract timezone information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tz:** `String?` — Timezone name (e.g., "Asia/Kolkata") to retrieve information directly.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `String?` — Location string (preferably city and country) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lat:** `Float?` — Latitude for geolocation lookup.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**long:** `Float?` — Longitude for geolocation lookup.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `TimezoneLookupRequestLang?` — Language code for response localization (default is "en").
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**iataCode:** `String?` — 3-letter IATA airport code (e.g., JFK).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**icaoCode:** `String?` — 4-letter ICAO airport code (e.g., KJFK).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loCode:** `String?` — 5-letter UN/LO city code.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">timezoneConvert</a>(apiKey: String, format: TimezoneConvertRequestFormat?, time: String?, tzFrom: String?, tzTo: String?, latFrom: Double?, longFrom: Double?, latTo: Double?, longTo: Double?, locationFrom: String?, locationTo: String?, iataFrom: String?, iataTo: String?, icaoFrom: String?, icaoTo: String?, locodeFrom: String?, locodeTo: String?, requestOptions: RequestOptions?) -> TimezoneConvertResponse</code></summary>
 <dl>
 <dd>
@@ -12783,6 +13362,149 @@ private func main() async throws {
     let client = APIFreaks()
 
     _ = try await client.astronomyLookup(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `AstronomyLookupRequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `String?` — Location name or address
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lat:** `Float?` — Latitude for location coordinates
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**long:** `Float?` — Longitude for location coordinates
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `String?` — IP address for location detection
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `String?` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `CalendarDate?` — Date for astronomy data (YYYY-MM-DD)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**elevation:** `Double?` — Timezone of the location for which astronomy data is required
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timeZone:** `String?` — 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">astronomyLookupV2</a>(apiKey: String, format: AstronomyLookupRequestFormat?, location: String?, lat: Float?, long: Float?, ip: String?, lang: String?, date: CalendarDate?, elevation: Double?, timeZone: String?, requestOptions: RequestOptions?) -> AstronomyLookupResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed (v2.0 endpoint).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.astronomyLookupV2(apiKey: "apiKey")
 }
 
 try await main()

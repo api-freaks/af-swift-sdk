@@ -10,7 +10,7 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
     /// International dialing prefix for the number's country.
     public let countryPrefix: Int?
     /// National significant number without the country code.
-    public let nationalNumber: Int?
+    public let nationalNumber: Int64?
     /// ISO-2 country code inferred from the number.
     public let countryCode: String?
     /// Carrier name associated with the number.
@@ -37,7 +37,7 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         possible: Bool? = nil,
         valid: Bool? = nil,
         countryPrefix: Int? = nil,
-        nationalNumber: Int? = nil,
+        nationalNumber: Int64? = nil,
         countryCode: String? = nil,
         carrier: String? = nil,
         location: String? = nil,
@@ -72,7 +72,7 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         self.possible = try container.decodeIfPresent(Bool.self, forKey: .possible)
         self.valid = try container.decodeIfPresent(Bool.self, forKey: .valid)
         self.countryPrefix = try container.decodeIfPresent(Int.self, forKey: .countryPrefix)
-        self.nationalNumber = try container.decodeIfPresent(Int.self, forKey: .nationalNumber)
+        self.nationalNumber = try container.decodeIfPresent(Int64.self, forKey: .nationalNumber)
         self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
         self.carrier = try container.decodeIfPresent(String.self, forKey: .carrier)
         self.location = try container.decodeIfPresent(String.self, forKey: .location)

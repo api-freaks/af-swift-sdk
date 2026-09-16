@@ -4,6 +4,7 @@ public struct BulkZipcodeLookupResponseResultsItem: Codable, Hashable, Sendable 
     public let code: String?
     public let countryCode: String?
     public let region: String?
+    public let regionCode: String?
     public let city: String?
     public let locality: String?
     public let latitude: Double?
@@ -15,6 +16,7 @@ public struct BulkZipcodeLookupResponseResultsItem: Codable, Hashable, Sendable 
         code: String? = nil,
         countryCode: String? = nil,
         region: String? = nil,
+        regionCode: String? = nil,
         city: String? = nil,
         locality: String? = nil,
         latitude: Double? = nil,
@@ -24,6 +26,7 @@ public struct BulkZipcodeLookupResponseResultsItem: Codable, Hashable, Sendable 
         self.code = code
         self.countryCode = countryCode
         self.region = region
+        self.regionCode = regionCode
         self.city = city
         self.locality = locality
         self.latitude = latitude
@@ -36,6 +39,7 @@ public struct BulkZipcodeLookupResponseResultsItem: Codable, Hashable, Sendable 
         self.code = try container.decodeIfPresent(String.self, forKey: .code)
         self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
         self.region = try container.decodeIfPresent(String.self, forKey: .region)
+        self.regionCode = try container.decodeIfPresent(String.self, forKey: .regionCode)
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
         self.locality = try container.decodeIfPresent(String.self, forKey: .locality)
         self.latitude = try container.decodeIfPresent(Double.self, forKey: .latitude)
@@ -49,6 +53,7 @@ public struct BulkZipcodeLookupResponseResultsItem: Codable, Hashable, Sendable 
         try container.encodeIfPresent(self.code, forKey: .code)
         try container.encodeIfPresent(self.countryCode, forKey: .countryCode)
         try container.encodeIfPresent(self.region, forKey: .region)
+        try container.encodeIfPresent(self.regionCode, forKey: .regionCode)
         try container.encodeIfPresent(self.city, forKey: .city)
         try container.encodeIfPresent(self.locality, forKey: .locality)
         try container.encodeIfPresent(self.latitude, forKey: .latitude)
@@ -60,6 +65,7 @@ public struct BulkZipcodeLookupResponseResultsItem: Codable, Hashable, Sendable 
         case code
         case countryCode = "country_code"
         case region
+        case regionCode = "region_code"
         case city
         case locality
         case latitude

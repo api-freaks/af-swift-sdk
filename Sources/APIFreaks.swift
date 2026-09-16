@@ -81,34 +81,6 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    /// Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information (v2.0 endpoint).
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter format: Format of the response.
-    /// - Parameter ip: IPv4, IPv6, or hostname for geolocation lookup
-    /// - Parameter lang: Response language for location fields
-    /// - Parameter fields: Comma separated list of fields to include in response
-    /// - Parameter excludes: Comma separated list of fields to exclude from response
-    /// - Parameter include: Additional data to include (location, network, security, currency, time_zone, user_agent, country_metadata , hostname, liveHostname, hostnameFallbackLivet)
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func geolocationLookupV2(apiKey: String, format: GeolocationLookupRequestFormat? = nil, ip: String? = nil, lang: GeolocationLookupRequestLang? = nil, fields: String? = nil, excludes: String? = nil, include: String? = nil, requestOptions: RequestOptions? = nil) async throws -> GeolocationLookupResponse {
-        return try await httpClient.performRequest(
-            method: .get,
-            path: "/v2.0/geolocation/lookup",
-            queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "ip": ip.map { .string($0) },
-                "lang": lang.map { .string($0.rawValue) },
-                "fields": fields.map { .string($0) },
-                "excludes": excludes.map { .string($0) },
-                "include": include.map { .string($0) }
-            ],
-            requestOptions: requestOptions,
-            responseType: GeolocationLookupResponse.self
-        )
-    }
-
     /// Retrieve detailed geolocation data for multiple IP addresses in a single request.
     /// Supports up to `50,000` IP-addresses/host-names per request.
     ///
@@ -129,34 +101,6 @@ public final class APIFreaks: Sendable {
                 "lang": lang.map { .string($0) }, 
                 "fields": fields.map { .string($0) }, 
                 "excludes": excludes.map { .string($0) }, 
-                "include": include.map { .string($0) }
-            ],
-            body: request,
-            requestOptions: requestOptions,
-            responseType: [BulkGeolocationLookupResponseItem].self
-        )
-    }
-
-    /// Retrieve detailed geolocation data for multiple IP addresses in a single request (v2.0 endpoint).
-    /// Supports up to `50,000` IP-addresses/host-names per request.
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter format: Format of the response.
-    /// - Parameter lang: Language of the response.
-    /// - Parameter fields: Comma-separated list of fields to include in the response. Can include "geo".
-    /// - Parameter excludes: Comma-separated list of fields to exclude from the response (except "ip").
-    /// - Parameter include: Comma-separated list of additional information to include in the response.
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func bulkGeolocationLookupV2(apiKey: String, format: BulkGeolocationLookupRequestFormat? = nil, lang: String? = nil, fields: String? = nil, excludes: String? = nil, include: String? = nil, request: Requests.BulkGeolocationLookupRequest, requestOptions: RequestOptions? = nil) async throws -> [BulkGeolocationLookupResponseItem] {
-        return try await httpClient.performRequest(
-            method: .post,
-            path: "/v2.0/geolocation/lookup",
-            queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "lang": lang.map { .string($0) },
-                "fields": fields.map { .string($0) },
-                "excludes": excludes.map { .string($0) },
                 "include": include.map { .string($0) }
             ],
             body: request,
@@ -294,28 +238,6 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    /// Retrieve current WHOIS information for a domain name (v2.0 endpoint).
-    /// This endpoint provides detailed registration information including registrar details,
-    /// dates, nameservers, and registrant information.
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format (defaults to json)
-    /// - Parameter domainName: Domain name for WHOIS lookup
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainWhoisLookupV2(apiKey: String, format: DomainWhoisLookupRequestFormat? = nil, domainName: String, requestOptions: RequestOptions? = nil) async throws -> DomainWhoisLookupResponse {
-        return try await httpClient.performRequest(
-            method: .get,
-            path: "/v2.0/domain/whois/live",
-            queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "domainName": .string(domainName)
-            ],
-            requestOptions: requestOptions,
-            responseType: DomainWhoisLookupResponse.self
-        )
-    }
-
     /// Retrieve WHOIS information for `100 Domains per Request`.
     ///
     /// - Parameter apiKey: Your API key
@@ -327,25 +249,6 @@ public final class APIFreaks: Sendable {
             path: "/v1.0/domain/whois/live",
             queryParams: [
                 "apiKey": .string(apiKey), 
-                "format": format.map { .string($0.rawValue) }
-            ],
-            body: request,
-            requestOptions: requestOptions,
-            responseType: BulkDomainWhoisLookupResponse.self
-        )
-    }
-
-    /// Retrieve WHOIS information for `100 Domains per Request` (v2.0 endpoint).
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter format: Format of the response.
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func bulkDomainWhoisLookupV2(apiKey: String, format: BulkDomainWhoisLookupRequestFormat? = nil, request: Requests.BulkDomainWhoisLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainWhoisLookupResponse {
-        return try await httpClient.performRequest(
-            method: .post,
-            path: "/v2.0/domain/whois/live",
-            queryParams: [
-                "apiKey": .string(apiKey),
                 "format": format.map { .string($0.rawValue) }
             ],
             body: request,
@@ -454,7 +357,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter ipAddress: The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
     /// - Parameter type: A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainDnsLookup(apiKey: String, format: DomainDnsLookupRequestFormat? = nil, hostName: String? = nil, ipAddress: String? = nil, type: String, requestOptions: RequestOptions? = nil) async throws -> DomainDnsLookupResponse {
+    public func domainDnsLookup(apiKey: String, format: DomainDnsLookupRequestFormat? = nil, hostName: String? = nil, ipAddress: String? = nil, type: String? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/dns/live",
@@ -462,8 +365,8 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "host-name": hostName.map { .string($0) }, 
-                "ipAddress": ipAddress.map { .string($0) },
-                "type": .string(type)
+                "ipAddress": ipAddress.map { .string($0) }, 
+                "type": type.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: DomainDnsLookupResponse.self
@@ -478,14 +381,14 @@ public final class APIFreaks: Sendable {
     /// - Parameter type: A comma-separated list of DNS record types for lookup.
     /// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func bulkDomainDnsLookup(apiKey: String, format: BulkDomainDnsLookupRequestFormat? = nil, type: String, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainDnsLookupResponse {
+    public func bulkDomainDnsLookup(apiKey: String, format: BulkDomainDnsLookupRequestFormat? = nil, type: String? = nil, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainDnsLookupResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/domain/dns/live",
             queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "type": .string(type)
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "type": type.map { .string($0) }
             ],
             body: request,
             requestOptions: requestOptions,
@@ -503,15 +406,15 @@ public final class APIFreaks: Sendable {
     /// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
     /// - Parameter page: Page number for paginated results
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainDnsHistory(apiKey: String, format: DomainDnsHistoryRequestFormat? = nil, hostName: String, type: String, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsHistoryResponse {
+    public func domainDnsHistory(apiKey: String, format: DomainDnsHistoryRequestFormat? = nil, hostName: String, type: String? = nil, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsHistoryResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/dns/history",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "host-name": .string(hostName),
-                "type": .string(type),
+                "host-name": .string(hostName), 
+                "type": type.map { .string($0) }, 
                 "page": page.map { .int($0) }
             ],
             requestOptions: requestOptions,
@@ -775,19 +678,17 @@ public final class APIFreaks: Sendable {
     /// - Parameter domain: Domain name for availability and suggestions.
     /// - Parameter source: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
     /// - Parameter count: Number of suggestions to retrieve.
-    /// - Parameter sug: Whether to include name suggestions in the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainAvailabilitySuggestions(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat? = nil, domain: String, source: DomainAvailabilitySuggestionsRequestSource? = nil, count: Int? = nil, sug: Bool? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainAvailabilitySuggestionsResponse {
+    public func domainAvailabilitySuggestions(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat? = nil, domain: String, source: DomainAvailabilitySuggestionsRequestSource? = nil, count: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainAvailabilitySuggestionsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/availability/suggestions",
             queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "domain": .string(domain),
-                "source": source.map { .string($0.rawValue) },
-                "count": count.map { .int($0) },
-                "sug": sug.map { .bool($0) }
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "domain": .string(domain), 
+                "source": source.map { .string($0.rawValue) }, 
+                "count": count.map { .int($0) }
             ],
             requestOptions: requestOptions,
             responseType: DomainAvailabilitySuggestionsResponse.self
@@ -819,6 +720,324 @@ public final class APIFreaks: Sendable {
             ],
             requestOptions: requestOptions,
             responseType: SubdomainsLookupResponse.self
+        )
+    }
+
+    /// The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter keyword: Brand or label to find typo variants for. 3-63 characters, letters, digits, or hyphens, a single label with no dots. Case-insensitive. Use either keyword or pattern, never both.
+    /// - Parameter pattern: Wildcard search string that combines fuzzy matching with * wildcards. 3-63 characters total, * is the only supported wildcard and each one matches zero or more characters, maximum 3 asterisks per request. Use either keyword or pattern, never both.
+    /// - Parameter pageToken: Token from nextPageToken in the previous response. Required to retrieve page 2 and onward. The original keyword or pattern must be passed alongside the token on every page request. Results page at 100 domains per page.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func domainTyposquatting(apiKey: String, format: DomainTyposquattingRequestFormat? = nil, keyword: String? = nil, pattern: String? = nil, pageToken: String? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainTyposquattingResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v1.0/domain/typosquatting",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "keyword": keyword.map { .string($0) }, 
+                "pattern": pattern.map { .string($0) }, 
+                "pageToken": pageToken.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: DomainTyposquattingResponse.self
+        )
+    }
+
+    /// The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter domainName: The domain name to assess (e.g. example.com). Must contain at least one dot and be at most 253 characters. Automatically lowercased.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func domainReputation(apiKey: String, format: DomainReputationRequestFormat? = nil, domainName: String, requestOptions: RequestOptions? = nil) async throws -> DomainReputationResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v1.0/domain/reputation",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "domainName": .string(domainName)
+            ],
+            requestOptions: requestOptions,
+            responseType: DomainReputationResponse.self
+        )
+    }
+
+    /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response. Can be "json" or "xml".
+    /// - Parameter location: Extract astronomy information using location (preferably city)
+    /// - Parameter lat: Latitude to extract astronomy information using location coordinates
+    /// - Parameter long: Longitude to extract astronomy information using location coordinates
+    /// - Parameter ip: IPv4 or IPv6 address to extract astronomy information using IP address
+    /// - Parameter lang: Response language of "location" field in case of lookup through IP address only.
+    /// - Parameter date: Specific date (format YYYY-MM-DD) for which astronomy data is required
+    /// - Parameter elevation: Elevation above sea level at the location, in meters. The value should be between 0 meter and a maximum value of 10,000 meters. Negative value is set to 0.
+    /// - Parameter timeZone: Time zone to receive all time-based data in your preferred local time.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func astronomyLookupV2(apiKey: String, format: AstronomyLookupV2RequestFormat? = nil, location: String? = nil, lat: Float? = nil, long: Float? = nil, ip: String? = nil, lang: AstronomyLookupV2RequestLang? = nil, date: CalendarDate? = nil, elevation: Float? = nil, timeZone: String? = nil, requestOptions: RequestOptions? = nil) async throws -> AstronomyLookupV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/geolocation/astronomy",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "location": location.map { .string($0) }, 
+                "lat": lat.map { .float($0) }, 
+                "long": long.map { .float($0) }, 
+                "ip": ip.map { .string($0) }, 
+                "lang": lang.map { .string($0.rawValue) }, 
+                "date": date.map { .calendarDate($0) }, 
+                "elevation": elevation.map { .float($0) }, 
+                "time_zone": timeZone.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: AstronomyLookupV2Response.self
+        )
+    }
+
+    /// Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response. Possible values: json, xml.
+    /// - Parameter ip: IPv4 or IPv6 address to extract timezone information.
+    /// - Parameter tz: Timezone name in IANA format (e.g., Asia/Kolkata) to retrieve information directly.
+    /// - Parameter location: Location string (preferably city and country) to extract timezone.
+    /// - Parameter lat: Latitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included.
+    /// - Parameter long: Longitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included.
+    /// - Parameter lang: Response language for location fields. Default: en.
+    /// - Parameter iataCode: 3-letter IATA airport code (e.g., LHR) to extract timezone.
+    /// - Parameter icaoCode: 4-letter ICAO airport code (e.g., KJFK) to extract timezone.
+    /// - Parameter loCode: 5-letter UN/LOCODE city code to extract timezone.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func timezoneLookupV2(apiKey: String, format: TimezoneLookupV2RequestFormat? = nil, ip: String? = nil, tz: String? = nil, location: String? = nil, lat: Float? = nil, long: Float? = nil, lang: TimezoneLookupV2RequestLang? = nil, iataCode: String? = nil, icaoCode: String? = nil, loCode: String? = nil, requestOptions: RequestOptions? = nil) async throws -> TimezoneLookupV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/geolocation/timezone",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "ip": ip.map { .string($0) }, 
+                "tz": tz.map { .string($0) }, 
+                "location": location.map { .string($0) }, 
+                "lat": lat.map { .float($0) }, 
+                "long": long.map { .float($0) }, 
+                "lang": lang.map { .string($0.rawValue) }, 
+                "iata_code": iataCode.map { .string($0) }, 
+                "icao_code": icaoCode.map { .string($0) }, 
+                "lo_code": loCode.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: TimezoneLookupV2Response.self
+        )
+    }
+
+    /// Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter ip: IPv4, IPv6, or hostname for geolocation lookup.
+    /// - Parameter lang: Response language for location fields. Default: en.
+    /// - Parameter fields: Comma-separated list of fields to include in response. For example, `location` includes all location fields, `location.city` is a specific field.
+    /// - Parameter excludes: Comma-separated list of fields to exclude from response.
+    /// - Parameter include: Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), hostnameFallbackLive (hostname with live fallback), user_agent (parse User-Agent header), abuse (abuse contact info), dma_code (DMA code), geo_accuracy (accuracy_radius, confidence, locality), * (all modules).
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func geolocationLookupV2(apiKey: String, format: GeolocationLookupV2RequestFormat? = nil, ip: String? = nil, lang: GeolocationLookupV2RequestLang? = nil, fields: String? = nil, excludes: String? = nil, include: String? = nil, requestOptions: RequestOptions? = nil) async throws -> GeolocationLookupV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/geolocation/lookup",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "ip": ip.map { .string($0) }, 
+                "lang": lang.map { .string($0.rawValue) }, 
+                "fields": fields.map { .string($0) }, 
+                "excludes": excludes.map { .string($0) }, 
+                "include": include.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: GeolocationLookupV2Response.self
+        )
+    }
+
+    /// Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter lang: Response language for location fields. Default: en.
+    /// - Parameter fields: Comma-separated list of fields to include in the response. For example, `location` includes all location fields, `location.city` is a specific field.
+    /// - Parameter excludes: Comma-separated list of fields to exclude from response.
+    /// - Parameter include: Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), user_agent (parse User-Agent header), abuse (abuse contact info), * (all modules).
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func bulkGeolocationLookupV2(apiKey: String, format: BulkGeolocationLookupV2RequestFormat? = nil, lang: BulkGeolocationLookupV2RequestLang? = nil, fields: String? = nil, excludes: String? = nil, include: String? = nil, request: Requests.BulkGeolocationLookupV2Request, requestOptions: RequestOptions? = nil) async throws -> [BulkGeolocationLookupV2ResponseItem] {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v2.0/geolocation/lookup",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "lang": lang.map { .string($0.rawValue) }, 
+                "fields": fields.map { .string($0) }, 
+                "excludes": excludes.map { .string($0) }, 
+                "include": include.map { .string($0) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: [BulkGeolocationLookupV2ResponseItem].self
+        )
+    }
+
+    /// Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter domainName: Domain name to retrieve WHOIS data for (e.g. example.com).
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func domainWhoisLookupV2(apiKey: String, format: DomainWhoisLookupV2RequestFormat? = nil, domainName: String, requestOptions: RequestOptions? = nil) async throws -> DomainWhoisLookupV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/domain/whois/live",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "domainName": .string(domainName)
+            ],
+            requestOptions: requestOptions,
+            responseType: DomainWhoisLookupV2Response.self
+        )
+    }
+
+    /// Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func bulkDomainWhoisLookupV2(apiKey: String, format: BulkDomainWhoisLookupV2RequestFormat? = nil, request: Requests.BulkDomainWhoisLookupV2Request, requestOptions: RequestOptions? = nil) async throws -> BulkDomainWhoisLookupV2Response {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v2.0/domain/whois/live",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: BulkDomainWhoisLookupV2Response.self
+        )
+    }
+
+    /// Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Response format. Currently only `json` is supported.
+    /// - Parameter symbols: Comma-separated list of commodity symbols (e.g., XAU, WTIOIL-SPOT). Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    /// - Parameter quote: Target currency for the exchange rate. If omitted (or set to `default`), the default quote currency of each commodity is used. Requires a premium plan; ignored on lower-tier plans.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func commodityLatestRatesV2(apiKey: String, format: CommodityLatestRatesV2RequestFormat? = nil, symbols: String? = nil, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/commodity/rates/latest",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
+                "quote": quote.map { .string($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: CommodityLatestRatesV2Response.self
+        )
+    }
+
+    /// Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Response format. Currently only `json` is supported.
+    /// - Parameter symbols: Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    /// - Parameter date: Date in YYYY-MM-DD format. Data available from 1990 onwards.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func commodityHistoricalRatesV2(apiKey: String, format: CommodityHistoricalRatesV2RequestFormat? = nil, symbols: String? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/commodity/rates/historical",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
+                "date": .calendarDate(date)
+            ],
+            requestOptions: requestOptions,
+            responseType: CommodityHistoricalRatesV2Response.self
+        )
+    }
+
+    /// Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Response format. Currently only `json` is supported.
+    /// - Parameter symbols: Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    /// - Parameter startDate: Start date (YYYY-MM-DD)
+    /// - Parameter endDate: End date (YYYY-MM-DD)
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func commodityFluctuationV2(apiKey: String, format: CommodityFluctuationV2RequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/commodity/fluctuation",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
+                "startDate": .calendarDate(startDate), 
+                "endDate": .calendarDate(endDate)
+            ],
+            requestOptions: requestOptions,
+            responseType: CommodityFluctuationV2Response.self
+        )
+    }
+
+    /// Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Response format. Currently only `json` is supported.
+    /// - Parameter symbols: Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    /// - Parameter startDate: Start date (YYYY-MM-DD)
+    /// - Parameter endDate: End date (YYYY-MM-DD). Maximum range is 365 days.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func commodityTimeSeriesV2(apiKey: String, format: CommodityTimeSeriesV2RequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/commodity/time-series",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
+                "startDate": .calendarDate(startDate), 
+                "endDate": .calendarDate(endDate)
+            ],
+            requestOptions: requestOptions,
+            responseType: CommodityTimeSeriesV2Response.self
+        )
+    }
+
+    /// Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Response format. Currently only `json` is supported.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func commoditySymbolsV2(apiKey: String, format: CommoditySymbolsV2RequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> CommoditySymbolsV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/commodity/symbols",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }
+            ],
+            requestOptions: requestOptions,
+            responseType: CommoditySymbolsV2Response.self
         )
     }
 
@@ -1836,7 +2055,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter amount: Amount to convert
     /// - Parameter updates: Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyConvertLatest(apiKey: String, format: CurrencyConvertLatestRequestFormat? = nil, from: String, to: String, amount: String? = nil, updates: CurrencyConvertLatestRequestUpdates? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertLatestResponse {
+    public func currencyConvertLatest(apiKey: String, format: CurrencyConvertLatestRequestFormat? = nil, from: String, to: String, amount: Double? = nil, updates: CurrencyConvertLatestRequestUpdates? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertLatestResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/converter/latest/prices",
@@ -1845,7 +2064,7 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "from": .string(from), 
                 "to": .string(to), 
-                "amount": amount.map { .string($0) },
+                "amount": amount.map { .double($0) }, 
                 "updates": updates.map { .string($0.rawValue) }
             ],
             requestOptions: requestOptions,
@@ -1862,7 +2081,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter amount: The Amount to be converted
     /// - Parameter date: specific date (format YYYY-MM-DD) of which exchange rates is used.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyConvertHistorical(apiKey: String, format: CurrencyConvertHistoricalRequestFormat? = nil, from: String, to: String, amount: String? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertHistoricalResponse {
+    public func currencyConvertHistorical(apiKey: String, format: CurrencyConvertHistoricalRequestFormat? = nil, from: String, to: String, amount: Double? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertHistoricalResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/converter/historical/prices",
@@ -1871,7 +2090,7 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "from": .string(from), 
                 "to": .string(to), 
-                "amount": amount.map { .string($0) },
+                "amount": amount.map { .double($0) }, 
                 "date": .calendarDate(date)
             ],
             requestOptions: requestOptions,
@@ -1940,7 +2159,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter ip: IPv4 or IPv6 geolocated currency
     /// - Parameter amount: Amount to convert
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyConvertByIp(apiKey: String, format: CurrencyConvertByIpRequestFormat? = nil, updates: CurrencyConvertByIpRequestUpdates? = nil, from: String, ip: String? = nil, amount: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertByIpResponse {
+    public func currencyConvertByIp(apiKey: String, format: CurrencyConvertByIpRequestFormat? = nil, updates: CurrencyConvertByIpRequestUpdates? = nil, from: String, ip: String? = nil, amount: Double? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyConvertByIpResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/converter/ip-to-currency",
@@ -1949,8 +2168,8 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "updates": updates.map { .string($0.rawValue) }, 
                 "from": .string(from), 
-                "ip": ip.map { .string($0) },
-                "amount": amount.map { .string($0) }
+                "ip": ip.map { .string($0) }, 
+                "amount": amount.map { .double($0) }
             ],
             requestOptions: requestOptions,
             responseType: CurrencyConvertByIpResponse.self
@@ -2019,15 +2238,15 @@ public final class APIFreaks: Sendable {
     /// - Parameter updates: Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
     /// - Parameter quote: Specifies the target currency for the exchange rate; default quote currency is the market currency of commodity *(e.g. USD, EUR, INR)*
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityLatestRates(apiKey: String, format: CommodityLatestRatesRequestFormat? = nil, symbols: String, updates: CommodityLatestRatesRequestUpdates, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesResponse {
+    public func commodityLatestRates(apiKey: String, format: CommodityLatestRatesRequestFormat? = nil, symbols: String? = nil, updates: CommodityLatestRatesRequestUpdates, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/rates/latest",
             queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "symbols": .string(symbols),
-                "updates": .string(updates.rawValue),
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
+                "updates": .string(updates.rawValue), 
                 "quote": quote.map { .string($0) }
             ],
             requestOptions: requestOptions,
@@ -2042,15 +2261,15 @@ public final class APIFreaks: Sendable {
     /// - Parameter date: Historical date (YYYY-MM-DD)
     /// - Parameter symbols: Comma-separated list of commodity symbols
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityHistoricalRates(apiKey: String, format: CommodityHistoricalRatesRequestFormat? = nil, date: CalendarDate, symbols: String, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesResponse {
+    public func commodityHistoricalRates(apiKey: String, format: CommodityHistoricalRatesRequestFormat? = nil, date: CalendarDate, symbols: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/rates/historical",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "date": .calendarDate(date),
-                "symbols": .string(symbols)
+                "date": .calendarDate(date), 
+                "symbols": symbols.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: CommodityHistoricalRatesResponse.self
@@ -2065,14 +2284,14 @@ public final class APIFreaks: Sendable {
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityFluctuation(apiKey: String, format: CommodityFluctuationRequestFormat? = nil, symbols: String, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationResponse {
+    public func commodityFluctuation(apiKey: String, format: CommodityFluctuationRequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/fluctuation",
             queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "symbols": .string(symbols),
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -2089,14 +2308,14 @@ public final class APIFreaks: Sendable {
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityTimeSeries(apiKey: String, format: CommodityTimeSeriesRequestFormat? = nil, symbols: String, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesResponse {
+    public func commodityTimeSeries(apiKey: String, format: CommodityTimeSeriesRequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/time-series",
             queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "symbols": .string(symbols),
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }, 
+                "symbols": symbols.map { .string($0) }, 
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -2895,42 +3114,6 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    /// Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed (v2.0 endpoint).
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter format: Format of the response
-    /// - Parameter ip: IPv4 or IPv6 address to extract timezone information.
-    /// - Parameter tz: Timezone name (e.g., "Asia/Kolkata") to retrieve information directly.
-    /// - Parameter location: Location string (preferably city and country) to extract timezone.
-    /// - Parameter lat: Latitude for geolocation lookup.
-    /// - Parameter long: Longitude for geolocation lookup.
-    /// - Parameter lang: Language code for response localization (default is "en").
-    /// - Parameter iataCode: 3-letter IATA airport code (e.g., JFK).
-    /// - Parameter icaoCode: 4-letter ICAO airport code (e.g., KJFK).
-    /// - Parameter loCode: 5-letter UN/LO city code.
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func timezoneLookupV2(apiKey: String, format: TimezoneLookupRequestFormat? = nil, ip: String? = nil, tz: String? = nil, location: String? = nil, lat: Float? = nil, long: Float? = nil, lang: TimezoneLookupRequestLang? = nil, iataCode: String? = nil, icaoCode: String? = nil, loCode: String? = nil, requestOptions: RequestOptions? = nil) async throws -> TimezoneLookupResponse {
-        return try await httpClient.performRequest(
-            method: .get,
-            path: "/v2.0/geolocation/timezone",
-            queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "ip": ip.map { .string($0) },
-                "tz": tz.map { .string($0) },
-                "location": location.map { .string($0) },
-                "lat": lat.map { .float($0) },
-                "long": long.map { .float($0) },
-                "lang": lang.map { .string($0.rawValue) },
-                "iata_code": iataCode.map { .string($0) },
-                "icao_code": icaoCode.map { .string($0) },
-                "lo_code": loCode.map { .string($0) }
-            ],
-            requestOptions: requestOptions,
-            responseType: TimezoneLookupResponse.self
-        )
-    }
-
     /// Converts a given time from one timezone to another using various input types like timezone name, coordinates, location, or codes.
     ///
     /// - Parameter apiKey: Your API key
@@ -2983,17 +3166,13 @@ public final class APIFreaks: Sendable {
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
-    /// - Parameter userAgent: User-Agent string to parse. Sent as the `User-Agent` HTTP header.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func userAgentLookup(apiKey: String, format: UserAgentLookupRequestFormat? = nil, userAgent: String, requestOptions: RequestOptions? = nil) async throws -> UserAgentLookupResponse {
+    public func userAgentLookup(apiKey: String, format: UserAgentLookupRequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> UserAgentLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/user-agent/lookup",
-            headers: [
-                "User-Agent": userAgent
-            ],
             queryParams: [
-                "apiKey": .string(apiKey),
+                "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }
             ],
             requestOptions: requestOptions,
@@ -3031,23 +3210,13 @@ public final class APIFreaks: Sendable {
     ///     - `zone`
     ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter url: URL of the image or PDF (required if `file` not provided)
-    /// - Parameter model: OCR model to use.
-    /// - Parameter pageRange: Specify page range for multi-page PDFs (e.g., '1,3,5-10' or 'allpages'). **Note:** This parameter can only be used with .pdf file types.
-    /// - Parameter zone: Define OCR zones using coordinates (top:left:height:width). Multiple zones can be defined using commas. Only available for model 'ocr-v1'. **Note:** This parameter cannot be used with .pdf and .zip file types as it can only be applied to single image queries.
-    /// - Parameter newLine: Set to 1 to split output text into individual lines (default: 0)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func ocrPredict(apiKey: String, url: String? = nil, model: OcrPredictRequestModel, pageRange: String? = nil, zone: String? = nil, newLine: Int? = nil, request: Requests.OcrPredictRequest, requestOptions: RequestOptions? = nil) async throws -> OcrPredictResponse {
+    public func ocrPredict(apiKey: String, request: Requests.OcrPredictRequest, requestOptions: RequestOptions? = nil) async throws -> OcrPredictResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/ocr/predict",
             queryParams: [
-                "apiKey": .string(apiKey), 
-                "url": url.map { .string($0) }, 
-                "model": .string(model.rawValue), 
-                "page_range": pageRange.map { .string($0) }, 
-                "zone": zone.map { .string($0) }, 
-                "new_line": newLine.map { .int($0) }
+                "apiKey": .string(apiKey)
             ],
             body: request,
             requestOptions: requestOptions,
@@ -3152,38 +3321,6 @@ public final class APIFreaks: Sendable {
                 "lang": lang.map { .string($0) }, 
                 "date": date.map { .calendarDate($0) }, 
                 "elevation": elevation.map { .double($0) }, 
-                "time_zone": timeZone.map { .string($0) }
-            ],
-            requestOptions: requestOptions,
-            responseType: AstronomyLookupResponse.self
-        )
-    }
-
-    /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed (v2.0 endpoint).
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter format: Format of the response.
-    /// - Parameter location: Location name or address
-    /// - Parameter lat: Latitude for location coordinates
-    /// - Parameter long: Longitude for location coordinates
-    /// - Parameter ip: IP address for location detection
-    /// - Parameter date: Date for astronomy data (YYYY-MM-DD)
-    /// - Parameter elevation: Timezone of the location for which astronomy data is required
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func astronomyLookupV2(apiKey: String, format: AstronomyLookupRequestFormat? = nil, location: String? = nil, lat: Float? = nil, long: Float? = nil, ip: String? = nil, lang: String? = nil, date: CalendarDate? = nil, elevation: Double? = nil, timeZone: String? = nil, requestOptions: RequestOptions? = nil) async throws -> AstronomyLookupResponse {
-        return try await httpClient.performRequest(
-            method: .get,
-            path: "/v2.0/geolocation/astronomy",
-            queryParams: [
-                "apiKey": .string(apiKey),
-                "format": format.map { .string($0.rawValue) },
-                "location": location.map { .string($0) },
-                "lat": lat.map { .float($0) },
-                "long": long.map { .float($0) },
-                "ip": ip.map { .string($0) },
-                "lang": lang.map { .string($0) },
-                "date": date.map { .calendarDate($0) },
-                "elevation": elevation.map { .double($0) },
                 "time_zone": timeZone.map { .string($0) }
             ],
             requestOptions: requestOptions,

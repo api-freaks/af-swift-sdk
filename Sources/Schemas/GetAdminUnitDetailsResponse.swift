@@ -4,8 +4,7 @@ public struct GetAdminUnitDetailsResponse: Codable, Hashable, Sendable {
     public let name: String
     public let adminCode: String
     public let adminLevel: String
-    public let adminIso31662: String
-    public let countryIso31662: String
+    public let isoAlpha2: String
     public let countryName: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
@@ -14,16 +13,14 @@ public struct GetAdminUnitDetailsResponse: Codable, Hashable, Sendable {
         name: String,
         adminCode: String,
         adminLevel: String,
-        adminIso31662: String,
-        countryIso31662: String,
+        isoAlpha2: String,
         countryName: String,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
         self.adminCode = adminCode
         self.adminLevel = adminLevel
-        self.adminIso31662 = adminIso31662
-        self.countryIso31662 = countryIso31662
+        self.isoAlpha2 = isoAlpha2
         self.countryName = countryName
         self.additionalProperties = additionalProperties
     }
@@ -33,8 +30,7 @@ public struct GetAdminUnitDetailsResponse: Codable, Hashable, Sendable {
         self.name = try container.decode(String.self, forKey: .name)
         self.adminCode = try container.decode(String.self, forKey: .adminCode)
         self.adminLevel = try container.decode(String.self, forKey: .adminLevel)
-        self.adminIso31662 = try container.decode(String.self, forKey: .adminIso31662)
-        self.countryIso31662 = try container.decode(String.self, forKey: .countryIso31662)
+        self.isoAlpha2 = try container.decode(String.self, forKey: .isoAlpha2)
         self.countryName = try container.decode(String.self, forKey: .countryName)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -45,8 +41,7 @@ public struct GetAdminUnitDetailsResponse: Codable, Hashable, Sendable {
         try container.encode(self.name, forKey: .name)
         try container.encode(self.adminCode, forKey: .adminCode)
         try container.encode(self.adminLevel, forKey: .adminLevel)
-        try container.encode(self.adminIso31662, forKey: .adminIso31662)
-        try container.encode(self.countryIso31662, forKey: .countryIso31662)
+        try container.encode(self.isoAlpha2, forKey: .isoAlpha2)
         try container.encode(self.countryName, forKey: .countryName)
     }
 
@@ -55,8 +50,7 @@ public struct GetAdminUnitDetailsResponse: Codable, Hashable, Sendable {
         case name
         case adminCode = "admin_code"
         case adminLevel = "admin_level"
-        case adminIso31662 = "admin_iso3166_2"
-        case countryIso31662 = "country_iso3166_2"
+        case isoAlpha2 = "iso_alpha_2"
         case countryName = "country_name"
     }
 }

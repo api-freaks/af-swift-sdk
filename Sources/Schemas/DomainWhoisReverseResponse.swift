@@ -42,9 +42,9 @@ public struct DomainWhoisReverseResponse: Codable, Hashable, Sendable {
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case totalResult = "total_Result"
-        case totalPages = "total_Pages"
-        case currentPage = "current_Page"
+        case totalResult
+        case totalPages
+        case currentPage
         case whoisDomainsHistorical = "whois_domains_historical"
     }
 }

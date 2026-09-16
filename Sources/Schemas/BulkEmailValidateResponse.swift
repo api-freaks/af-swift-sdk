@@ -2,32 +2,32 @@ import Foundation
 
 public struct BulkEmailValidateResponse: Codable, Hashable, Sendable {
     /// Array of SingleEmailValidationResponse objects for bulk validation
-    public let emailValidationResponses: [BulkEmailValidateResponseEmailValidationResponsesItem]?
+    public let emailResponse: [BulkEmailValidateResponseEmailResponseItem]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        emailValidationResponses: [BulkEmailValidateResponseEmailValidationResponsesItem]? = nil,
+        emailResponse: [BulkEmailValidateResponseEmailResponseItem],
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.emailValidationResponses = emailValidationResponses
+        self.emailResponse = emailResponse
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.emailValidationResponses = try container.decodeIfPresent([BulkEmailValidateResponseEmailValidationResponsesItem].self, forKey: .emailValidationResponses)
+        self.emailResponse = try container.decode([BulkEmailValidateResponseEmailResponseItem].self, forKey: .emailResponse)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encodeIfPresent(self.emailValidationResponses, forKey: .emailValidationResponses)
+        try container.encode(self.emailResponse, forKey: .emailResponse)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case emailValidationResponses
+        case emailResponse
     }
 }

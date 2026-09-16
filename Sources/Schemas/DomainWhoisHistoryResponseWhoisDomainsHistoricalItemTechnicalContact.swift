@@ -9,10 +9,10 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalConta
     public let zipCode: String?
     public let countryName: String?
     public let countryCode: String?
-    public let emailAddress: String?
+    public let emailaddress: String?
     public let phone: String?
     public let fax: String?
-    public let mailingAddress: String?
+    public let mailingaddress: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -25,10 +25,10 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalConta
         zipCode: String? = nil,
         countryName: String? = nil,
         countryCode: String? = nil,
-        emailAddress: String? = nil,
+        emailaddress: String? = nil,
         phone: String? = nil,
         fax: String? = nil,
-        mailingAddress: String? = nil,
+        mailingaddress: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
@@ -39,10 +39,10 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalConta
         self.zipCode = zipCode
         self.countryName = countryName
         self.countryCode = countryCode
-        self.emailAddress = emailAddress
+        self.emailaddress = emailaddress
         self.phone = phone
         self.fax = fax
-        self.mailingAddress = mailingAddress
+        self.mailingaddress = mailingaddress
         self.additionalProperties = additionalProperties
     }
 
@@ -56,10 +56,10 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalConta
         self.zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode)
         self.countryName = try container.decodeIfPresent(String.self, forKey: .countryName)
         self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
-        self.emailAddress = try container.decodeIfPresent(String.self, forKey: .emailAddress)
+        self.emailaddress = try container.decodeIfPresent(String.self, forKey: .emailaddress)
         self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
         self.fax = try container.decodeIfPresent(String.self, forKey: .fax)
-        self.mailingAddress = try container.decodeIfPresent(String.self, forKey: .mailingAddress)
+        self.mailingaddress = try container.decodeIfPresent(String.self, forKey: .mailingaddress)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -74,10 +74,10 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalConta
         try container.encodeIfPresent(self.zipCode, forKey: .zipCode)
         try container.encodeIfPresent(self.countryName, forKey: .countryName)
         try container.encodeIfPresent(self.countryCode, forKey: .countryCode)
-        try container.encodeIfPresent(self.emailAddress, forKey: .emailAddress)
+        try container.encodeIfPresent(self.emailaddress, forKey: .emailaddress)
         try container.encodeIfPresent(self.phone, forKey: .phone)
         try container.encodeIfPresent(self.fax, forKey: .fax)
-        try container.encodeIfPresent(self.mailingAddress, forKey: .mailingAddress)
+        try container.encodeIfPresent(self.mailingaddress, forKey: .mailingaddress)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -90,9 +90,9 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemTechnicalConta
         case zipCode = "zip_code"
         case countryName = "country_name"
         case countryCode = "country_code"
-        case emailAddress = "email_address"
+        case emailaddress
         case phone
         case fax
-        case mailingAddress = "mailing_address"
+        case mailingaddress
     }
 }

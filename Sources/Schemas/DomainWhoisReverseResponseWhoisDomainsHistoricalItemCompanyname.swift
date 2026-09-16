@@ -8,7 +8,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname: C
     public let expiryDate: CalendarDate?
     public let name: String?
     public let email: String?
-    public let companyName: String?
+    public let companyname: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -20,7 +20,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname: C
         expiryDate: CalendarDate? = nil,
         name: String? = nil,
         email: String? = nil,
-        companyName: String? = nil,
+        companyname: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.num = num
@@ -30,7 +30,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname: C
         self.expiryDate = expiryDate
         self.name = name
         self.email = email
-        self.companyName = companyName
+        self.companyname = companyname
         self.additionalProperties = additionalProperties
     }
 
@@ -43,7 +43,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname: C
         self.expiryDate = try container.decodeIfPresent(CalendarDate.self, forKey: .expiryDate)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
         self.email = try container.decodeIfPresent(String.self, forKey: .email)
-        self.companyName = try container.decodeIfPresent(String.self, forKey: .companyName)
+        self.companyname = try container.decodeIfPresent(String.self, forKey: .companyname)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -57,7 +57,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname: C
         try container.encodeIfPresent(self.expiryDate, forKey: .expiryDate)
         try container.encodeIfPresent(self.name, forKey: .name)
         try container.encodeIfPresent(self.email, forKey: .email)
-        try container.encodeIfPresent(self.companyName, forKey: .companyName)
+        try container.encodeIfPresent(self.companyname, forKey: .companyname)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -69,6 +69,6 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname: C
         case expiryDate = "expiry_date"
         case name
         case email
-        case companyName = "company_name"
+        case companyname
     }
 }

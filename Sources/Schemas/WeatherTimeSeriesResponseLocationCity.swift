@@ -12,11 +12,11 @@ public struct WeatherTimeSeriesResponseLocationCity: Codable, Hashable, Sendable
     /// Specific locality, neighborhood, suburb, or village within the geocoded area.
     public let locality: String?
     /// Geocoded latitude coordinate in decimal degrees, ranging from -90 to +90.
-    public let latitude: Float
+    public let latitude: String
     /// Geocoded longitude coordinate in decimal degrees, ranging from -180 to +180.
-    public let longitude: Float
+    public let longitude: String
     /// Elevation above mean sea level in meters at the geocoded coordinates.
-    public let elevation: Float?
+    public let elevation: String?
     /// IANA timezone database identifier for the geocoded location (e.g., America/Los_Angeles).
     public let timezone: String
     /// Current timezone abbreviation for the location based on local offset (e.g., PDT, CET).
@@ -30,9 +30,9 @@ public struct WeatherTimeSeriesResponseLocationCity: Codable, Hashable, Sendable
         stateProv: String,
         city: String,
         locality: String? = nil,
-        latitude: Float,
-        longitude: Float,
-        elevation: Float? = nil,
+        latitude: String,
+        longitude: String,
+        elevation: String? = nil,
         timezone: String,
         timezoneAbbreviation: String,
         additionalProperties: [String: JSONValue] = .init()
@@ -57,9 +57,9 @@ public struct WeatherTimeSeriesResponseLocationCity: Codable, Hashable, Sendable
         self.stateProv = try container.decode(String.self, forKey: .stateProv)
         self.city = try container.decode(String.self, forKey: .city)
         self.locality = try container.decodeIfPresent(String.self, forKey: .locality)
-        self.latitude = try container.decode(Float.self, forKey: .latitude)
-        self.longitude = try container.decode(Float.self, forKey: .longitude)
-        self.elevation = try container.decodeIfPresent(Float.self, forKey: .elevation)
+        self.latitude = try container.decode(String.self, forKey: .latitude)
+        self.longitude = try container.decode(String.self, forKey: .longitude)
+        self.elevation = try container.decodeIfPresent(String.self, forKey: .elevation)
         self.timezone = try container.decode(String.self, forKey: .timezone)
         self.timezoneAbbreviation = try container.decode(String.self, forKey: .timezoneAbbreviation)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)

@@ -1,16 +1,19 @@
 import Foundation
 
-public struct DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier: Codable, Hashable, Sendable {
+/// Policy qualifier details
+public struct DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier: Codable, Hashable, Sendable {
+    /// Object identifier
     public let oid: String?
+    /// URI of the CPS
     public let cpsUri: String?
-    public let userNotice: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice?
+    public let userNotice: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         oid: String? = nil,
         cpsUri: String? = nil,
-        userNotice: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice? = nil,
+        userNotice: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.oid = oid
@@ -23,7 +26,7 @@ public struct DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePol
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.oid = try container.decodeIfPresent(String.self, forKey: .oid)
         self.cpsUri = try container.decodeIfPresent(String.self, forKey: .cpsUri)
-        self.userNotice = try container.decodeIfPresent(DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice.self, forKey: .userNotice)
+        self.userNotice = try container.decodeIfPresent(DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice.self, forKey: .userNotice)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

@@ -1,7 +1,8 @@
 import Foundation
 
 public struct DomainDnsReverseResponseReverseDnsRecordsItem: Codable, Hashable, Sendable {
-    public let queryTime: Date
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String
     public let domainName: String
     public let domainRegistered: Bool
     public let dnsTypes: DomainDnsReverseResponseReverseDnsRecordsItemDnsTypes
@@ -10,7 +11,7 @@ public struct DomainDnsReverseResponseReverseDnsRecordsItem: Codable, Hashable, 
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        queryTime: Date,
+        queryTime: String,
         domainName: String,
         domainRegistered: Bool,
         dnsTypes: DomainDnsReverseResponseReverseDnsRecordsItemDnsTypes,
@@ -27,7 +28,7 @@ public struct DomainDnsReverseResponseReverseDnsRecordsItem: Codable, Hashable, 
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.queryTime = try container.decode(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decode(String.self, forKey: .queryTime)
         self.domainName = try container.decode(String.self, forKey: .domainName)
         self.domainRegistered = try container.decode(Bool.self, forKey: .domainRegistered)
         self.dnsTypes = try container.decode(DomainDnsReverseResponseReverseDnsRecordsItemDnsTypes.self, forKey: .dnsTypes)

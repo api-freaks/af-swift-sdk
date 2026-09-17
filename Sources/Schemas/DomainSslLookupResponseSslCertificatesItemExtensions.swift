@@ -4,11 +4,11 @@ public struct DomainSslLookupResponseSslCertificatesItemExtensions: Codable, Has
     public let authorityKeyIdentifier: String
     public let subjectKeyIdentifier: String
     public let keyUsages: [String]
-    public let extendedKeyUsages: [String]
+    public let extendedKeyUsages: [String]?
     public let crlDistributionPoints: [String]?
-    public let authorityInfoAccess: DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess
+    public let authorityInfoAccess: DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess?
     public let subjectAlternativeNames: DomainSslLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames?
-    public let certificatePolicies: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies
+    public let certificatePolicies: [DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -16,11 +16,11 @@ public struct DomainSslLookupResponseSslCertificatesItemExtensions: Codable, Has
         authorityKeyIdentifier: String,
         subjectKeyIdentifier: String,
         keyUsages: [String],
-        extendedKeyUsages: [String],
+        extendedKeyUsages: [String]? = nil,
         crlDistributionPoints: [String]? = nil,
-        authorityInfoAccess: DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess,
+        authorityInfoAccess: DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess? = nil,
         subjectAlternativeNames: DomainSslLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames? = nil,
-        certificatePolicies: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies,
+        certificatePolicies: [DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.authorityKeyIdentifier = authorityKeyIdentifier
@@ -39,11 +39,11 @@ public struct DomainSslLookupResponseSslCertificatesItemExtensions: Codable, Has
         self.authorityKeyIdentifier = try container.decode(String.self, forKey: .authorityKeyIdentifier)
         self.subjectKeyIdentifier = try container.decode(String.self, forKey: .subjectKeyIdentifier)
         self.keyUsages = try container.decode([String].self, forKey: .keyUsages)
-        self.extendedKeyUsages = try container.decode([String].self, forKey: .extendedKeyUsages)
+        self.extendedKeyUsages = try container.decodeIfPresent([String].self, forKey: .extendedKeyUsages)
         self.crlDistributionPoints = try container.decodeIfPresent([String].self, forKey: .crlDistributionPoints)
-        self.authorityInfoAccess = try container.decode(DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess.self, forKey: .authorityInfoAccess)
+        self.authorityInfoAccess = try container.decodeIfPresent(DomainSslLookupResponseSslCertificatesItemExtensionsAuthorityInfoAccess.self, forKey: .authorityInfoAccess)
         self.subjectAlternativeNames = try container.decodeIfPresent(DomainSslLookupResponseSslCertificatesItemExtensionsSubjectAlternativeNames.self, forKey: .subjectAlternativeNames)
-        self.certificatePolicies = try container.decode(DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePolicies.self, forKey: .certificatePolicies)
+        self.certificatePolicies = try container.decodeIfPresent([DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem].self, forKey: .certificatePolicies)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -53,11 +53,11 @@ public struct DomainSslLookupResponseSslCertificatesItemExtensions: Codable, Has
         try container.encode(self.authorityKeyIdentifier, forKey: .authorityKeyIdentifier)
         try container.encode(self.subjectKeyIdentifier, forKey: .subjectKeyIdentifier)
         try container.encode(self.keyUsages, forKey: .keyUsages)
-        try container.encode(self.extendedKeyUsages, forKey: .extendedKeyUsages)
+        try container.encodeIfPresent(self.extendedKeyUsages, forKey: .extendedKeyUsages)
         try container.encodeIfPresent(self.crlDistributionPoints, forKey: .crlDistributionPoints)
-        try container.encode(self.authorityInfoAccess, forKey: .authorityInfoAccess)
+        try container.encodeIfPresent(self.authorityInfoAccess, forKey: .authorityInfoAccess)
         try container.encodeIfPresent(self.subjectAlternativeNames, forKey: .subjectAlternativeNames)
-        try container.encode(self.certificatePolicies, forKey: .certificatePolicies)
+        try container.encodeIfPresent(self.certificatePolicies, forKey: .certificatePolicies)
     }
 
     /// Keys for encoding/decoding struct properties.

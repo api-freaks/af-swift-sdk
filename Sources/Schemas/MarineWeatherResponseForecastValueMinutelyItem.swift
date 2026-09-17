@@ -1,8 +1,8 @@
 import Foundation
 
 public struct MarineWeatherResponseForecastValueMinutelyItem: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp
-    public let timestamp: Date?
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String?
     /// Speed of ocean current (km/h)
     public let oceanCurrentVelocity: Double?
     /// Direction of ocean current (°)
@@ -13,7 +13,7 @@ public struct MarineWeatherResponseForecastValueMinutelyItem: Codable, Hashable,
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date? = nil,
+        timestamp: String? = nil,
         oceanCurrentVelocity: Double? = nil,
         oceanCurrentDirection: Int? = nil,
         seaLevelHeightMsl: Double? = nil,
@@ -28,7 +28,7 @@ public struct MarineWeatherResponseForecastValueMinutelyItem: Codable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decodeIfPresent(String.self, forKey: .timestamp)
         self.oceanCurrentVelocity = try container.decodeIfPresent(Double.self, forKey: .oceanCurrentVelocity)
         self.oceanCurrentDirection = try container.decodeIfPresent(Int.self, forKey: .oceanCurrentDirection)
         self.seaLevelHeightMsl = try container.decodeIfPresent(Double.self, forKey: .seaLevelHeightMsl)

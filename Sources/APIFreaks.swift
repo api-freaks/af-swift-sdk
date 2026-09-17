@@ -677,9 +677,10 @@ public final class APIFreaks: Sendable {
     /// - Parameter format: Format of the response.
     /// - Parameter domain: Domain name for availability and suggestions.
     /// - Parameter source: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
-    /// - Parameter count: Number of suggestions to retrieve.
+    /// - Parameter count: Number of suggestions to retrieve. The API returns a minimum of 5 suggestions regardless of a lower value.
+    /// - Parameter sug: Controls the response shape. When `false`, returns a single availability object for the queried domain only. When omitted or `true`, returns an array of suggested domains instead.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainAvailabilitySuggestions(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat? = nil, domain: String, source: DomainAvailabilitySuggestionsRequestSource? = nil, count: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainAvailabilitySuggestionsResponse {
+    public func domainAvailabilitySuggestions(apiKey: String, format: DomainAvailabilitySuggestionsRequestFormat? = nil, domain: String, source: DomainAvailabilitySuggestionsRequestSource? = nil, count: Int? = nil, sug: Bool? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainAvailabilitySuggestionsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/availability/suggestions",
@@ -688,7 +689,8 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "domain": .string(domain), 
                 "source": source.map { .string($0.rawValue) }, 
-                "count": count.map { .int($0) }
+                "count": count.map { .int($0) }, 
+                "sug": sug.map { .bool($0) }
             ],
             requestOptions: requestOptions,
             responseType: DomainAvailabilitySuggestionsResponse.self
@@ -3167,10 +3169,13 @@ public final class APIFreaks: Sendable {
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func userAgentLookup(apiKey: String, format: UserAgentLookupRequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> UserAgentLookupResponse {
+    public func userAgentLookup(apiKey: String, userAgent: String, format: UserAgentLookupRequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> UserAgentLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/user-agent/lookup",
+            headers: [
+                "User-Agent": userAgent
+            ],
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }
@@ -3180,7 +3185,7 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    /// Parse up to `50,000 User-Agent strings` at once in a single request.
+    /// Parse up to `100 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response

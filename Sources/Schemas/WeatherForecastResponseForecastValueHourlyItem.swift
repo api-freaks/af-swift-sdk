@@ -1,8 +1,8 @@
 import Foundation
 
 public struct WeatherForecastResponseForecastValueHourlyItem: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp
-    public let timestamp: Date?
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String?
     /// Air temperature at 2m (°C)
     public let temperature2M: Double?
     /// Relative humidity at 2m (%)
@@ -57,7 +57,7 @@ public struct WeatherForecastResponseForecastValueHourlyItem: Codable, Hashable,
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date? = nil,
+        timestamp: String? = nil,
         temperature2M: Double? = nil,
         relativeHumidity2M: Int? = nil,
         dewPoint2M: Double? = nil,
@@ -116,7 +116,7 @@ public struct WeatherForecastResponseForecastValueHourlyItem: Codable, Hashable,
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decodeIfPresent(String.self, forKey: .timestamp)
         self.temperature2M = try container.decodeIfPresent(Double.self, forKey: .temperature2M)
         self.relativeHumidity2M = try container.decodeIfPresent(Int.self, forKey: .relativeHumidity2M)
         self.dewPoint2M = try container.decodeIfPresent(Double.self, forKey: .dewPoint2M)

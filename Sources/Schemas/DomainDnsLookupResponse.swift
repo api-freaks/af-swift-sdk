@@ -3,8 +3,8 @@ import Foundation
 public struct DomainDnsLookupResponse: Codable, Hashable, Sendable {
     /// Indicates whether the query was processed successfully.
     public let status: Bool
-    /// Time at which the query was made (Format:YYYY-MM-DD HH:mm:ss).
-    public let queryTime: Date
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String
     /// Queried domain.
     public let domainName: String
     /// Indicates whether the domain is registered.
@@ -17,7 +17,7 @@ public struct DomainDnsLookupResponse: Codable, Hashable, Sendable {
 
     public init(
         status: Bool,
-        queryTime: Date,
+        queryTime: String,
         domainName: String,
         domainRegistered: Bool,
         dnsTypes: DomainDnsLookupResponseDnsTypes,
@@ -36,7 +36,7 @@ public struct DomainDnsLookupResponse: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.status = try container.decode(Bool.self, forKey: .status)
-        self.queryTime = try container.decode(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decode(String.self, forKey: .queryTime)
         self.domainName = try container.decode(String.self, forKey: .domainName)
         self.domainRegistered = try container.decode(Bool.self, forKey: .domainRegistered)
         self.dnsTypes = try container.decode(DomainDnsLookupResponseDnsTypes.self, forKey: .dnsTypes)

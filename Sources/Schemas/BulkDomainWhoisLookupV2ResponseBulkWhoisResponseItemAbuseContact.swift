@@ -9,7 +9,7 @@ public struct BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact: 
     /// Timestamp when the WHOIS query was executed.
     public let queryTime: String
     /// WHOIS or RDAP server that provided this record.
-    public let whoisServer: String
+    public let whoisServer: String?
     /// Domain registration status; 'restricted' means the registry withholds registration details.
     public let domainRegistered: BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactDomainRegistered
     /// Indicates if DNSSEC or secure DNS is enabled for the domain.
@@ -53,7 +53,7 @@ public struct BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact: 
         status: Bool,
         domainName: String,
         queryTime: String,
-        whoisServer: String,
+        whoisServer: String? = nil,
         domainRegistered: BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactDomainRegistered,
         secureDns: Bool? = nil,
         domainHandle: String? = nil,
@@ -104,7 +104,7 @@ public struct BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact: 
         self.status = try container.decode(Bool.self, forKey: .status)
         self.domainName = try container.decode(String.self, forKey: .domainName)
         self.queryTime = try container.decode(String.self, forKey: .queryTime)
-        self.whoisServer = try container.decode(String.self, forKey: .whoisServer)
+        self.whoisServer = try container.decodeIfPresent(String.self, forKey: .whoisServer)
         self.domainRegistered = try container.decode(BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContactDomainRegistered.self, forKey: .domainRegistered)
         self.secureDns = try container.decodeIfPresent(Bool.self, forKey: .secureDns)
         self.domainHandle = try container.decodeIfPresent(String.self, forKey: .domainHandle)
@@ -132,7 +132,7 @@ public struct BulkDomainWhoisLookupV2ResponseBulkWhoisResponseItemAbuseContact: 
         try container.encode(self.status, forKey: .status)
         try container.encode(self.domainName, forKey: .domainName)
         try container.encode(self.queryTime, forKey: .queryTime)
-        try container.encode(self.whoisServer, forKey: .whoisServer)
+        try container.encodeIfPresent(self.whoisServer, forKey: .whoisServer)
         try container.encode(self.domainRegistered, forKey: .domainRegistered)
         try container.encodeIfPresent(self.secureDns, forKey: .secureDns)
         try container.encodeIfPresent(self.domainHandle, forKey: .domainHandle)

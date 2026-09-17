@@ -1,16 +1,19 @@
 import Foundation
 
-public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier: Codable, Hashable, Sendable {
+/// Policy qualifier details
+public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier: Codable, Hashable, Sendable {
+    /// Object identifier
     public let oid: String?
+    /// URI of the CPS
     public let cpsUri: String?
-    public let userNotice: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice?
+    public let userNotice: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         oid: String? = nil,
         cpsUri: String? = nil,
-        userNotice: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice? = nil,
+        userNotice: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.oid = oid
@@ -23,7 +26,7 @@ public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertifica
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.oid = try container.decodeIfPresent(String.self, forKey: .oid)
         self.cpsUri = try container.decodeIfPresent(String.self, forKey: .cpsUri)
-        self.userNotice = try container.decodeIfPresent(DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice.self, forKey: .userNotice)
+        self.userNotice = try container.decodeIfPresent(DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice.self, forKey: .userNotice)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

@@ -3,7 +3,8 @@ import Foundation
 public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItem: Codable, Hashable, Sendable {
     public let status: Bool?
     public let domainName: String?
-    public let queryTime: Date?
+    /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String?
     public let whoisServer: String?
     public let domainRegistered: BulkDomainWhoisLookupResponseBulkWhoisResponseItemDomainRegistered?
     public let createDate: CalendarDate?
@@ -25,7 +26,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItem: Codable, Hasha
     public init(
         status: Bool? = nil,
         domainName: String? = nil,
-        queryTime: Date? = nil,
+        queryTime: String? = nil,
         whoisServer: String? = nil,
         domainRegistered: BulkDomainWhoisLookupResponseBulkWhoisResponseItemDomainRegistered? = nil,
         createDate: CalendarDate? = nil,
@@ -68,7 +69,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItem: Codable, Hasha
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.status = try container.decodeIfPresent(Bool.self, forKey: .status)
         self.domainName = try container.decodeIfPresent(String.self, forKey: .domainName)
-        self.queryTime = try container.decodeIfPresent(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decodeIfPresent(String.self, forKey: .queryTime)
         self.whoisServer = try container.decodeIfPresent(String.self, forKey: .whoisServer)
         self.domainRegistered = try container.decodeIfPresent(BulkDomainWhoisLookupResponseBulkWhoisResponseItemDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)

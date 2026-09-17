@@ -2,7 +2,8 @@ import Foundation
 
 public struct DomainSslLookupResponse: Codable, Hashable, Sendable {
     public let domainName: String
-    public let queryTime: Date
+    /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String
     public let sslCertificates: [DomainSslLookupResponseSslCertificatesItem]
     public let sslRaw: String?
     /// Additional properties that are not explicitly defined in the schema
@@ -10,7 +11,7 @@ public struct DomainSslLookupResponse: Codable, Hashable, Sendable {
 
     public init(
         domainName: String,
-        queryTime: Date,
+        queryTime: String,
         sslCertificates: [DomainSslLookupResponseSslCertificatesItem],
         sslRaw: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
@@ -25,7 +26,7 @@ public struct DomainSslLookupResponse: Codable, Hashable, Sendable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.queryTime = try container.decode(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decode(String.self, forKey: .queryTime)
         self.sslCertificates = try container.decode([DomainSslLookupResponseSslCertificatesItem].self, forKey: .sslCertificates)
         self.sslRaw = try container.decodeIfPresent(String.self, forKey: .sslRaw)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)

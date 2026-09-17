@@ -1,8 +1,8 @@
 import Foundation
 
 public struct AirQualityResponseForecastValueHourlyItem: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp
-    public let timestamp: Date?
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String?
     /// Concentration of particulate matter ≤10 micrometers (μg/m³)
     public let pm10: Double?
     /// Concentration of carbon monoxide (μg/m³)
@@ -29,7 +29,7 @@ public struct AirQualityResponseForecastValueHourlyItem: Codable, Hashable, Send
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date? = nil,
+        timestamp: String? = nil,
         pm10: Double? = nil,
         carbonMonoxide: Double? = nil,
         pm25: Double? = nil,
@@ -60,7 +60,7 @@ public struct AirQualityResponseForecastValueHourlyItem: Codable, Hashable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decodeIfPresent(String.self, forKey: .timestamp)
         self.pm10 = try container.decodeIfPresent(Double.self, forKey: .pm10)
         self.carbonMonoxide = try container.decodeIfPresent(Double.self, forKey: .carbonMonoxide)
         self.pm25 = try container.decodeIfPresent(Double.self, forKey: .pm25)

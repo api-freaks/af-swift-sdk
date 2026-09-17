@@ -7,9 +7,9 @@ public struct TimezoneLookupV2ResponseAirportDetails: Codable, Hashable, Sendabl
     /// The full name of the airport.
     public let name: String?
     /// The latitude coordinate of the airport.
-    public let latitude: Float?
+    public let latitude: String?
     /// The longitude coordinate of the airport.
-    public let longitude: Float?
+    public let longitude: String?
     /// The elevation of the airport above sea level, measured in feet.
     public let elevationFt: Int?
     /// The two-letter code of the continent.
@@ -32,8 +32,8 @@ public struct TimezoneLookupV2ResponseAirportDetails: Codable, Hashable, Sendabl
     public init(
         type: String? = nil,
         name: String? = nil,
-        latitude: Float? = nil,
-        longitude: Float? = nil,
+        latitude: String? = nil,
+        longitude: String? = nil,
         elevationFt: Int? = nil,
         continentCode: String? = nil,
         countryCode: String? = nil,
@@ -63,8 +63,8 @@ public struct TimezoneLookupV2ResponseAirportDetails: Codable, Hashable, Sendabl
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
         self.name = try container.decodeIfPresent(String.self, forKey: .name)
-        self.latitude = try container.decodeIfPresent(Float.self, forKey: .latitude)
-        self.longitude = try container.decodeIfPresent(Float.self, forKey: .longitude)
+        self.latitude = try container.decodeIfPresent(String.self, forKey: .latitude)
+        self.longitude = try container.decodeIfPresent(String.self, forKey: .longitude)
         self.elevationFt = try container.decodeIfPresent(Int.self, forKey: .elevationFt)
         self.continentCode = try container.decodeIfPresent(String.self, forKey: .continentCode)
         self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)

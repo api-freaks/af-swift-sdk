@@ -7,8 +7,8 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
     public let status: Bool
     /// Domain name which was queried.
     public let domainName: String
-    /// The timestamp when the query was made.
-    public let queryTime: Date
+    /// The timestamp when the query was made (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String
     /// The WHOIS server that provided the domain information.
     public let whoisServer: String
     /// Domain registration status.
@@ -36,7 +36,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
         num: Int,
         status: Bool,
         domainName: String,
-        queryTime: Date,
+        queryTime: String,
         whoisServer: String,
         domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered,
         createDate: CalendarDate? = nil,
@@ -81,7 +81,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
         self.num = try container.decode(Int.self, forKey: .num)
         self.status = try container.decode(Bool.self, forKey: .status)
         self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.queryTime = try container.decode(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decode(String.self, forKey: .queryTime)
         self.whoisServer = try container.decode(String.self, forKey: .whoisServer)
         self.domainRegistered = try container.decode(DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)

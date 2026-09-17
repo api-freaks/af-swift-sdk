@@ -1,10 +1,10 @@
 import Foundation
 
 public struct TimezoneConvertResponse: Codable, Hashable, Sendable {
-    /// Original time before conversion
-    public let originalTime: Date
-    /// Time after conversion
-    public let convertedTime: Date
+    /// Original time before conversion (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let originalTime: String
+    /// Time after conversion (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let convertedTime: String
     /// Difference in hours
     public let diffHour: Float
     /// Difference in minutes
@@ -13,8 +13,8 @@ public struct TimezoneConvertResponse: Codable, Hashable, Sendable {
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        originalTime: Date,
-        convertedTime: Date,
+        originalTime: String,
+        convertedTime: String,
         diffHour: Float,
         diffMin: Float,
         additionalProperties: [String: JSONValue] = .init()
@@ -28,8 +28,8 @@ public struct TimezoneConvertResponse: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.originalTime = try container.decode(Date.self, forKey: .originalTime)
-        self.convertedTime = try container.decode(Date.self, forKey: .convertedTime)
+        self.originalTime = try container.decode(String.self, forKey: .originalTime)
+        self.convertedTime = try container.decode(String.self, forKey: .convertedTime)
         self.diffHour = try container.decode(Float.self, forKey: .diffHour)
         self.diffMin = try container.decode(Float.self, forKey: .diffMin)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)

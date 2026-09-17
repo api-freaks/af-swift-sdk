@@ -1,14 +1,15 @@
 import Foundation
 
-public struct DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNotice: Codable, Hashable, Sendable {
+public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNotice: Codable, Hashable, Sendable {
+    /// Explicit text notice
     public let explicitText: String?
-    public let noticeRef: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef?
+    public let noticeRef: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         explicitText: String? = nil,
-        noticeRef: DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef? = nil,
+        noticeRef: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.explicitText = explicitText
@@ -19,7 +20,7 @@ public struct DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePol
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.explicitText = try container.decodeIfPresent(String.self, forKey: .explicitText)
-        self.noticeRef = try container.decodeIfPresent(DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef.self, forKey: .noticeRef)
+        self.noticeRef = try container.decodeIfPresent(DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef.self, forKey: .noticeRef)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

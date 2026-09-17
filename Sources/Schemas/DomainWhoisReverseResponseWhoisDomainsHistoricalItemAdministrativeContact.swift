@@ -4,7 +4,8 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     public let num: Int
     public let status: Bool
     public let domainName: String
-    public let queryTime: Date
+    /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String
     public let whoisServer: String
     public let domainRegistered: DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered
     public let createDate: CalendarDate?
@@ -27,7 +28,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         num: Int,
         status: Bool,
         domainName: String,
-        queryTime: Date,
+        queryTime: String,
         whoisServer: String,
         domainRegistered: DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered,
         createDate: CalendarDate? = nil,
@@ -72,7 +73,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         self.num = try container.decode(Int.self, forKey: .num)
         self.status = try container.decode(Bool.self, forKey: .status)
         self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.queryTime = try container.decode(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decode(String.self, forKey: .queryTime)
         self.whoisServer = try container.decode(String.self, forKey: .whoisServer)
         self.domainRegistered = try container.decode(DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)

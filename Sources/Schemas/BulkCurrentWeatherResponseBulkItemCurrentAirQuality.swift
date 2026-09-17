@@ -2,8 +2,8 @@ import Foundation
 
 /// Air quality metrics including pollutant concentrations and AQI values.
 public struct BulkCurrentWeatherResponseBulkItemCurrentAirQuality: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp (iso8601).
-    public let timestamp: Date
+    /// Local timestamp of the observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String
     /// Consolidated European Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-20 (good), 20-40 (fair), 40-60 (moderate), 60-80 (poor), 80-100 (very poor), >100 (extremely poor).
     public let europeanAqi: Int
     /// Consolidated U.S. Air Quality Index representing the highest value among individual pollutant indices. Ranges: 0-50 (good), 51-100 (moderate), 101-150 (unhealthy for sensitive groups), 151-200 (unhealthy), 201-300 (very unhealthy), 301-500 (hazardous).
@@ -32,7 +32,7 @@ public struct BulkCurrentWeatherResponseBulkItemCurrentAirQuality: Codable, Hash
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date,
+        timestamp: String,
         europeanAqi: Int,
         usAqi: Int,
         pm10: Float,
@@ -65,7 +65,7 @@ public struct BulkCurrentWeatherResponseBulkItemCurrentAirQuality: Codable, Hash
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decode(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decode(String.self, forKey: .timestamp)
         self.europeanAqi = try container.decode(Int.self, forKey: .europeanAqi)
         self.usAqi = try container.decode(Int.self, forKey: .usAqi)
         self.pm10 = try container.decode(Float.self, forKey: .pm10)

@@ -1,7 +1,9 @@
 import Foundation
 
-public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifierUserNoticeNoticeRef: Codable, Hashable, Sendable {
+public struct DomainSslLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifierUserNoticeNoticeRef: Codable, Hashable, Sendable {
+    /// Organization providing the notice
     public let organization: String?
+    /// Notice numbers
     public let noticeNumbers: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

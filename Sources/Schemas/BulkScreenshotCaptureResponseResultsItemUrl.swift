@@ -11,8 +11,8 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
     public let omitBackground: Bool?
     public let destroyScreenshot: Bool?
     public let failOnError: Bool?
-    public let longitude: Double?
-    public let latitude: Double?
+    public let longitude: String?
+    public let latitude: String?
     public let proxy: String?
     public let noCookieBanners: Bool?
     public let blockAds: Bool?
@@ -85,8 +85,8 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         omitBackground: Bool? = nil,
         destroyScreenshot: Bool? = nil,
         failOnError: Bool? = nil,
-        longitude: Double? = nil,
-        latitude: Double? = nil,
+        longitude: String? = nil,
+        latitude: String? = nil,
         proxy: String? = nil,
         noCookieBanners: Bool? = nil,
         blockAds: Bool? = nil,
@@ -232,8 +232,8 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         self.omitBackground = try container.decodeIfPresent(Bool.self, forKey: .omitBackground)
         self.destroyScreenshot = try container.decodeIfPresent(Bool.self, forKey: .destroyScreenshot)
         self.failOnError = try container.decodeIfPresent(Bool.self, forKey: .failOnError)
-        self.longitude = try container.decodeIfPresent(Double.self, forKey: .longitude)
-        self.latitude = try container.decodeIfPresent(Double.self, forKey: .latitude)
+        self.longitude = try container.decodeIfPresent(String.self, forKey: .longitude)
+        self.latitude = try container.decodeIfPresent(String.self, forKey: .latitude)
         self.proxy = try container.decodeIfPresent(String.self, forKey: .proxy)
         self.noCookieBanners = try container.decodeIfPresent(Bool.self, forKey: .noCookieBanners)
         self.blockAds = try container.decodeIfPresent(Bool.self, forKey: .blockAds)

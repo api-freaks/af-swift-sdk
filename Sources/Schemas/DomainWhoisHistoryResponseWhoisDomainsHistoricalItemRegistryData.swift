@@ -2,7 +2,8 @@ import Foundation
 
 public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: Codable, Hashable, Sendable {
     public let domainName: String?
-    public let queryTime: Date?
+    /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String?
     public let whoisServer: String?
     public let domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistered?
     public let createDate: CalendarDate?
@@ -17,7 +18,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
 
     public init(
         domainName: String? = nil,
-        queryTime: Date? = nil,
+        queryTime: String? = nil,
         whoisServer: String? = nil,
         domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistered? = nil,
         createDate: CalendarDate? = nil,
@@ -46,7 +47,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.domainName = try container.decodeIfPresent(String.self, forKey: .domainName)
-        self.queryTime = try container.decodeIfPresent(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decodeIfPresent(String.self, forKey: .queryTime)
         self.whoisServer = try container.decodeIfPresent(String.self, forKey: .whoisServer)
         self.domainRegistered = try container.decodeIfPresent(DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)

@@ -2,8 +2,8 @@ import Foundation
 
 /// Daily flood forecast data for the date.
 public struct FloodForecastResponseForecastValueDaily: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp
-    public let timestamp: Date?
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String?
     /// The observed river discharge value (m³/s)
     public let riverDischarge: Double?
     /// The mean river discharge (m³/s)
@@ -22,7 +22,7 @@ public struct FloodForecastResponseForecastValueDaily: Codable, Hashable, Sendab
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date? = nil,
+        timestamp: String? = nil,
         riverDischarge: Double? = nil,
         riverDischargeMean: Double? = nil,
         riverDischargeMedian: Double? = nil,
@@ -45,7 +45,7 @@ public struct FloodForecastResponseForecastValueDaily: Codable, Hashable, Sendab
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decodeIfPresent(String.self, forKey: .timestamp)
         self.riverDischarge = try container.decodeIfPresent(Double.self, forKey: .riverDischarge)
         self.riverDischargeMean = try container.decodeIfPresent(Double.self, forKey: .riverDischargeMean)
         self.riverDischargeMedian = try container.decodeIfPresent(Double.self, forKey: .riverDischargeMedian)

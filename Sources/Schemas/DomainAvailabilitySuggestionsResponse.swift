@@ -1,32 +1,32 @@
 import Foundation
 
-public struct DomainAvailabilitySuggestionsResponse: Codable, Hashable, Sendable {
-    public let domainAvailableResponse: [DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem]?
-    /// Additional properties that are not explicitly defined in the schema
-    public let additionalProperties: [String: JSONValue]
-
-    public init(
-        domainAvailableResponse: [DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem]? = nil,
-        additionalProperties: [String: JSONValue] = .init()
-    ) {
-        self.domainAvailableResponse = domainAvailableResponse
-        self.additionalProperties = additionalProperties
-    }
+public enum DomainAvailabilitySuggestionsResponse: Codable, Hashable, Sendable {
+    /// Returned when `sug=false` — availability for the queried domain only, no suggestions.
+    case domainAvailabilitySuggestionsResponseDomain(DomainAvailabilitySuggestionsResponseDomain)
+    /// Returned when `sug` is omitted or `true` — the queried domain plus suggested alternatives.
+    case domainAvailabilitySuggestionsResponseDomainAvailableResponse(DomainAvailabilitySuggestionsResponseDomainAvailableResponse)
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.domainAvailableResponse = try container.decodeIfPresent([DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem].self, forKey: .domainAvailableResponse)
-        self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
+        let container = try decoder.singleValueContainer()
+        if let value = try? container.decode(DomainAvailabilitySuggestionsResponseDomain.self) {
+            self = .domainAvailabilitySuggestionsResponseDomain(value)
+        } else if let value = try? container.decode(DomainAvailabilitySuggestionsResponseDomainAvailableResponse.self) {
+            self = .domainAvailabilitySuggestionsResponseDomainAvailableResponse(value)
+        } else {
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Unexpected value."
+            )
+        }
     }
 
     public func encode(to encoder: Encoder) throws -> Void {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encodeIfPresent(self.domainAvailableResponse, forKey: .domainAvailableResponse)
-    }
-
-    /// Keys for encoding/decoding struct properties.
-    enum CodingKeys: String, CodingKey, CaseIterable {
-        case domainAvailableResponse = "domain_available_response"
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .domainAvailabilitySuggestionsResponseDomain(let value):
+            try container.encode(value)
+        case .domainAvailabilitySuggestionsResponseDomainAvailableResponse(let value):
+            try container.encode(value)
+        }
     }
 }

@@ -1,14 +1,16 @@
 import Foundation
 
-public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePolicies: Codable, Hashable, Sendable {
+public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItem: Codable, Hashable, Sendable {
+    /// Policy identifier
     public let policyId: String
-    public let policyQualifier: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier?
+    /// Policy qualifier details
+    public let policyQualifier: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         policyId: String,
-        policyQualifier: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier? = nil,
+        policyQualifier: DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.policyId = policyId
@@ -19,7 +21,7 @@ public struct DomainSslChainLookupResponseSslCertificatesItemExtensionsCertifica
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.policyId = try container.decode(String.self, forKey: .policyId)
-        self.policyQualifier = try container.decodeIfPresent(DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesPolicyQualifier.self, forKey: .policyQualifier)
+        self.policyQualifier = try container.decodeIfPresent(DomainSslChainLookupResponseSslCertificatesItemExtensionsCertificatePoliciesItemPolicyQualifier.self, forKey: .policyQualifier)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

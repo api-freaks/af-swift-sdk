@@ -1,6 +1,6 @@
 import Foundation
 
-public struct DomainAvailabilitySuggestionsResponseDomainAvailableResponseItem: Codable, Hashable, Sendable {
+public struct DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem: Codable, Hashable, Sendable {
     public let domain: String?
     public let domainAvailability: Bool?
     /// Extra details if the domain is not registered.

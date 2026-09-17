@@ -1,39 +1,39 @@
 import Foundation
 
-public struct ZipcodeDistanceResponse: Codable, Hashable, Sendable {
-    /// Number of distance results returned (may be less than the number of requested compare codes).
-    public let resultCount: Int?
-    public let results: [ZipcodeDistanceResponseResultsItem]?
+/// Returned when `sug=false` — availability for the queried domain only, no suggestions.
+public struct DomainAvailabilitySuggestionsResponseDomain: Codable, Hashable, Sendable {
+    public let domain: String?
+    public let domainAvailability: Bool?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        resultCount: Int? = nil,
-        results: [ZipcodeDistanceResponseResultsItem]? = nil,
+        domain: String? = nil,
+        domainAvailability: Bool? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
-        self.resultCount = resultCount
-        self.results = results
+        self.domain = domain
+        self.domainAvailability = domainAvailability
         self.additionalProperties = additionalProperties
     }
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.resultCount = try container.decodeIfPresent(Int.self, forKey: .resultCount)
-        self.results = try container.decodeIfPresent([ZipcodeDistanceResponseResultsItem].self, forKey: .results)
+        self.domain = try container.decodeIfPresent(String.self, forKey: .domain)
+        self.domainAvailability = try container.decodeIfPresent(Bool.self, forKey: .domainAvailability)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encodeIfPresent(self.resultCount, forKey: .resultCount)
-        try container.encodeIfPresent(self.results, forKey: .results)
+        try container.encodeIfPresent(self.domain, forKey: .domain)
+        try container.encodeIfPresent(self.domainAvailability, forKey: .domainAvailability)
     }
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case resultCount = "result_count"
-        case results
+        case domain
+        case domainAvailability
     }
 }

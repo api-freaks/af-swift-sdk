@@ -4,8 +4,8 @@ import Foundation
 public struct DomainWhoisLookupV2ResponseRegistryData: Codable, Hashable, Sendable {
     /// Domain name as recorded by the registry.
     public let domainName: String?
-    /// Timestamp when the registry-level record was queried.
-    public let queryTime: Date?
+    /// Timestamp when the registry-level record was queried (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
+    public let queryTime: String?
     /// Registry WHOIS server that returned this data.
     public let whoisServer: String?
     /// Domain registration status as recorded by the registry.
@@ -29,7 +29,7 @@ public struct DomainWhoisLookupV2ResponseRegistryData: Codable, Hashable, Sendab
 
     public init(
         domainName: String? = nil,
-        queryTime: Date? = nil,
+        queryTime: String? = nil,
         whoisServer: String? = nil,
         domainRegistered: DomainWhoisLookupV2ResponseRegistryDataDomainRegistered? = nil,
         createDate: CalendarDate? = nil,
@@ -58,7 +58,7 @@ public struct DomainWhoisLookupV2ResponseRegistryData: Codable, Hashable, Sendab
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.domainName = try container.decodeIfPresent(String.self, forKey: .domainName)
-        self.queryTime = try container.decodeIfPresent(Date.self, forKey: .queryTime)
+        self.queryTime = try container.decodeIfPresent(String.self, forKey: .queryTime)
         self.whoisServer = try container.decodeIfPresent(String.self, forKey: .whoisServer)
         self.domainRegistered = try container.decodeIfPresent(DomainWhoisLookupV2ResponseRegistryDataDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)

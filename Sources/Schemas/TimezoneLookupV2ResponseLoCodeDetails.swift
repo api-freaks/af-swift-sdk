@@ -15,9 +15,9 @@ public struct TimezoneLookupV2ResponseLoCodeDetails: Codable, Hashable, Sendable
     /// The type of location as comma-separated list of facilities (e.g., Port, Rail Terminal, Road Terminal, Airport).
     public let locationType: String?
     /// The latitude coordinate of the location.
-    public let latitude: Float?
+    public let latitude: String?
     /// The longitude coordinate of the location.
-    public let longitude: Float?
+    public let longitude: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -28,8 +28,8 @@ public struct TimezoneLookupV2ResponseLoCodeDetails: Codable, Hashable, Sendable
         countryCode: String? = nil,
         countryName: String? = nil,
         locationType: String? = nil,
-        latitude: Float? = nil,
-        longitude: Float? = nil,
+        latitude: String? = nil,
+        longitude: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.loCode = loCode
@@ -51,8 +51,8 @@ public struct TimezoneLookupV2ResponseLoCodeDetails: Codable, Hashable, Sendable
         self.countryCode = try container.decodeIfPresent(String.self, forKey: .countryCode)
         self.countryName = try container.decodeIfPresent(String.self, forKey: .countryName)
         self.locationType = try container.decodeIfPresent(String.self, forKey: .locationType)
-        self.latitude = try container.decodeIfPresent(Float.self, forKey: .latitude)
-        self.longitude = try container.decodeIfPresent(Float.self, forKey: .longitude)
+        self.latitude = try container.decodeIfPresent(String.self, forKey: .latitude)
+        self.longitude = try container.decodeIfPresent(String.self, forKey: .longitude)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

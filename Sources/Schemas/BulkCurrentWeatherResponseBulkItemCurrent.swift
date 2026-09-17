@@ -2,8 +2,8 @@ import Foundation
 
 /// Current weather data
 public struct BulkCurrentWeatherResponseBulkItemCurrent: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp of the current weather observation.
-    public let timestamp: Date
+    /// Local timestamp of the current weather observation (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String
     /// Current air temperature (°C) measured at 2 meters above ground.
     public let temperature2M: Float
     /// Current relative humidity percentage at 2 meters above ground.
@@ -40,7 +40,7 @@ public struct BulkCurrentWeatherResponseBulkItemCurrent: Codable, Hashable, Send
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date,
+        timestamp: String,
         temperature2M: Float,
         relativeHumidity2M: Float,
         apparentTemperature: Float,
@@ -81,7 +81,7 @@ public struct BulkCurrentWeatherResponseBulkItemCurrent: Codable, Hashable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decode(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decode(String.self, forKey: .timestamp)
         self.temperature2M = try container.decode(Float.self, forKey: .temperature2M)
         self.relativeHumidity2M = try container.decode(Float.self, forKey: .relativeHumidity2M)
         self.apparentTemperature = try container.decode(Float.self, forKey: .apparentTemperature)

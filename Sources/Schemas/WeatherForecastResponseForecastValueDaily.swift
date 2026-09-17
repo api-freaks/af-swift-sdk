@@ -2,8 +2,8 @@ import Foundation
 
 /// Daily forecast data
 public struct WeatherForecastResponseForecastValueDaily: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp
-    public let timestamp: Date?
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String?
     /// Weather condition code
     public let weatherCode: Int?
     /// Maximum air temperature at 2m (°C)
@@ -74,7 +74,7 @@ public struct WeatherForecastResponseForecastValueDaily: Codable, Hashable, Send
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date? = nil,
+        timestamp: String? = nil,
         weatherCode: Int? = nil,
         temperature2MMax: Double? = nil,
         temperature2MMin: Double? = nil,
@@ -149,7 +149,7 @@ public struct WeatherForecastResponseForecastValueDaily: Codable, Hashable, Send
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decodeIfPresent(String.self, forKey: .timestamp)
         self.weatherCode = try container.decodeIfPresent(Int.self, forKey: .weatherCode)
         self.temperature2MMax = try container.decodeIfPresent(Double.self, forKey: .temperature2MMax)
         self.temperature2MMin = try container.decodeIfPresent(Double.self, forKey: .temperature2MMin)

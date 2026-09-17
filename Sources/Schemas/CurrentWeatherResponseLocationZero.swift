@@ -2,9 +2,9 @@ import Foundation
 
 public struct CurrentWeatherResponseLocationZero: Codable, Hashable, Sendable {
     /// Geographic latitude coordinate in decimal degrees, ranging from -90 (South Pole) to +90 (North Pole).
-    public let latitude: Float
+    public let latitude: String
     /// Geographic longitude coordinate in decimal degrees, ranging from -180 (West) to +180 (East).
-    public let longitude: Float
+    public let longitude: String
     /// Full name of the country corresponding to the provided coordinates.
     public let countryName: String
     /// State, province, or primary administrative division name for the location.
@@ -14,7 +14,7 @@ public struct CurrentWeatherResponseLocationZero: Codable, Hashable, Sendable {
     /// Specific locality, neighborhood, district, or village name within the broader area.
     public let locality: String?
     /// Height above mean sea level in meters for the specified coordinates.
-    public let elevation: Float?
+    public let elevation: String?
     /// IANA timezone database identifier for the location (e.g., America/New_York, Europe/London).
     public let timezone: String
     /// Abbreviated timezone representation based on current offset (e.g., EST, GMT, PST).
@@ -23,13 +23,13 @@ public struct CurrentWeatherResponseLocationZero: Codable, Hashable, Sendable {
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        latitude: Float,
-        longitude: Float,
+        latitude: String,
+        longitude: String,
         countryName: String,
         stateProv: String,
         city: String,
         locality: String? = nil,
-        elevation: Float? = nil,
+        elevation: String? = nil,
         timezone: String,
         timezoneAbbreviation: String,
         additionalProperties: [String: JSONValue] = .init()
@@ -48,13 +48,13 @@ public struct CurrentWeatherResponseLocationZero: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.latitude = try container.decode(Float.self, forKey: .latitude)
-        self.longitude = try container.decode(Float.self, forKey: .longitude)
+        self.latitude = try container.decode(String.self, forKey: .latitude)
+        self.longitude = try container.decode(String.self, forKey: .longitude)
         self.countryName = try container.decode(String.self, forKey: .countryName)
         self.stateProv = try container.decode(String.self, forKey: .stateProv)
         self.city = try container.decode(String.self, forKey: .city)
         self.locality = try container.decodeIfPresent(String.self, forKey: .locality)
-        self.elevation = try container.decodeIfPresent(Float.self, forKey: .elevation)
+        self.elevation = try container.decodeIfPresent(String.self, forKey: .elevation)
         self.timezone = try container.decode(String.self, forKey: .timezone)
         self.timezoneAbbreviation = try container.decode(String.self, forKey: .timezoneAbbreviation)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)

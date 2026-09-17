@@ -2,8 +2,8 @@ import Foundation
 
 /// Current marine data
 public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
-    /// ISO 8601 formatted timestamp
-    public let timestamp: Date?
+    /// Local timestamp of this reading (format YYYY-MM-DDTHH:mm, not ISO 8601).
+    public let timestamp: String?
     /// Significant height of combined sea waves (m)
     public let waveHeight: Double?
     /// Direction from which the combined waves are coming (°)
@@ -34,7 +34,7 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        timestamp: Date? = nil,
+        timestamp: String? = nil,
         waveHeight: Double? = nil,
         waveDirection: Double? = nil,
         wavePeriod: Double? = nil,
@@ -69,7 +69,7 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.timestamp = try container.decodeIfPresent(Date.self, forKey: .timestamp)
+        self.timestamp = try container.decodeIfPresent(String.self, forKey: .timestamp)
         self.waveHeight = try container.decodeIfPresent(Double.self, forKey: .waveHeight)
         self.waveDirection = try container.decodeIfPresent(Double.self, forKey: .waveDirection)
         self.wavePeriod = try container.decodeIfPresent(Double.self, forKey: .wavePeriod)

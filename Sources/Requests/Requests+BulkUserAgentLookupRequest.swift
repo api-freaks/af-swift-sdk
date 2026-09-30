@@ -2,7 +2,7 @@ import Foundation
 
 extension Requests {
     public struct BulkUserAgentLookupRequest: Codable, Hashable, Sendable {
-        /// Array of User-Agent strings to parse. Maximum 100 strings per request — exceeding that returns a 413.
+        /// Array of User-Agent strings to parse. Maximum 20000 strings per request — exceeding that returns a 413.
         public let uaStrings: [String]
         /// Additional properties that are not explicitly defined in the schema
         public let additionalProperties: [String: JSONValue]

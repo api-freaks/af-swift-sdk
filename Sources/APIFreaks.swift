@@ -3185,7 +3185,7 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    /// Parse up to `100 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
+    /// Parse up to `20000 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response

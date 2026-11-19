@@ -12,6 +12,10 @@ public struct IpWhoisLookupResponse: Codable, Hashable, Sendable {
     public let abuseContacts: [IpWhoisLookupResponseAbuseContactsItem]?
     public let administrativeContacts: [IpWhoisLookupResponseAdministrativeContactsItem]?
     public let whoisRawResponse: String?
+    /// BGP route objects announced by this IP's network.
+    public let routes: [IpWhoisLookupResponseRoutesItem]?
+    /// WHOIS response from the rwhois server, if available.
+    public let rWhoisRawResponse: Nullable<String>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -27,6 +31,8 @@ public struct IpWhoisLookupResponse: Codable, Hashable, Sendable {
         abuseContacts: [IpWhoisLookupResponseAbuseContactsItem]? = nil,
         administrativeContacts: [IpWhoisLookupResponseAdministrativeContactsItem]? = nil,
         whoisRawResponse: String? = nil,
+        routes: [IpWhoisLookupResponseRoutesItem]? = nil,
+        rWhoisRawResponse: Nullable<String>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.status = status
@@ -40,6 +46,8 @@ public struct IpWhoisLookupResponse: Codable, Hashable, Sendable {
         self.abuseContacts = abuseContacts
         self.administrativeContacts = administrativeContacts
         self.whoisRawResponse = whoisRawResponse
+        self.routes = routes
+        self.rWhoisRawResponse = rWhoisRawResponse
         self.additionalProperties = additionalProperties
     }
 
@@ -56,6 +64,8 @@ public struct IpWhoisLookupResponse: Codable, Hashable, Sendable {
         self.abuseContacts = try container.decodeIfPresent([IpWhoisLookupResponseAbuseContactsItem].self, forKey: .abuseContacts)
         self.administrativeContacts = try container.decodeIfPresent([IpWhoisLookupResponseAdministrativeContactsItem].self, forKey: .administrativeContacts)
         self.whoisRawResponse = try container.decodeIfPresent(String.self, forKey: .whoisRawResponse)
+        self.routes = try container.decodeIfPresent([IpWhoisLookupResponseRoutesItem].self, forKey: .routes)
+        self.rWhoisRawResponse = try container.decodeNullableIfPresent(String.self, forKey: .rWhoisRawResponse)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -73,6 +83,8 @@ public struct IpWhoisLookupResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.abuseContacts, forKey: .abuseContacts)
         try container.encodeIfPresent(self.administrativeContacts, forKey: .administrativeContacts)
         try container.encodeIfPresent(self.whoisRawResponse, forKey: .whoisRawResponse)
+        try container.encodeIfPresent(self.routes, forKey: .routes)
+        try container.encodeNullableIfPresent(self.rWhoisRawResponse, forKey: .rWhoisRawResponse)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -88,5 +100,7 @@ public struct IpWhoisLookupResponse: Codable, Hashable, Sendable {
         case abuseContacts = "abuse_contacts"
         case administrativeContacts = "administrative_contacts"
         case whoisRawResponse = "whois_raw_response"
+        case routes
+        case rWhoisRawResponse = "r_whois_raw_response"
     }
 }

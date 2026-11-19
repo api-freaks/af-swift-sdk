@@ -12,6 +12,8 @@ enum QueryParameter {
     case date(Foundation.Date)
     case calendarDate(CalendarDate)
     case stringArray([Swift.String])
+    /// Array sent as repeated keys (`key=a&key=b`), for `explode: true` params.
+    case repeatedStringArray([Swift.String])
     case uuid(Foundation.UUID)
     case unknown(Any)
 
@@ -38,6 +40,8 @@ enum QueryParameter {
         case .calendarDate(let value):
             return value.description
         case .stringArray(let values):
+            return values.joined(separator: ",")
+        case .repeatedStringArray(let values):
             return values.joined(separator: ",")
         case .uuid(let value):
             return value.uuidString

@@ -13,7 +13,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAdmin: Cod
     public let minimum: Int
     public let refresh: Int
     public let retry: Int
-    public let serial: Int
+    public let serial: Int64
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -30,7 +30,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAdmin: Cod
         minimum: Int,
         refresh: Int,
         retry: Int,
-        serial: Int,
+        serial: Int64,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
@@ -63,7 +63,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsRecordsItemAdmin: Cod
         self.minimum = try container.decode(Int.self, forKey: .minimum)
         self.refresh = try container.decode(Int.self, forKey: .refresh)
         self.retry = try container.decode(Int.self, forKey: .retry)
-        self.serial = try container.decode(Int.self, forKey: .serial)
+        self.serial = try container.decode(Int64.self, forKey: .serial)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

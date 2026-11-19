@@ -4,7 +4,7 @@ public struct DomainDnsHistoryResponseHistoricalDnsRecordsItem: Codable, Hashabl
     /// Timestamp when the query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
     public let queryTime: String
     public let domainName: String
-    public let domainRegistered: Bool
+    public let domainRegistered: Bool?
     public let dnsTypes: DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsTypes
     public let dnsRecords: [DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItem]
     /// Additional properties that are not explicitly defined in the schema
@@ -13,7 +13,7 @@ public struct DomainDnsHistoryResponseHistoricalDnsRecordsItem: Codable, Hashabl
     public init(
         queryTime: String,
         domainName: String,
-        domainRegistered: Bool,
+        domainRegistered: Bool? = nil,
         dnsTypes: DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsTypes,
         dnsRecords: [DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItem],
         additionalProperties: [String: JSONValue] = .init()
@@ -30,7 +30,7 @@ public struct DomainDnsHistoryResponseHistoricalDnsRecordsItem: Codable, Hashabl
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.queryTime = try container.decode(String.self, forKey: .queryTime)
         self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.domainRegistered = try container.decode(Bool.self, forKey: .domainRegistered)
+        self.domainRegistered = try container.decodeIfPresent(Bool.self, forKey: .domainRegistered)
         self.dnsTypes = try container.decode(DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsTypes.self, forKey: .dnsTypes)
         self.dnsRecords = try container.decode([DomainDnsHistoryResponseHistoricalDnsRecordsItemDnsRecordsItem].self, forKey: .dnsRecords)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
@@ -41,7 +41,7 @@ public struct DomainDnsHistoryResponseHistoricalDnsRecordsItem: Codable, Hashabl
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.queryTime, forKey: .queryTime)
         try container.encode(self.domainName, forKey: .domainName)
-        try container.encode(self.domainRegistered, forKey: .domainRegistered)
+        try container.encodeIfPresent(self.domainRegistered, forKey: .domainRegistered)
         try container.encode(self.dnsTypes, forKey: .dnsTypes)
         try container.encode(self.dnsRecords, forKey: .dnsRecords)
     }

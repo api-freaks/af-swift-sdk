@@ -2,7 +2,7 @@ import Foundation
 
 /// Overall risk assessment for the domain.
 public struct DomainReputationResponseRiskCategory: Codable, Hashable, Sendable {
-    /// Final verdict of the risk assessment.
+    /// Final verdict of the risk assessment. `unknown` is returned when there is not enough data (e.g. the domain is not registered).
     public let verdict: DomainReputationResponseRiskCategoryVerdict
     /// Confidence score for the verdict (0-1).
     public let confidence: Float

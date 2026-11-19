@@ -5,16 +5,16 @@ public struct DomainReputationResponseEmailDeliverabilityAuthenticationSpf: Coda
     /// Indicates whether an SPF record was found.
     public let present: Bool
     /// SPF enforcement policy qualifier found in the record (e.g. ~all, -all).
-    public let policy: String
+    public let policy: Nullable<String>
     /// Raw SPF DNS TXT record string.
-    public let record: String
+    public let record: Nullable<String>
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         present: Bool,
-        policy: String,
-        record: String,
+        policy: Nullable<String>,
+        record: Nullable<String>,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.present = present
@@ -26,8 +26,8 @@ public struct DomainReputationResponseEmailDeliverabilityAuthenticationSpf: Coda
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.present = try container.decode(Bool.self, forKey: .present)
-        self.policy = try container.decode(String.self, forKey: .policy)
-        self.record = try container.decode(String.self, forKey: .record)
+        self.policy = try container.decode(Nullable<String>.self, forKey: .policy)
+        self.record = try container.decode(Nullable<String>.self, forKey: .record)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

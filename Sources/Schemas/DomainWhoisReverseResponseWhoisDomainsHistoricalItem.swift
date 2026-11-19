@@ -2,14 +2,14 @@ import Foundation
 
 public enum DomainWhoisReverseResponseWhoisDomainsHistoricalItem: Codable, Hashable, Sendable {
     case domainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact(DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact)
-    case domainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname(DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname)
+    case domainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyName(DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyName)
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if let value = try? container.decode(DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact.self) {
             self = .domainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact(value)
-        } else if let value = try? container.decode(DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname.self) {
-            self = .domainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname(value)
+        } else if let value = try? container.decode(DomainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyName.self) {
+            self = .domainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyName(value)
         } else {
             throw DecodingError.dataCorruptedError(
                 in: container,
@@ -23,7 +23,7 @@ public enum DomainWhoisReverseResponseWhoisDomainsHistoricalItem: Codable, Hasha
         switch self {
         case .domainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContact(let value):
             try container.encode(value)
-        case .domainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyname(let value):
+        case .domainWhoisReverseResponseWhoisDomainsHistoricalItemCompanyName(let value):
             try container.encode(value)
         }
     }

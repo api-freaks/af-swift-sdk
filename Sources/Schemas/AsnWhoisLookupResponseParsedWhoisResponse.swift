@@ -7,6 +7,12 @@ public struct AsnWhoisLookupResponseParsedWhoisResponse: Codable, Hashable, Send
     public let organization: AsnWhoisLookupResponseParsedWhoisResponseOrganization
     public let technicalContacts: [AsnWhoisLookupResponseParsedWhoisResponseTechnicalContactsItem]
     public let abuseContacts: [AsnWhoisLookupResponseParsedWhoisResponseAbuseContactsItem]
+    /// Timestamp when the WHOIS query was executed, in `YYYY-MM-DD HH:mm:ss` format — not ISO 8601 (no `T` separator, no milliseconds, no `Z`).
+    public let queryTime: String?
+    /// Raw referral WHOIS (rwhois) text, when the registry delegates to a referral server.
+    public let rWhoisRawResponse: String?
+    /// Unparsed raw WHOIS text, when returned separately from whoisResponse.
+    public let whoisRawResponse: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,6 +23,9 @@ public struct AsnWhoisLookupResponseParsedWhoisResponse: Codable, Hashable, Send
         organization: AsnWhoisLookupResponseParsedWhoisResponseOrganization,
         technicalContacts: [AsnWhoisLookupResponseParsedWhoisResponseTechnicalContactsItem],
         abuseContacts: [AsnWhoisLookupResponseParsedWhoisResponseAbuseContactsItem],
+        queryTime: String? = nil,
+        rWhoisRawResponse: String? = nil,
+        whoisRawResponse: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.status = status
@@ -25,6 +34,9 @@ public struct AsnWhoisLookupResponseParsedWhoisResponse: Codable, Hashable, Send
         self.organization = organization
         self.technicalContacts = technicalContacts
         self.abuseContacts = abuseContacts
+        self.queryTime = queryTime
+        self.rWhoisRawResponse = rWhoisRawResponse
+        self.whoisRawResponse = whoisRawResponse
         self.additionalProperties = additionalProperties
     }
 
@@ -36,6 +48,9 @@ public struct AsnWhoisLookupResponseParsedWhoisResponse: Codable, Hashable, Send
         self.organization = try container.decode(AsnWhoisLookupResponseParsedWhoisResponseOrganization.self, forKey: .organization)
         self.technicalContacts = try container.decode([AsnWhoisLookupResponseParsedWhoisResponseTechnicalContactsItem].self, forKey: .technicalContacts)
         self.abuseContacts = try container.decode([AsnWhoisLookupResponseParsedWhoisResponseAbuseContactsItem].self, forKey: .abuseContacts)
+        self.queryTime = try container.decodeIfPresent(String.self, forKey: .queryTime)
+        self.rWhoisRawResponse = try container.decodeIfPresent(String.self, forKey: .rWhoisRawResponse)
+        self.whoisRawResponse = try container.decodeIfPresent(String.self, forKey: .whoisRawResponse)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -48,6 +63,9 @@ public struct AsnWhoisLookupResponseParsedWhoisResponse: Codable, Hashable, Send
         try container.encode(self.organization, forKey: .organization)
         try container.encode(self.technicalContacts, forKey: .technicalContacts)
         try container.encode(self.abuseContacts, forKey: .abuseContacts)
+        try container.encodeIfPresent(self.queryTime, forKey: .queryTime)
+        try container.encodeIfPresent(self.rWhoisRawResponse, forKey: .rWhoisRawResponse)
+        try container.encodeIfPresent(self.whoisRawResponse, forKey: .whoisRawResponse)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -58,5 +76,8 @@ public struct AsnWhoisLookupResponseParsedWhoisResponse: Codable, Hashable, Send
         case organization
         case technicalContacts = "technical_contacts"
         case abuseContacts = "abuse_contacts"
+        case queryTime = "query_time"
+        case rWhoisRawResponse = "r_whois_raw_response"
+        case whoisRawResponse = "whois_raw_response"
     }
 }

@@ -25,6 +25,10 @@ public struct TimezoneLookupResponseTimeZone: Codable, Hashable, Sendable {
     public let dstExists: Bool
     public let dstStart: TimezoneLookupResponseTimeZoneDstStart?
     public let dstEnd: TimezoneLookupResponseTimeZoneDstEnd?
+    /// Abbreviation of the DST time zone. Always present as a key; holds an empty string when dst_exists is false.
+    public let dstTzAbbreviation: String?
+    /// Full name of the DST time zone. Always present as a key; holds an empty string when dst_exists is false.
+    public let dstTzFullName: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -53,6 +57,8 @@ public struct TimezoneLookupResponseTimeZone: Codable, Hashable, Sendable {
         dstExists: Bool,
         dstStart: TimezoneLookupResponseTimeZoneDstStart? = nil,
         dstEnd: TimezoneLookupResponseTimeZoneDstEnd? = nil,
+        dstTzAbbreviation: String? = nil,
+        dstTzFullName: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
@@ -79,6 +85,8 @@ public struct TimezoneLookupResponseTimeZone: Codable, Hashable, Sendable {
         self.dstExists = dstExists
         self.dstStart = dstStart
         self.dstEnd = dstEnd
+        self.dstTzAbbreviation = dstTzAbbreviation
+        self.dstTzFullName = dstTzFullName
         self.additionalProperties = additionalProperties
     }
 
@@ -108,6 +116,8 @@ public struct TimezoneLookupResponseTimeZone: Codable, Hashable, Sendable {
         self.dstExists = try container.decode(Bool.self, forKey: .dstExists)
         self.dstStart = try container.decodeIfPresent(TimezoneLookupResponseTimeZoneDstStart.self, forKey: .dstStart)
         self.dstEnd = try container.decodeIfPresent(TimezoneLookupResponseTimeZoneDstEnd.self, forKey: .dstEnd)
+        self.dstTzAbbreviation = try container.decodeIfPresent(String.self, forKey: .dstTzAbbreviation)
+        self.dstTzFullName = try container.decodeIfPresent(String.self, forKey: .dstTzFullName)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -138,6 +148,8 @@ public struct TimezoneLookupResponseTimeZone: Codable, Hashable, Sendable {
         try container.encode(self.dstExists, forKey: .dstExists)
         try container.encodeIfPresent(self.dstStart, forKey: .dstStart)
         try container.encodeIfPresent(self.dstEnd, forKey: .dstEnd)
+        try container.encodeIfPresent(self.dstTzAbbreviation, forKey: .dstTzAbbreviation)
+        try container.encodeIfPresent(self.dstTzFullName, forKey: .dstTzFullName)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -166,5 +178,7 @@ public struct TimezoneLookupResponseTimeZone: Codable, Hashable, Sendable {
         case dstExists = "dst_exists"
         case dstStart = "dst_start"
         case dstEnd = "dst_end"
+        case dstTzAbbreviation = "dst_tz_abbreviation"
+        case dstTzFullName = "dst_tz_full_name"
     }
 }

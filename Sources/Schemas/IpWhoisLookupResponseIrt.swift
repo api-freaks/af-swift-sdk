@@ -27,6 +27,14 @@ public struct IpWhoisLookupResponseIrt: Codable, Hashable, Sendable {
     public let dateCreated: String?
     public let dateUpdated: String?
     public let source: String?
+    /// Abuse contacts linked to this IRT.
+    public let abuseContacts: Nullable<[IpWhoisLookupResponseIrtAbuseContactsItem]>?
+    /// Administrative contacts linked to this IRT.
+    public let administrativeContacts: Nullable<[IpWhoisLookupResponseIrtAdministrativeContactsItem]>?
+    /// Organization object containing the registrant's handle, name, address, contact details, and linked admin/tech/abuse contacts.
+    public let organization: IpWhoisLookupResponseIrtOrganization?
+    /// Technical contacts linked to this IRT.
+    public let technicalContacts: Nullable<[IpWhoisLookupResponseIrtTechnicalContactsItem]>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -57,6 +65,10 @@ public struct IpWhoisLookupResponseIrt: Codable, Hashable, Sendable {
         dateCreated: String? = nil,
         dateUpdated: String? = nil,
         source: String? = nil,
+        abuseContacts: Nullable<[IpWhoisLookupResponseIrtAbuseContactsItem]>? = nil,
+        administrativeContacts: Nullable<[IpWhoisLookupResponseIrtAdministrativeContactsItem]>? = nil,
+        organization: IpWhoisLookupResponseIrtOrganization? = nil,
+        technicalContacts: Nullable<[IpWhoisLookupResponseIrtTechnicalContactsItem]>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.handle = handle
@@ -85,6 +97,10 @@ public struct IpWhoisLookupResponseIrt: Codable, Hashable, Sendable {
         self.dateCreated = dateCreated
         self.dateUpdated = dateUpdated
         self.source = source
+        self.abuseContacts = abuseContacts
+        self.administrativeContacts = administrativeContacts
+        self.organization = organization
+        self.technicalContacts = technicalContacts
         self.additionalProperties = additionalProperties
     }
 
@@ -116,6 +132,10 @@ public struct IpWhoisLookupResponseIrt: Codable, Hashable, Sendable {
         self.dateCreated = try container.decodeIfPresent(String.self, forKey: .dateCreated)
         self.dateUpdated = try container.decodeIfPresent(String.self, forKey: .dateUpdated)
         self.source = try container.decodeIfPresent(String.self, forKey: .source)
+        self.abuseContacts = try container.decodeNullableIfPresent([IpWhoisLookupResponseIrtAbuseContactsItem].self, forKey: .abuseContacts)
+        self.administrativeContacts = try container.decodeNullableIfPresent([IpWhoisLookupResponseIrtAdministrativeContactsItem].self, forKey: .administrativeContacts)
+        self.organization = try container.decodeIfPresent(IpWhoisLookupResponseIrtOrganization.self, forKey: .organization)
+        self.technicalContacts = try container.decodeNullableIfPresent([IpWhoisLookupResponseIrtTechnicalContactsItem].self, forKey: .technicalContacts)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -148,6 +168,10 @@ public struct IpWhoisLookupResponseIrt: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.dateCreated, forKey: .dateCreated)
         try container.encodeIfPresent(self.dateUpdated, forKey: .dateUpdated)
         try container.encodeIfPresent(self.source, forKey: .source)
+        try container.encodeNullableIfPresent(self.abuseContacts, forKey: .abuseContacts)
+        try container.encodeNullableIfPresent(self.administrativeContacts, forKey: .administrativeContacts)
+        try container.encodeIfPresent(self.organization, forKey: .organization)
+        try container.encodeNullableIfPresent(self.technicalContacts, forKey: .technicalContacts)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -178,5 +202,9 @@ public struct IpWhoisLookupResponseIrt: Codable, Hashable, Sendable {
         case dateCreated = "date_created"
         case dateUpdated = "date_updated"
         case source
+        case abuseContacts = "abuse_contacts"
+        case administrativeContacts = "administrative_contacts"
+        case organization
+        case technicalContacts = "technical_contacts"
     }
 }

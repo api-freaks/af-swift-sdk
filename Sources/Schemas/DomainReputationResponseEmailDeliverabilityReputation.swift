@@ -5,7 +5,7 @@ public struct DomainReputationResponseEmailDeliverabilityReputation: Codable, Ha
     /// Indicates whether the domain appears on known spam blacklists.
     public let spamBlacklisted: Bool
     /// Indicates whether the domain was registered recently.
-    public let newlyRegistered: Bool
+    public let newlyRegistered: Nullable<Bool>
     /// Age of the domain in days since registration.
     public let domainAgeDays: Nullable<Int>?
     /// Additional properties that are not explicitly defined in the schema
@@ -13,7 +13,7 @@ public struct DomainReputationResponseEmailDeliverabilityReputation: Codable, Ha
 
     public init(
         spamBlacklisted: Bool,
-        newlyRegistered: Bool,
+        newlyRegistered: Nullable<Bool>,
         domainAgeDays: Nullable<Int>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -26,7 +26,7 @@ public struct DomainReputationResponseEmailDeliverabilityReputation: Codable, Ha
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.spamBlacklisted = try container.decode(Bool.self, forKey: .spamBlacklisted)
-        self.newlyRegistered = try container.decode(Bool.self, forKey: .newlyRegistered)
+        self.newlyRegistered = try container.decode(Nullable<Bool>.self, forKey: .newlyRegistered)
         self.domainAgeDays = try container.decodeNullableIfPresent(Int.self, forKey: .domainAgeDays)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }

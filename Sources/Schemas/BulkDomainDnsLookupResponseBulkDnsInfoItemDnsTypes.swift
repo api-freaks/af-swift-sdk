@@ -9,6 +9,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes: Codable, Hasha
     public let soa: Double?
     public let txt: Double?
     public let spf: Double?
+    public let ptr: Double?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -21,6 +22,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes: Codable, Hasha
         soa: Double? = nil,
         txt: Double? = nil,
         spf: Double? = nil,
+        ptr: Double? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.a = a
@@ -31,6 +33,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes: Codable, Hasha
         self.soa = soa
         self.txt = txt
         self.spf = spf
+        self.ptr = ptr
         self.additionalProperties = additionalProperties
     }
 
@@ -44,6 +47,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes: Codable, Hasha
         self.soa = try container.decodeIfPresent(Double.self, forKey: .soa)
         self.txt = try container.decodeIfPresent(Double.self, forKey: .txt)
         self.spf = try container.decodeIfPresent(Double.self, forKey: .spf)
+        self.ptr = try container.decodeIfPresent(Double.self, forKey: .ptr)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -58,6 +62,7 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes: Codable, Hasha
         try container.encodeIfPresent(self.soa, forKey: .soa)
         try container.encodeIfPresent(self.txt, forKey: .txt)
         try container.encodeIfPresent(self.spf, forKey: .spf)
+        try container.encodeIfPresent(self.ptr, forKey: .ptr)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -70,5 +75,6 @@ public struct BulkDomainDnsLookupResponseBulkDnsInfoItemDnsTypes: Codable, Hasha
         case soa = "SOA"
         case txt = "TXT"
         case spf = "SPF"
+        case ptr = "PTR"
     }
 }

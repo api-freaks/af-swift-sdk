@@ -4,7 +4,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
     public let screenshot: String
     public let url: String
     public let createdAt: String
-    public let format: String
+    public let format: String?
     public let ttl: String
     public let fileType: String?
     public let extractedHtml: String?
@@ -70,7 +70,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
     public let scrollBack: Bool?
     public let startImmediately: Bool?
     public let clip: [String: JSONValue]?
-    public let sizes: [[String: JSONValue]]?
+    public let sizes: Nullable<[[String: JSONValue]]>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -78,7 +78,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         screenshot: String,
         url: String,
         createdAt: String,
-        format: String,
+        format: String? = nil,
         ttl: String,
         fileType: String? = nil,
         extractedHtml: String? = nil,
@@ -144,7 +144,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         scrollBack: Bool? = nil,
         startImmediately: Bool? = nil,
         clip: [String: JSONValue]? = nil,
-        sizes: [[String: JSONValue]]? = nil,
+        sizes: Nullable<[[String: JSONValue]]>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.screenshot = screenshot
@@ -225,7 +225,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         self.screenshot = try container.decode(String.self, forKey: .screenshot)
         self.url = try container.decode(String.self, forKey: .url)
         self.createdAt = try container.decode(String.self, forKey: .createdAt)
-        self.format = try container.decode(String.self, forKey: .format)
+        self.format = try container.decodeIfPresent(String.self, forKey: .format)
         self.ttl = try container.decode(String.self, forKey: .ttl)
         self.fileType = try container.decodeIfPresent(String.self, forKey: .fileType)
         self.extractedHtml = try container.decodeIfPresent(String.self, forKey: .extractedHtml)
@@ -291,7 +291,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         self.scrollBack = try container.decodeIfPresent(Bool.self, forKey: .scrollBack)
         self.startImmediately = try container.decodeIfPresent(Bool.self, forKey: .startImmediately)
         self.clip = try container.decodeIfPresent([String: JSONValue].self, forKey: .clip)
-        self.sizes = try container.decodeIfPresent([[String: JSONValue]].self, forKey: .sizes)
+        self.sizes = try container.decodeNullableIfPresent([[String: JSONValue]].self, forKey: .sizes)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -301,7 +301,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         try container.encode(self.screenshot, forKey: .screenshot)
         try container.encode(self.url, forKey: .url)
         try container.encode(self.createdAt, forKey: .createdAt)
-        try container.encode(self.format, forKey: .format)
+        try container.encodeIfPresent(self.format, forKey: .format)
         try container.encode(self.ttl, forKey: .ttl)
         try container.encodeIfPresent(self.fileType, forKey: .fileType)
         try container.encodeIfPresent(self.extractedHtml, forKey: .extractedHtml)
@@ -367,7 +367,7 @@ public struct BulkScreenshotCaptureResponseResultsItemUrl: Codable, Hashable, Se
         try container.encodeIfPresent(self.scrollBack, forKey: .scrollBack)
         try container.encodeIfPresent(self.startImmediately, forKey: .startImmediately)
         try container.encodeIfPresent(self.clip, forKey: .clip)
-        try container.encodeIfPresent(self.sizes, forKey: .sizes)
+        try container.encodeNullableIfPresent(self.sizes, forKey: .sizes)
     }
 
     /// Keys for encoding/decoding struct properties.

@@ -13,6 +13,10 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     public let phone: String?
     public let fax: String?
     public let mailingAddress: String?
+    /// Registry handle for the contact, when published.
+    public let handle: Nullable<String>?
+    /// Contact identifier.
+    public let id: Nullable<String>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -29,6 +33,8 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         phone: String? = nil,
         fax: String? = nil,
         mailingAddress: String? = nil,
+        handle: Nullable<String>? = nil,
+        id: Nullable<String>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.name = name
@@ -43,6 +49,8 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         self.phone = phone
         self.fax = fax
         self.mailingAddress = mailingAddress
+        self.handle = handle
+        self.id = id
         self.additionalProperties = additionalProperties
     }
 
@@ -60,6 +68,8 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         self.phone = try container.decodeIfPresent(String.self, forKey: .phone)
         self.fax = try container.decodeIfPresent(String.self, forKey: .fax)
         self.mailingAddress = try container.decodeIfPresent(String.self, forKey: .mailingAddress)
+        self.handle = try container.decodeNullableIfPresent(String.self, forKey: .handle)
+        self.id = try container.decodeNullableIfPresent(String.self, forKey: .id)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -78,6 +88,8 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         try container.encodeIfPresent(self.phone, forKey: .phone)
         try container.encodeIfPresent(self.fax, forKey: .fax)
         try container.encodeIfPresent(self.mailingAddress, forKey: .mailingAddress)
+        try container.encodeNullableIfPresent(self.handle, forKey: .handle)
+        try container.encodeNullableIfPresent(self.id, forKey: .id)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -94,5 +106,7 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         case phone
         case fax
         case mailingAddress = "mailing_address"
+        case handle
+        case id
     }
 }

@@ -7,15 +7,15 @@ public struct DomainReputationResponseTrustSignalsIndicators: Codable, Hashable,
     /// Indicates whether the domain uses a free TLD extension.
     public let usesFreeExtension: Bool?
     /// Indicates whether the domain uses a free SSL certificate.
-    public let usesFreeSsl: Bool?
+    public let usesFreeSsl: Nullable<Bool>?
     /// Indicates whether WHOIS privacy protection is enabled. null when WHOIS data is unavailable.
     public let hasPrivacyWhois: Nullable<Bool>?
     /// Age of the SSL certificate in days.
     public let sslAgeDays: Nullable<Int>?
     /// Indicates whether a DMARC record exists.
-    public let hasDmarc: Bool?
+    public let hasDmarc: Nullable<Bool>?
     /// Indicates whether an SPF record exists.
-    public let hasSpf: Bool?
+    public let hasSpf: Nullable<Bool>?
     /// Indicates whether the domain redirects to an external site.
     public let redirectsExternally: Bool?
     /// Indicates whether obfuscated JavaScript was detected.
@@ -30,11 +30,11 @@ public struct DomainReputationResponseTrustSignalsIndicators: Codable, Hashable,
     public init(
         isNewlyRegistered: Nullable<Bool>? = nil,
         usesFreeExtension: Bool? = nil,
-        usesFreeSsl: Bool? = nil,
+        usesFreeSsl: Nullable<Bool>? = nil,
         hasPrivacyWhois: Nullable<Bool>? = nil,
         sslAgeDays: Nullable<Int>? = nil,
-        hasDmarc: Bool? = nil,
-        hasSpf: Bool? = nil,
+        hasDmarc: Nullable<Bool>? = nil,
+        hasSpf: Nullable<Bool>? = nil,
         redirectsExternally: Bool? = nil,
         javascriptObfuscated: Bool? = nil,
         domainAgeDays: Nullable<Int>? = nil,
@@ -59,11 +59,11 @@ public struct DomainReputationResponseTrustSignalsIndicators: Codable, Hashable,
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.isNewlyRegistered = try container.decodeNullableIfPresent(Bool.self, forKey: .isNewlyRegistered)
         self.usesFreeExtension = try container.decodeIfPresent(Bool.self, forKey: .usesFreeExtension)
-        self.usesFreeSsl = try container.decodeIfPresent(Bool.self, forKey: .usesFreeSsl)
+        self.usesFreeSsl = try container.decodeNullableIfPresent(Bool.self, forKey: .usesFreeSsl)
         self.hasPrivacyWhois = try container.decodeNullableIfPresent(Bool.self, forKey: .hasPrivacyWhois)
         self.sslAgeDays = try container.decodeNullableIfPresent(Int.self, forKey: .sslAgeDays)
-        self.hasDmarc = try container.decodeIfPresent(Bool.self, forKey: .hasDmarc)
-        self.hasSpf = try container.decodeIfPresent(Bool.self, forKey: .hasSpf)
+        self.hasDmarc = try container.decodeNullableIfPresent(Bool.self, forKey: .hasDmarc)
+        self.hasSpf = try container.decodeNullableIfPresent(Bool.self, forKey: .hasSpf)
         self.redirectsExternally = try container.decodeIfPresent(Bool.self, forKey: .redirectsExternally)
         self.javascriptObfuscated = try container.decodeIfPresent(Bool.self, forKey: .javascriptObfuscated)
         self.domainAgeDays = try container.decodeNullableIfPresent(Int.self, forKey: .domainAgeDays)
@@ -76,11 +76,11 @@ public struct DomainReputationResponseTrustSignalsIndicators: Codable, Hashable,
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encodeNullableIfPresent(self.isNewlyRegistered, forKey: .isNewlyRegistered)
         try container.encodeIfPresent(self.usesFreeExtension, forKey: .usesFreeExtension)
-        try container.encodeIfPresent(self.usesFreeSsl, forKey: .usesFreeSsl)
+        try container.encodeNullableIfPresent(self.usesFreeSsl, forKey: .usesFreeSsl)
         try container.encodeNullableIfPresent(self.hasPrivacyWhois, forKey: .hasPrivacyWhois)
         try container.encodeNullableIfPresent(self.sslAgeDays, forKey: .sslAgeDays)
-        try container.encodeIfPresent(self.hasDmarc, forKey: .hasDmarc)
-        try container.encodeIfPresent(self.hasSpf, forKey: .hasSpf)
+        try container.encodeNullableIfPresent(self.hasDmarc, forKey: .hasDmarc)
+        try container.encodeNullableIfPresent(self.hasSpf, forKey: .hasSpf)
         try container.encodeIfPresent(self.redirectsExternally, forKey: .redirectsExternally)
         try container.encodeIfPresent(self.javascriptObfuscated, forKey: .javascriptObfuscated)
         try container.encodeNullableIfPresent(self.domainAgeDays, forKey: .domainAgeDays)

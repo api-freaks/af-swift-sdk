@@ -6,8 +6,8 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
     /// The current status of the task (e.g., 'queued', 'processing', 'completed', 'failed').
     public let status: String
     /// The timestamp when the task status was created, formatted as 'yyyy-MM-dd HH:mm:ss'.
-    public let createdAt: Date
-    /// The URL to download all output files as a single ZIP archive. This is present only when the task status is 'COMPLETED'.
+    public let createdAt: String
+    /// Deprecated: the API returns this field as `zipFileUrl`; read `zipFileUrl` instead.
     public let zipOutputUrl: String?
     /// The unique identifier for the ZIP file. This is present only when the task status is 'COMPLETED'.
     public let zipFileId: String?
@@ -22,14 +22,16 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
     /// A descriptive message indicating the reason for task failure. This is included only if the task fails.
     public let message: String?
     /// The timestamp when the task status will expire and be removed from the system, formatted as 'yyyy-MM-dd HH:mm:ss'.
-    public let expiresAt: Date?
+    public let expiresAt: String?
+    /// URL to download all output files as a ZIP archive; present only on completed tasks.
+    public let zipFileUrl: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         taskId: String,
         status: String,
-        createdAt: Date,
+        createdAt: String,
         zipOutputUrl: String? = nil,
         zipFileId: String? = nil,
         outputUrls: [String]? = nil,
@@ -37,7 +39,8 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
         inputIds: [String]? = nil,
         error: String? = nil,
         message: String? = nil,
-        expiresAt: Date? = nil,
+        expiresAt: String? = nil,
+        zipFileUrl: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.taskId = taskId
@@ -51,6 +54,7 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
         self.error = error
         self.message = message
         self.expiresAt = expiresAt
+        self.zipFileUrl = zipFileUrl
         self.additionalProperties = additionalProperties
     }
 
@@ -58,7 +62,7 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.taskId = try container.decode(String.self, forKey: .taskId)
         self.status = try container.decode(String.self, forKey: .status)
-        self.createdAt = try container.decode(Date.self, forKey: .createdAt)
+        self.createdAt = try container.decode(String.self, forKey: .createdAt)
         self.zipOutputUrl = try container.decodeIfPresent(String.self, forKey: .zipOutputUrl)
         self.zipFileId = try container.decodeIfPresent(String.self, forKey: .zipFileId)
         self.outputUrls = try container.decodeIfPresent([String].self, forKey: .outputUrls)
@@ -66,7 +70,8 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
         self.inputIds = try container.decodeIfPresent([String].self, forKey: .inputIds)
         self.error = try container.decodeIfPresent(String.self, forKey: .error)
         self.message = try container.decodeIfPresent(String.self, forKey: .message)
-        self.expiresAt = try container.decodeIfPresent(Date.self, forKey: .expiresAt)
+        self.expiresAt = try container.decodeIfPresent(String.self, forKey: .expiresAt)
+        self.zipFileUrl = try container.decodeIfPresent(String.self, forKey: .zipFileUrl)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -84,6 +89,7 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.error, forKey: .error)
         try container.encodeIfPresent(self.message, forKey: .message)
         try container.encodeIfPresent(self.expiresAt, forKey: .expiresAt)
+        try container.encodeIfPresent(self.zipFileUrl, forKey: .zipFileUrl)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -99,5 +105,6 @@ public struct PdfGetTaskStatusResponse: Codable, Hashable, Sendable {
         case error
         case message
         case expiresAt
+        case zipFileUrl
     }
 }

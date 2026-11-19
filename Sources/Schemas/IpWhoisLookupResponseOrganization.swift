@@ -24,6 +24,20 @@ public struct IpWhoisLookupResponseOrganization: Codable, Hashable, Sendable {
     public let abuseContacts: [String]?
     public let languages: [String]?
     public let remarks: [String]?
+    /// Notify email addresses for this organization object.
+    public let notify: Nullable<[String]>?
+    /// Reference notification email addresses for this organization object.
+    public let refNfy: Nullable<[String]>?
+    /// Maintainer handles for this organization object.
+    public let mntBy: Nullable<[String]>?
+    /// Referenced maintainer handles for this organization object.
+    public let mntRef: Nullable<[String]>?
+    /// Registration date of this organization object (YYYY-MM-DD).
+    public let dateCreated: Nullable<CalendarDate>?
+    /// Last update date of this organization object (YYYY-MM-DD).
+    public let dateUpdated: Nullable<CalendarDate>?
+    /// WHOIS data source (RIR registry URL) for this object.
+    public let source: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -51,6 +65,13 @@ public struct IpWhoisLookupResponseOrganization: Codable, Hashable, Sendable {
         abuseContacts: [String]? = nil,
         languages: [String]? = nil,
         remarks: [String]? = nil,
+        notify: Nullable<[String]>? = nil,
+        refNfy: Nullable<[String]>? = nil,
+        mntBy: Nullable<[String]>? = nil,
+        mntRef: Nullable<[String]>? = nil,
+        dateCreated: Nullable<CalendarDate>? = nil,
+        dateUpdated: Nullable<CalendarDate>? = nil,
+        source: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.handle = handle
@@ -76,6 +97,13 @@ public struct IpWhoisLookupResponseOrganization: Codable, Hashable, Sendable {
         self.abuseContacts = abuseContacts
         self.languages = languages
         self.remarks = remarks
+        self.notify = notify
+        self.refNfy = refNfy
+        self.mntBy = mntBy
+        self.mntRef = mntRef
+        self.dateCreated = dateCreated
+        self.dateUpdated = dateUpdated
+        self.source = source
         self.additionalProperties = additionalProperties
     }
 
@@ -104,6 +132,13 @@ public struct IpWhoisLookupResponseOrganization: Codable, Hashable, Sendable {
         self.abuseContacts = try container.decodeIfPresent([String].self, forKey: .abuseContacts)
         self.languages = try container.decodeIfPresent([String].self, forKey: .languages)
         self.remarks = try container.decodeIfPresent([String].self, forKey: .remarks)
+        self.notify = try container.decodeNullableIfPresent([String].self, forKey: .notify)
+        self.refNfy = try container.decodeNullableIfPresent([String].self, forKey: .refNfy)
+        self.mntBy = try container.decodeNullableIfPresent([String].self, forKey: .mntBy)
+        self.mntRef = try container.decodeNullableIfPresent([String].self, forKey: .mntRef)
+        self.dateCreated = try container.decodeNullableIfPresent(CalendarDate.self, forKey: .dateCreated)
+        self.dateUpdated = try container.decodeNullableIfPresent(CalendarDate.self, forKey: .dateUpdated)
+        self.source = try container.decodeIfPresent(String.self, forKey: .source)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -133,6 +168,13 @@ public struct IpWhoisLookupResponseOrganization: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.abuseContacts, forKey: .abuseContacts)
         try container.encodeIfPresent(self.languages, forKey: .languages)
         try container.encodeIfPresent(self.remarks, forKey: .remarks)
+        try container.encodeNullableIfPresent(self.notify, forKey: .notify)
+        try container.encodeNullableIfPresent(self.refNfy, forKey: .refNfy)
+        try container.encodeNullableIfPresent(self.mntBy, forKey: .mntBy)
+        try container.encodeNullableIfPresent(self.mntRef, forKey: .mntRef)
+        try container.encodeNullableIfPresent(self.dateCreated, forKey: .dateCreated)
+        try container.encodeNullableIfPresent(self.dateUpdated, forKey: .dateUpdated)
+        try container.encodeIfPresent(self.source, forKey: .source)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -160,5 +202,12 @@ public struct IpWhoisLookupResponseOrganization: Codable, Hashable, Sendable {
         case abuseContacts = "abuse_contacts"
         case languages
         case remarks
+        case notify
+        case refNfy = "ref_nfy"
+        case mntBy = "mnt_by"
+        case mntRef = "mnt_ref"
+        case dateCreated = "date_created"
+        case dateUpdated = "date_updated"
+        case source
     }
 }

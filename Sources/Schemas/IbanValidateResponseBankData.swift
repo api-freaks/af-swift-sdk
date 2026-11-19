@@ -22,6 +22,12 @@ public struct IbanValidateResponseBankData: Codable, Hashable, Sendable {
     public let account: String?
     /// Indicates whether given IBAN country supports Single Euro Payments Area (SEPA)
     public let sepa: Bool
+    /// Name of the branch or office. Null when not resolvable.
+    public let branchName: Nullable<String>?
+    /// Type of institution: "FIIN" (financial institution) or "NFIN" (non-financial institution). Null when not resolvable.
+    public let institType: Nullable<String>?
+    /// Postal/ZIP code of the bank branch. Null when not resolvable.
+    public let postalCode: Nullable<String>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -36,6 +42,9 @@ public struct IbanValidateResponseBankData: Codable, Hashable, Sendable {
         address: String? = nil,
         account: String? = nil,
         sepa: Bool,
+        branchName: Nullable<String>? = nil,
+        institType: Nullable<String>? = nil,
+        postalCode: Nullable<String>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.bic = bic
@@ -48,6 +57,9 @@ public struct IbanValidateResponseBankData: Codable, Hashable, Sendable {
         self.address = address
         self.account = account
         self.sepa = sepa
+        self.branchName = branchName
+        self.institType = institType
+        self.postalCode = postalCode
         self.additionalProperties = additionalProperties
     }
 
@@ -63,6 +75,9 @@ public struct IbanValidateResponseBankData: Codable, Hashable, Sendable {
         self.address = try container.decodeIfPresent(String.self, forKey: .address)
         self.account = try container.decodeIfPresent(String.self, forKey: .account)
         self.sepa = try container.decode(Bool.self, forKey: .sepa)
+        self.branchName = try container.decodeNullableIfPresent(String.self, forKey: .branchName)
+        self.institType = try container.decodeNullableIfPresent(String.self, forKey: .institType)
+        self.postalCode = try container.decodeNullableIfPresent(String.self, forKey: .postalCode)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -79,6 +94,9 @@ public struct IbanValidateResponseBankData: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.address, forKey: .address)
         try container.encodeIfPresent(self.account, forKey: .account)
         try container.encode(self.sepa, forKey: .sepa)
+        try container.encodeNullableIfPresent(self.branchName, forKey: .branchName)
+        try container.encodeNullableIfPresent(self.institType, forKey: .institType)
+        try container.encodeNullableIfPresent(self.postalCode, forKey: .postalCode)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -93,5 +111,8 @@ public struct IbanValidateResponseBankData: Codable, Hashable, Sendable {
         case address
         case account
         case sepa
+        case branchName = "branch_name"
+        case institType = "instit_type"
+        case postalCode = "postal_code"
     }
 }

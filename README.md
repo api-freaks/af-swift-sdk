@@ -36,7 +36,7 @@ With Swift Package Manager (SPM), add the following to the top-level `dependenci
 
 ```swift
 dependencies: [
-    .package(url: "<git-url>", from: "1.0.2"),
+    .package(url: "https://github.com/api-freaks/af-swift-sdk", from: "1.2.0"),
 ]
 ```
 
@@ -65,6 +65,10 @@ private func main() async throws {
 
 try await main()
 ```
+
+> **Note:** `getCreditsUsage` requires an organization-admin API key; with any other key the API returns 403 (`APIFreaksError.httpError` with status 403).
+
+Array query parameters take Swift arrays, such as `type: ["A", "MX"]` or `symbols: ["XAU", "XAG"]`, and are sent as one comma-separated value (`type=A,MX`). The exception is `pdfMerge(fileId:)`, which sends one `file_id` key per ID (`file_id=a&file_id=b`), as the merge endpoint requires.
 
 ## Environments
 

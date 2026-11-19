@@ -30,6 +30,10 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
     public let oceanCurrentVelocity: Double?
     /// Direction of the ocean current (°)
     public let oceanCurrentDirection: Double?
+    /// Peak period of swell waves in seconds. Frequently null even at locations with other wave data present.
+    public let swellWavePeakPeriod: Nullable<Double>?
+    /// Peak period of locally generated wind waves in seconds. Frequently null even at locations with other wave data present.
+    public let windWavePeakPeriod: Nullable<Double>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -48,6 +52,8 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
         seaSurfaceTemperature: Double? = nil,
         oceanCurrentVelocity: Double? = nil,
         oceanCurrentDirection: Double? = nil,
+        swellWavePeakPeriod: Nullable<Double>? = nil,
+        windWavePeakPeriod: Nullable<Double>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.timestamp = timestamp
@@ -64,6 +70,8 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
         self.seaSurfaceTemperature = seaSurfaceTemperature
         self.oceanCurrentVelocity = oceanCurrentVelocity
         self.oceanCurrentDirection = oceanCurrentDirection
+        self.swellWavePeakPeriod = swellWavePeakPeriod
+        self.windWavePeakPeriod = windWavePeakPeriod
         self.additionalProperties = additionalProperties
     }
 
@@ -83,6 +91,8 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
         self.seaSurfaceTemperature = try container.decodeIfPresent(Double.self, forKey: .seaSurfaceTemperature)
         self.oceanCurrentVelocity = try container.decodeIfPresent(Double.self, forKey: .oceanCurrentVelocity)
         self.oceanCurrentDirection = try container.decodeIfPresent(Double.self, forKey: .oceanCurrentDirection)
+        self.swellWavePeakPeriod = try container.decodeNullableIfPresent(Double.self, forKey: .swellWavePeakPeriod)
+        self.windWavePeakPeriod = try container.decodeNullableIfPresent(Double.self, forKey: .windWavePeakPeriod)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -103,6 +113,8 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.seaSurfaceTemperature, forKey: .seaSurfaceTemperature)
         try container.encodeIfPresent(self.oceanCurrentVelocity, forKey: .oceanCurrentVelocity)
         try container.encodeIfPresent(self.oceanCurrentDirection, forKey: .oceanCurrentDirection)
+        try container.encodeNullableIfPresent(self.swellWavePeakPeriod, forKey: .swellWavePeakPeriod)
+        try container.encodeNullableIfPresent(self.windWavePeakPeriod, forKey: .windWavePeakPeriod)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -121,5 +133,7 @@ public struct MarineWeatherResponseCurrent: Codable, Hashable, Sendable {
         case seaSurfaceTemperature = "sea_surface_temperature"
         case oceanCurrentVelocity = "ocean_current_velocity"
         case oceanCurrentDirection = "ocean_current_direction"
+        case swellWavePeakPeriod = "swell_wave_peak_period"
+        case windWavePeakPeriod = "wind_wave_peak_period"
     }
 }

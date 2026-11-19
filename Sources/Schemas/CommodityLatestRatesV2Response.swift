@@ -11,6 +11,8 @@ public struct CommodityLatestRatesV2Response: Codable, Hashable, Sendable {
     public let metadata: [String: CommodityLatestRatesV2ResponseMetadataValue]
     /// Present only when currency conversion for the requested `quote` is temporarily unavailable; rates are returned in each commodity's default currency instead.
     public let warning: String?
+    /// Present only on a 206 Partial Content response, when some requested symbols could not be resolved. Map of each unresolved symbol to a detail message and optional close-match suggestions.
+    public let unresolved: [String: CommodityLatestRatesV2ResponseUnresolvedValue]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -20,6 +22,7 @@ public struct CommodityLatestRatesV2Response: Codable, Hashable, Sendable {
         rates: [String: Double],
         metadata: [String: CommodityLatestRatesV2ResponseMetadataValue],
         warning: String? = nil,
+        unresolved: [String: CommodityLatestRatesV2ResponseUnresolvedValue]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.success = success
@@ -27,6 +30,7 @@ public struct CommodityLatestRatesV2Response: Codable, Hashable, Sendable {
         self.rates = rates
         self.metadata = metadata
         self.warning = warning
+        self.unresolved = unresolved
         self.additionalProperties = additionalProperties
     }
 
@@ -37,6 +41,7 @@ public struct CommodityLatestRatesV2Response: Codable, Hashable, Sendable {
         self.rates = try container.decode([String: Double].self, forKey: .rates)
         self.metadata = try container.decode([String: CommodityLatestRatesV2ResponseMetadataValue].self, forKey: .metadata)
         self.warning = try container.decodeIfPresent(String.self, forKey: .warning)
+        self.unresolved = try container.decodeIfPresent([String: CommodityLatestRatesV2ResponseUnresolvedValue].self, forKey: .unresolved)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -48,6 +53,7 @@ public struct CommodityLatestRatesV2Response: Codable, Hashable, Sendable {
         try container.encode(self.rates, forKey: .rates)
         try container.encode(self.metadata, forKey: .metadata)
         try container.encodeIfPresent(self.warning, forKey: .warning)
+        try container.encodeIfPresent(self.unresolved, forKey: .unresolved)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -57,5 +63,6 @@ public struct CommodityLatestRatesV2Response: Codable, Hashable, Sendable {
         case rates
         case metadata
         case warning
+        case unresolved
     }
 }

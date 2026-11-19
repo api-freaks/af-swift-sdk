@@ -118,125 +118,6 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">geolocationLookupV2</a>(apiKey: String, format: GeolocationLookupRequestFormat?, ip: String?, lang: GeolocationLookupRequestLang?, fields: String?, excludes: String?, include: String?, requestOptions: RequestOptions?) -> GeolocationLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information (v2.0 endpoint).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import APIFreaks
-
-private func main() async throws {
-    let client = APIFreaks()
-
-    _ = try await client.geolocationLookupV2(apiKey: "apiKey")
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**apiKey:** `String` — Your API key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**format:** `GeolocationLookupRequestFormat?` — Format of the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ip:** `String?` — IPv4, IPv6, or hostname for geolocation lookup
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lang:** `GeolocationLookupRequestLang?` — Response language for location fields
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fields:** `String?` — Comma separated list of fields to include in response
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**excludes:** `String?` — Comma separated list of fields to exclude from response
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include:** `String?` — Additional data to include (location, network, security, currency, time_zone, user_agent, country_metadata , hostname, liveHostname, hostnameFallbackLivet)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkGeolocationLookup</a>(apiKey: String, format: BulkGeolocationLookupRequestFormat?, lang: String?, fields: String?, excludes: String?, include: String?, request: Requests.BulkGeolocationLookupRequest, requestOptions: RequestOptions?) -> [BulkGeolocationLookupResponseItem]</code></summary>
 <dl>
 <dd>
@@ -272,131 +153,6 @@ private func main() async throws {
     let client = APIFreaks()
 
     _ = try await client.bulkGeolocationLookup(
-        apiKey: "apiKey",
-        request: .init(ips: [
-            "ips"
-        ])
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**apiKey:** `String` — Your API key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**format:** `BulkGeolocationLookupRequestFormat?` — Format of the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lang:** `String?` — Language of the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**fields:** `String?` — Comma-separated list of fields to include in the response. Can include "geo".
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**excludes:** `String?` — Comma-separated list of fields to exclude from the response (except "ip").
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**include:** `String?` — Comma-separated list of additional information to include in the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Requests.BulkGeolocationLookupRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkGeolocationLookupV2</a>(apiKey: String, format: BulkGeolocationLookupRequestFormat?, lang: String?, fields: String?, excludes: String?, include: String?, request: Requests.BulkGeolocationLookupRequest, requestOptions: RequestOptions?) -> [BulkGeolocationLookupResponseItem]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve detailed geolocation data for multiple IP addresses in a single request (v2.0 endpoint).
-Supports up to `50,000` IP-addresses/host-names per request.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import APIFreaks
-
-private func main() async throws {
-    let client = APIFreaks()
-
-    _ = try await client.bulkGeolocationLookupV2(
         apiKey: "apiKey",
         request: .init(ips: [
             "ips"
@@ -1035,98 +791,6 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainWhoisLookupV2</a>(apiKey: String, format: DomainWhoisLookupRequestFormat?, domainName: String, requestOptions: RequestOptions?) -> DomainWhoisLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve current WHOIS information for a domain name (v2.0 endpoint).
-This endpoint provides detailed registration information including registrar details,
-dates, nameservers, and registrant information.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import APIFreaks
-
-private func main() async throws {
-    let client = APIFreaks()
-
-    _ = try await client.domainWhoisLookupV2(
-        apiKey: "apiKey",
-        domainName: "domainName"
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**apiKey:** `String` — Your API key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**format:** `DomainWhoisLookupRequestFormat?` — Response format (defaults to json)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**domainName:** `String` — Domain name for WHOIS lookup
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainWhoisLookup</a>(apiKey: String, format: BulkDomainWhoisLookupRequestFormat?, request: Requests.BulkDomainWhoisLookupRequest, requestOptions: RequestOptions?) -> BulkDomainWhoisLookupResponse</code></summary>
 <dl>
 <dd>
@@ -1161,98 +825,6 @@ private func main() async throws {
     let client = APIFreaks()
 
     _ = try await client.bulkDomainWhoisLookup(
-        apiKey: "apiKey",
-        request: .init(domainNames: [
-            "domainNames"
-        ])
-    )
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**apiKey:** `String` — Your API key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**format:** `BulkDomainWhoisLookupRequestFormat?` — Format of the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Requests.BulkDomainWhoisLookupRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainWhoisLookupV2</a>(apiKey: String, format: BulkDomainWhoisLookupRequestFormat?, request: Requests.BulkDomainWhoisLookupRequest, requestOptions: RequestOptions?) -> BulkDomainWhoisLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve WHOIS information for `100 Domains per Request` (v2.0 endpoint).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import APIFreaks
-
-private func main() async throws {
-    let client = APIFreaks()
-
-    _ = try await client.bulkDomainWhoisLookupV2(
         apiKey: "apiKey",
         request: .init(domainNames: [
             "domainNames"
@@ -1717,7 +1289,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsLookup</a>(apiKey: String, format: DomainDnsLookupRequestFormat?, hostName: String?, ipAddress: String?, type: String, requestOptions: RequestOptions?) -> DomainDnsLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsLookup</a>(apiKey: String, format: DomainDnsLookupRequestFormat?, hostName: String?, ipAddress: String?, type: [String]?, requestOptions: RequestOptions?) -> DomainDnsLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -1752,7 +1324,9 @@ private func main() async throws {
 
     _ = try await client.domainDnsLookup(
         apiKey: "apiKey",
-        type: "type"
+        type: [
+            "type"
+        ]
     )
 }
 
@@ -1787,7 +1361,7 @@ try await main()
 <dl>
 <dd>
 
-**hostName:** `String?` — Hostname or URL whose DNS records are required.
+**hostName:** `String?` — Hostname or URL whose DNS records are required. Give either `host-name` or `ipAddress`.
     
 </dd>
 </dl>
@@ -1795,7 +1369,7 @@ try await main()
 <dl>
 <dd>
 
-**ipAddress:** `String?` — The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
+**ipAddress:** `String?` — The IP address whose PTR (reverse DNS) record is required. Give either `host-name` or `ipAddress`; with `ipAddress`, set `type` to `all` or `PTR`.
     
 </dd>
 </dl>
@@ -1803,7 +1377,7 @@ try await main()
 <dl>
 <dd>
 
-**type:** `String` — A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all". **Required**
+**type:** `[String]?` — DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, PTR, or all. When ipAddress is provided, use "all" or "PTR".
     
 </dd>
 </dl>
@@ -1823,7 +1397,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainDnsLookup</a>(apiKey: String, format: BulkDomainDnsLookupRequestFormat?, type: String, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions?) -> BulkDomainDnsLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainDnsLookup</a>(apiKey: String, format: BulkDomainDnsLookupRequestFormat?, type: [String]?, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions?) -> BulkDomainDnsLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -1859,7 +1433,9 @@ private func main() async throws {
 
     _ = try await client.bulkDomainDnsLookup(
         apiKey: "apiKey",
-        type: "type",
+        type: [
+            "type"
+        ],
         request: .init(domainNames: [
             "domainNames"
         ])
@@ -1897,10 +1473,7 @@ try await main()
 <dl>
 <dd>
 
-**type:** `String` 
-
-A comma-separated list of DNS record types for lookup.
-Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all **Required**
+**type:** `[String]?` — DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all.
     
 </dd>
 </dl>
@@ -1928,7 +1501,7 @@ Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all **Required**
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsHistory</a>(apiKey: String, format: DomainDnsHistoryRequestFormat?, hostName: String, type: String, page: Int?, requestOptions: RequestOptions?) -> DomainDnsHistoryResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainDnsHistory</a>(apiKey: String, format: DomainDnsHistoryRequestFormat?, hostName: String, type: [String]?, page: Int?, requestOptions: RequestOptions?) -> DomainDnsHistoryResponse</code></summary>
 <dl>
 <dd>
 
@@ -1965,7 +1538,9 @@ private func main() async throws {
     _ = try await client.domainDnsHistory(
         apiKey: "apiKey",
         hostName: "host-name",
-        type: "type"
+        type: [
+            "type"
+        ]
     )
 }
 
@@ -2008,10 +1583,7 @@ try await main()
 <dl>
 <dd>
 
-**type:** `String` 
-
-A comma-separated list of DNS record types for lookup.
-Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all **Required**
+**type:** `[String]?` — DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all.
     
 </dd>
 </dl>
@@ -2202,61 +1774,31 @@ private func main() async throws {
         url: "https://example.com",
         request: WebScrapeRequestBody.webScrapeRequestBodyBlockUrl(
             WebScrapeRequestBodyBlockUrl(
-                blockUrl: [
-                    "https://example.com/ads.js",
-                    "https://tracker.example.com/*"
-                ],
-                cookies: [
-                    WebScrapeRequestBodyBlockUrlCookiesItem(
-                        name: "sessionid",
-                        value: "abc123"
-                    ),
-                    WebScrapeRequestBodyBlockUrlCookiesItem(
-                        name: "user_pref",
-                        value: "darkmode"
-                    )
-                ],
                 instructions: [
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
-                            fill: WebScrapeRequestBodyBlockUrlInstructionsItemFillFill(
-                                place: "#username",
-                                value: "myuser"
-                            )
-                        )
-                    ),
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
-                            fill: WebScrapeRequestBodyBlockUrlInstructionsItemFillFill(
-                                place: "#password",
-                                value: "mypassword"
-                            )
-                        )
-                    ),
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
 
-                        )
                     ),
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
 
-                        )
                     ),
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
 
-                        )
                     ),
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
 
-                        )
                     ),
-                    WebScrapeRequestBodyBlockUrlInstructionsItem.webScrapeRequestBodyBlockUrlInstructionsItemFill(
-                        WebScrapeRequestBodyBlockUrlInstructionsItemFill(
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
+                        extract: [
+                            "profile": "#profile", 
+                            "welcomeMessage": "#welcome-message", 
+                            "userInfo": "#user-info"
+                        ]
+                    ),
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
 
-                        )
+                    ),
+                    WebScrapeRequestBodyBlockUrlInstructionsItem(
+
                     )
                 ]
             )
@@ -2324,7 +1866,7 @@ Set  `true` to handle websites with JavaScript. Set `false` to handle static htm
 <dl>
 <dd>
 
-**proxy:** `WebScrapeRequestProxy?` — Use proxy for requests
+**proxy:** `WebScrapeRequestProxy?` — Use a proxy for the request. Pass true/false to toggle the default proxy pool, or a proxy URL string to use a specific proxy.
     
 </dd>
 </dl>
@@ -2569,6 +2111,197 @@ try await main()
 <dd>
 
 **request:** `Requests.BulkEmailValidateRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">disposableEmailCheckV2</a>(apiKey: String, format: DisposableEmailCheckV2RequestFormat?, request: Requests.DisposableEmailCheckV2Request, requestOptions: RequestOptions?) -> DisposableEmailCheckV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validates email syntax and checks the domain for disposable, free, spam, and role-account signals, plus MX/A DNS records. Send the email (and optionally an ip) as a JSON request body. When an ip is included, the response also carries geolocation and security data for it.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.disposableEmailCheckV2(
+        apiKey: "apiKey",
+        request: .init(email: "test@sogetthis.com")
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `DisposableEmailCheckV2RequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.DisposableEmailCheckV2Request` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDisposableEmailCheckV2</a>(apiKey: String, format: BulkDisposableEmailCheckV2RequestFormat?, request: Requests.BulkDisposableEmailCheckV2Request, requestOptions: RequestOptions?) -> BulkDisposableEmailCheckV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Checks a bulk of email addresses (each with an optional ip) and returns a disposable email check result for each, in the same order as the request. Maximum `100` entries per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.bulkDisposableEmailCheckV2(
+        apiKey: "apiKey",
+        request: .init(emailData: [
+            BulkDisposableEmailCheckV2RequestEmailDataItem(
+                email: "abc"
+            ),
+            BulkDisposableEmailCheckV2RequestEmailDataItem(
+                email: "john@microsoft.com",
+                ip: "8.8.8.8"
+            ),
+            BulkDisposableEmailCheckV2RequestEmailDataItem(
+                email: "test@mailinator.com"
+            )
+        ])
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `BulkDisposableEmailCheckV2RequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.BulkDisposableEmailCheckV2Request` 
     
 </dd>
 </dl>
@@ -3260,7 +2993,7 @@ try await main()
 <dl>
 <dd>
 
-**count:** `Int?` — Number of suggestions to retrieve.
+**count:** `Int?` — Number of suggestions to retrieve. The API returns a minimum of 5 suggestions regardless of a lower value.
     
 </dd>
 </dl>
@@ -3268,7 +3001,7 @@ try await main()
 <dl>
 <dd>
 
-**sug:** `Bool?` — Whether to include name suggestions in the response.
+**sug:** `Bool?` — Controls the response shape. When `false`, returns a single availability object for the queried domain only. When omitted or `true`, returns an array of suggested domains instead.
     
 </dd>
 </dl>
@@ -3410,7 +3143,1535 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfMerge</a>(webhookAuthorization: String?, apiKey: String, format: PdfMergeRequestFormat?, fileId: String?, destroy: Bool?, output: String?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfMergeRequest, requestOptions: RequestOptions?) -> PdfMergeResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainTyposquatting</a>(apiKey: String, format: DomainTyposquattingRequestFormat?, keyword: String?, pattern: String?, pageToken: String?, requestOptions: RequestOptions?) -> DomainTyposquattingResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.domainTyposquatting(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `DomainTyposquattingRequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**keyword:** `String?` — Brand or label to find typo variants for. 3-63 characters, letters, digits, or hyphens, a single label with no dots. Case-insensitive. Use either keyword or pattern, never both.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pattern:** `String?` — Wildcard search string that combines fuzzy matching with * wildcards. 3-63 characters total, * is the only supported wildcard and each one matches zero or more characters, maximum 3 asterisks per request. Use either keyword or pattern, never both.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pageToken:** `String?` — Token from nextPageToken in the previous response. Required to retrieve page 2 and onward. The original keyword or pattern must be passed alongside the token on every page request. Results page at 100 domains per page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainReputation</a>(apiKey: String, format: DomainReputationRequestFormat?, domainName: String, requestOptions: RequestOptions?) -> DomainReputationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.domainReputation(
+        apiKey: "apiKey",
+        domainName: "domainName"
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `DomainReputationRequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainName:** `String` — The domain name to assess (e.g. example.com). Must contain at least one dot and be at most 253 characters. Automatically lowercased.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">astronomyLookupV2</a>(apiKey: String, format: AstronomyLookupV2RequestFormat?, location: String?, lat: Float?, long: Float?, ip: String?, lang: AstronomyLookupV2RequestLang?, date: CalendarDate?, elevation: Float?, timeZone: String?, requestOptions: RequestOptions?) -> AstronomyLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.astronomyLookupV2(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `AstronomyLookupV2RequestFormat?` — Format of the response. Can be "json" or "xml".
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `String?` — Extract astronomy information using location (preferably city)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lat:** `Float?` — Latitude to extract astronomy information using location coordinates
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**long:** `Float?` — Longitude to extract astronomy information using location coordinates
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `String?` — IPv4 or IPv6 address to extract astronomy information using IP address
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `AstronomyLookupV2RequestLang?` — Response language of "location" field in case of lookup through IP address only.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `CalendarDate?` — Specific date (format YYYY-MM-DD) for which astronomy data is required
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**elevation:** `Float?` — Elevation above sea level at the location, in meters. The value should be between 0 meter and a maximum value of 10,000 meters. Negative value is set to 0.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timeZone:** `String?` — Time zone to receive all time-based data in your preferred local time.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">timezoneLookupV2</a>(apiKey: String, format: TimezoneLookupV2RequestFormat?, ip: String?, tz: String?, location: String?, lat: Float?, long: Float?, lang: TimezoneLookupV2RequestLang?, iataCode: String?, icaoCode: String?, loCode: String?, requestOptions: RequestOptions?) -> TimezoneLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.timezoneLookupV2(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `TimezoneLookupV2RequestFormat?` — Format of the response. Possible values: json, xml.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `String?` — IPv4 or IPv6 address to extract timezone information.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**tz:** `String?` — Timezone name in IANA format (e.g., Asia/Kolkata) to retrieve information directly.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**location:** `String?` — Location string (preferably city and country) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lat:** `Float?` — Latitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**long:** `Float?` — Longitude for geolocation-based timezone lookup. Only time_zone is returned for this mode; no location object is included.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `TimezoneLookupV2RequestLang?` — Response language for location fields. Default: en.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**iataCode:** `String?` — 3-letter IATA airport code (e.g., LHR) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**icaoCode:** `String?` — 4-letter ICAO airport code (e.g., KJFK) to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loCode:** `String?` — 5-letter UN/LOCODE city code to extract timezone.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">geolocationLookupV2</a>(apiKey: String, format: GeolocationLookupV2RequestFormat?, ip: String?, lang: GeolocationLookupV2RequestLang?, fields: String?, excludes: String?, include: String?, requestOptions: RequestOptions?) -> GeolocationLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.geolocationLookupV2(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `GeolocationLookupV2RequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ip:** `String?` — IPv4, IPv6, or hostname for geolocation lookup.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `GeolocationLookupV2RequestLang?` — Response language for location fields. Default: en.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `String?` — Comma-separated list of fields to include in response. For example, `location` includes all location fields, `location.city` is a specific field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**excludes:** `String?` — Comma-separated list of fields to exclude from response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include:** `String?` — Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), hostnameFallbackLive (hostname with live fallback), user_agent (parse User-Agent header), abuse (abuse contact info), dma_code (DMA code), geo_accuracy (accuracy_radius, confidence, locality), * (all modules).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkGeolocationLookupV2</a>(apiKey: String, format: BulkGeolocationLookupV2RequestFormat?, lang: BulkGeolocationLookupV2RequestLang?, fields: String?, excludes: String?, include: String?, request: Requests.BulkGeolocationLookupV2Request, requestOptions: RequestOptions?) -> [BulkGeolocationLookupV2ResponseItem]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.bulkGeolocationLookupV2(
+        apiKey: "apiKey",
+        request: .init(ips: [
+            "ips"
+        ])
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `BulkGeolocationLookupV2RequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**lang:** `BulkGeolocationLookupV2RequestLang?` — Response language for location fields. Default: en.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `String?` — Comma-separated list of fields to include in the response. For example, `location` includes all location fields, `location.city` is a specific field.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**excludes:** `String?` — Comma-separated list of fields to exclude from response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**include:** `String?` — Comma-separated list of additional data modules to include. Possible values: security (threat intelligence), hostname (IP-Hostname lookup), liveHostname (live hostname lookup), user_agent (parse User-Agent header), abuse (abuse contact info), * (all modules).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.BulkGeolocationLookupV2Request` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">domainWhoisLookupV2</a>(apiKey: String, format: DomainWhoisLookupV2RequestFormat?, domainName: String, requestOptions: RequestOptions?) -> DomainWhoisLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.domainWhoisLookupV2(
+        apiKey: "apiKey",
+        domainName: "domainName"
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `DomainWhoisLookupV2RequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**domainName:** `String` — Domain name to retrieve WHOIS data for (e.g. example.com).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkDomainWhoisLookupV2</a>(apiKey: String, format: BulkDomainWhoisLookupV2RequestFormat?, request: Requests.BulkDomainWhoisLookupV2Request, requestOptions: RequestOptions?) -> BulkDomainWhoisLookupV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.bulkDomainWhoisLookupV2(
+        apiKey: "apiKey",
+        request: .init(domainNames: [
+            "domainNames"
+        ])
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `BulkDomainWhoisLookupV2RequestFormat?` — Format of the response.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.BulkDomainWhoisLookupV2Request` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityLatestRatesV2</a>(apiKey: String, format: CommodityLatestRatesV2RequestFormat?, symbols: [String]?, quote: String?, requestOptions: RequestOptions?) -> CommodityLatestRatesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.commodityLatestRatesV2(
+        apiKey: "apiKey",
+        symbols: [
+            "symbols"
+        ]
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `CommodityLatestRatesV2RequestFormat?` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `[String]?` — Comma-separated list of commodity symbols (e.g., XAU, WTIOIL-SPOT). Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**quote:** `String?` — Target currency for the exchange rate. If omitted (or set to `default`), the default quote currency of each commodity is used. Requires a premium plan; ignored on lower-tier plans.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityHistoricalRatesV2</a>(apiKey: String, format: CommodityHistoricalRatesV2RequestFormat?, symbols: [String]?, date: CalendarDate, requestOptions: RequestOptions?) -> CommodityHistoricalRatesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.commodityHistoricalRatesV2(
+        apiKey: "apiKey",
+        symbols: [
+            "symbols"
+        ],
+        date: CalendarDate("2023-01-15")!
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `CommodityHistoricalRatesV2RequestFormat?` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `[String]?` — Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `CalendarDate` — Date in YYYY-MM-DD format. Data available from 1990 onwards.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityFluctuationV2</a>(apiKey: String, format: CommodityFluctuationV2RequestFormat?, symbols: [String]?, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityFluctuationV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.commodityFluctuationV2(
+        apiKey: "apiKey",
+        symbols: [
+            "symbols"
+        ],
+        startDate: CalendarDate("2023-01-15")!,
+        endDate: CalendarDate("2023-01-15")!
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `CommodityFluctuationV2RequestFormat?` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `[String]?` — Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startDate:** `CalendarDate` — Start date (YYYY-MM-DD)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endDate:** `CalendarDate` — End date (YYYY-MM-DD)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityTimeSeriesV2</a>(apiKey: String, format: CommodityTimeSeriesV2RequestFormat?, symbols: [String]?, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityTimeSeriesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.commodityTimeSeriesV2(
+        apiKey: "apiKey",
+        symbols: [
+            "symbols"
+        ],
+        startDate: CalendarDate("2023-01-15")!,
+        endDate: CalendarDate("2023-01-15")!
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `CommodityTimeSeriesV2RequestFormat?` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `[String]?` — Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startDate:** `CalendarDate` — Start date (YYYY-MM-DD)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**endDate:** `CalendarDate` — End date (YYYY-MM-DD). Maximum range is 365 days.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commoditySymbolsV2</a>(apiKey: String, format: CommoditySymbolsV2RequestFormat?, requestOptions: RequestOptions?) -> CommoditySymbolsV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.commoditySymbolsV2(apiKey: "apiKey")
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `CommoditySymbolsV2RequestFormat?` — Response format. Currently only `json` is supported.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityIntradayRatesV2</a>(apiKey: String, symbols: String, interval: CommodityIntradayRatesV2RequestInterval, date: CalendarDate, startTime: String?, metadata: Bool?, requestOptions: RequestOptions?) -> CommodityIntradayRatesV2Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the prices of one commodity through a UTC day at the requested interval, keyed by UTC timestamp. Each request costs a flat 50 credits however many points it returns.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.commodityIntradayRatesV2(
+        apiKey: "apiKey",
+        symbols: "symbols",
+        interval: .oneM,
+        date: CalendarDate("2023-01-15")!
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**symbols:** `String` — Exactly one commodity symbol. Case-insensitive. Sending two or more returns a 400. Only symbols updated every second, every minute, or every 10 minutes have intraday rates; symbols updated hourly or less often return a 400. Use the Commodity Symbols endpoint for all valid values.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**interval:** `CommodityIntradayRatesV2RequestInterval` — Spacing between points. Case-insensitive. Symbols updated every 10 minutes accept only `10m`, `30m`, `1h`, `2h`, `4h`, `8h`, `12h`, `1d`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**date:** `CalendarDate` — The UTC day to read, in `YYYY-MM-DD` format. Cannot be in the future. For today, points stop at the current UTC minute.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**startTime:** `String?` — First mark of the window, as a 24-hour UTC time in `HH:mm`. Must fall on a mark of the interval (for example, `14:30` works for `5m` or `30m`, but not for `1h`). For `1d` it can only be `00:00`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**metadata:** `Bool?` — Whether to include the `metadata` object. Pass `false` to receive only the prices.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfMerge</a>(webhookAuthorization: String?, apiKey: String, format: PdfMergeRequestFormat?, fileId: [String]?, destroy: Bool?, output: String?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfMergeRequest, requestOptions: RequestOptions?) -> PdfMergeResponse</code></summary>
 <dl>
 <dd>
 
@@ -3445,6 +4706,7 @@ private func main() async throws {
 
     _ = try await client.pdfMerge(
         apiKey: "apiKey",
+        fileId: ["<uploaded-file-id-1>", "<uploaded-file-id-2>"],
         request: .init(file: [])
     )
 }
@@ -3488,7 +4750,7 @@ try await main()
 <dl>
 <dd>
 
-**fileId:** `String?` — An array of unique file IDs referencing PDF files previously uploaded to the API Freaks server. Use this parameter to merge existing files without re-uploading them. Provide multiple IDs to merge files in the specified order.
+**fileId:** `[String]?` — An array of unique file IDs referencing PDF files previously uploaded to the API Freaks server. Use this parameter to merge existing files without re-uploading them. Provide multiple IDs to merge files in the specified order.
     
 </dd>
 </dl>
@@ -3695,7 +4957,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfSplit</a>(webhookAuthorization: String?, apiKey: String, format: PdfSplitRequestFormat?, fileId: String?, destroy: Bool?, output: String?, pages: String?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfSplitRequest, requestOptions: RequestOptions?) -> PdfSplitResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfSplit</a>(webhookAuthorization: String?, apiKey: String, format: PdfSplitRequestFormat?, fileId: String?, destroy: Bool?, output: String?, pages: [String]?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfSplitRequest, requestOptions: RequestOptions?) -> PdfSplitResponse</code></summary>
 <dl>
 <dd>
 
@@ -3797,7 +5059,7 @@ try await main()
 <dl>
 <dd>
 
-**pages:** `String?` 
+**pages:** `[String]?` 
 
 Defines the page numbers or ranges where the PDF should be split. Provide individual pages and/or ranges in any order (for example: "1-4,9-5,16-last"). Separate entries with commas and use hyphens for ranges.
 
@@ -4766,7 +6028,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfRestrict</a>(webhookAuthorization: String?, apiKey: String, format: PdfRestrictRequestFormat?, fileId: String?, destroy: Bool?, output: String?, filePassword: String?, userPassword: String, ownerPassword: String?, restrictions: PdfRestrictRequestRestrictionsItem?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfRestrictRequest, requestOptions: RequestOptions?) -> PdfRestrictResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfRestrict</a>(webhookAuthorization: String?, apiKey: String, format: PdfRestrictRequestFormat?, fileId: String?, destroy: Bool?, output: String?, filePassword: String?, userPassword: String, ownerPassword: String?, restrictions: [PdfRestrictRequestRestrictionsItem]?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfRestrictRequest, requestOptions: RequestOptions?) -> PdfRestrictResponse</code></summary>
 <dl>
 <dd>
 
@@ -4896,7 +6158,7 @@ try await main()
 <dl>
 <dd>
 
-**restrictions:** `PdfRestrictRequestRestrictionsItem?` 
+**restrictions:** `[PdfRestrictRequestRestrictionsItem]?` 
 
 A comma-separated list of restrictions to apply to the PDF. These define what the end-user is *not* allowed to do with the PDF. Available options are:
 
@@ -4952,7 +6214,7 @@ A comma-separated list of restrictions to apply to the PDF. These define what th
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfUnrestrict</a>(webhookAuthorization: String?, apiKey: String, format: PdfUnrestrictRequestFormat?, fileId: String?, destroy: Bool?, output: String?, filePassword: String, userPassword: String?, ownerPassword: String?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfUnrestrictRequest, requestOptions: RequestOptions?) -> PdfUnrestrictResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfUnrestrict</a>(webhookAuthorization: String?, apiKey: String, format: PdfUnrestrictRequestFormat?, fileId: String?, destroy: Bool?, output: String?, filePassword: String, userPassword: String, ownerPassword: String?, webhookUrl: String?, webhookFailureNotification: Bool?, request: Requests.PdfUnrestrictRequest, requestOptions: RequestOptions?) -> PdfUnrestrictResponse</code></summary>
 <dl>
 <dd>
 
@@ -4988,6 +6250,7 @@ private func main() async throws {
     _ = try await client.pdfUnrestrict(
         apiKey: "apiKey",
         filePassword: "file_password",
+        userPassword: "user_password",
         request: .init(file: .init(data: Data("".utf8)))
     )
 }
@@ -5063,7 +6326,7 @@ try await main()
 <dl>
 <dd>
 
-**userPassword:** `String?` — Sets the user password for the PDF file. Password Length should be between 6 and 128 characters.
+**userPassword:** `String` — Sets the user password for the PDF file. Password Length should be between 6 and 128 characters.
     
 </dd>
 </dl>
@@ -6063,6 +7326,107 @@ try await main()
 </dl>
 </details>
 
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfUploadBinary</a>(apiKey: String, format: PdfUploadBinaryRequestFormat?, fileName: String, request: Data, requestOptions: RequestOptions?) -> PdfUploadBinaryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This API uploads PDF files to the API Freaks server in binary format.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    let pdf = try Data(contentsOf: URL(fileURLWithPath: "document.pdf"))
+    _ = try await client.pdfUploadBinary(
+        apiKey: "apiKey",
+        fileName: "document.pdf",
+        request: pdf
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `PdfUploadBinaryRequestFormat?` — Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fileName:** `String` — The desired name for the uploaded PDF file. This name will be used for storage on the server. **NOTE**: Please ensure file_name has extension `.pdf`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Data` — The raw PDF bytes, sent as the `application/octet-stream` request body.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfDownloadResource</a>(apiKey: String, format: PdfDownloadResourceRequestFormat?, resourceId: String, requestOptions: RequestOptions?) -> Data</code></summary>
 <dl>
 <dd>
@@ -6502,7 +7866,255 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">screenshotCapture</a>(apiKey: String, output: ScreenshotCaptureRequestOutput?, fileType: ScreenshotCaptureRequestFileType?, url: String, width: Int?, height: Int?, fullPage: Bool?, fresh: Bool?, noCookieBanners: Bool?, enableCaching: Bool?, blockAds: Bool?, blockChatWidgets: Bool?, extractText: Bool?, extractHtml: Bool?, destroyScreenshot: Bool?, lazyLoad: Bool?, retina: Bool?, darkMode: Bool?, blockTracking: Bool?, enableIncognito: Bool?, omitBackground: Bool?, thumbnailWidth: Int?, adjustTop: Int?, waitForEvent: ScreenshotCaptureRequestWaitForEvent?, grayscale: Int?, delay: Int?, timeout: Int?, ttl: Int?, clipX: Int?, clipY: Int?, clipWidth: Int?, clipHeight: Int?, cssUrl: String?, css: String?, jsUrl: String?, js: String?, blockJs: Bool?, blockStylesheets: Bool?, blockImages: Bool?, blockMedia: Bool?, blockFont: Bool?, blockTextTrack: Bool?, blockXhr: Bool?, blockFetch: Bool?, blockEventSource: Bool?, blockWebSocket: Bool?, blockManifest: Bool?, blockSpecificRequests: String?, blurSelector: String?, removeSelector: String?, resultFileName: String?, scrollingScreenshot: Bool?, scrollSpeed: ScreenshotCaptureRequestScrollSpeed?, scrollBack: Bool?, startImmediately: Bool?, multipleScrolling: Bool?, sizes: String?, duration: Double?, failOnError: Bool?, longitude: Double?, latitude: Double?, proxy: String?, headers: String?, cookies: String?, scrollToElement: String?, selector: String?, userAgent: String?, acceptLanguages: String?, customHtml: String?, imageQuality: Double?, requestOptions: RequestOptions?) -> Data</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">pdfGenerateFromTemplate</a>(apiKey: String, templateId: String, version: String?, dataUrl: String?, request: [String: JSONValue], requestOptions: RequestOptions?) -> PdfGenerateFromTemplateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Renders the template identified by template_id with the JSON data supplied in the request body (or fetched from data_url). Returns a hosted URL for the generated PDF. Provide either a request body or a data_url; one of the two is required. The keys of the data object are the fields you bound when you designed the template in the APIFreaks PDF Template Builder, so the exact shape is up to you. Pin the version parameter to a specific template version (e.g. version=v2) so later design changes never touch what is already live; omit it to use the latest version.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.pdfGenerateFromTemplate(
+        apiKey: "apiKey",
+        templateId: "template_id",
+        request: [
+            "candidate_name": .string("Ava Thompson"), 
+            "candidate_title": .string("Senior Operations Analyst"), 
+            "email": .string("ava.thompson@example.com"), 
+            "phone": .string("+1 (555) 381-2048"), 
+            "city": .string("Austin, TX"), 
+            "portfolio_url": .string("portfolio.example.com"), 
+            "profile_summary": .string("Analytical operations professional with 8+ years of experience improving reporting pipelines, streamlining process documentation, and coordinating cross-functional delivery for distributed teams across multiple time zones."), 
+            "company_name": .string("Northwind Logistics"), 
+            "job_title": .string("Operations Analyst"), 
+            "employment_period": .string("2021 - Present"), 
+            "job_achievement_1": .string("Led weekly KPI reporting for finance, fulfillment, and customer success stakeholders across three business units."), 
+            "job_achievement_2": .string("Reduced manual reconciliation work by 35% through workflow redesign and documentation automation."), 
+            "job_achievement_3": .string("Spearheaded a cross-team initiative that improved on-time delivery metrics by 18% within six months."), 
+            "skills": .array([
+                .object([
+                    "skill": .string("Process Improvement"), 
+                    "level": .string("Advanced"), 
+                    "years": .string("7")
+                ]),
+                .object([
+                    "skill": .string("Stakeholder Reporting"), 
+                    "level": .string("Expert"), 
+                    "years": .string("8")
+                ]),
+                .object([
+                    "skill": .string("Cross-functional Coordination"), 
+                    "level": .string("Advanced"), 
+                    "years": .string("5")
+                ]),
+                .object([
+                    "skill": .string("Workflow Documentation"), 
+                    "level": .string("Advanced"), 
+                    "years": .string("6")
+                ])
+            ]), 
+            "degree": .string("B.S. in Information Systems"), 
+            "institution": .string("University of Texas"), 
+            "graduation_year": .string("2018"), 
+            "certification_1": .string("Certified Business Analysis Professional (CBAP)"), 
+            "certification_2": .string("Six Sigma Green Belt"), 
+            "languages": .string("English (Native), Spanish (Professional)")
+        ]
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateId:** `String` — The template to render, from the APIFreaks PDF Template Builder. Copy it from your dashboard when you save the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `String?` — Template version to render, e.g. v2. Must start with v. Omit this parameter entirely to use the latest version; the literal value 'latest' is not accepted by the API.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**dataUrl:** `String?` — A URL the API fetches your JSON data from, instead of the request body. Provide this when you are not sending a request body.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `[String: JSONValue]` — Free-form JSON object whose keys map to the fields bound in the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkPdfGenerateFromTemplate</a>(apiKey: String, templateId: String, version: String?, request: Requests.BulkPdfGenerateFromTemplateRequest, requestOptions: RequestOptions?) -> [BulkPdfGenerateFromTemplateResponseItem]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Upload a CSV file where each row is one record. The API generates one PDF per row and returns an array of results, each with its own pdf_url. Rows are processed independently, so a failure in one row does not block the rest of the batch. The response gives a row-by-row breakdown of which PDFs succeeded and which failed.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```swift
+import Foundation
+import APIFreaks
+
+private func main() async throws {
+    let client = APIFreaks()
+
+    _ = try await client.bulkPdfGenerateFromTemplate(
+        apiKey: "apiKey",
+        templateId: "template_id",
+        request: .init(file: .init(data: Data("".utf8)))
+    )
+}
+
+try await main()
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**apiKey:** `String` — Your API key
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**templateId:** `String` — The template to render, from the APIFreaks PDF Template Builder. Copy it from your dashboard when you save the template.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**version:** `String?` — Template version to render, e.g. v2. Must start with v. Omit this parameter entirely to use the latest version; the literal value 'latest' is not accepted by the API.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Requests.BulkPdfGenerateFromTemplateRequest` — Multipart form-data request body containing the CSV file to render in bulk.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">screenshotCapture</a>(apiKey: String, output: ScreenshotCaptureRequestOutput?, fileType: ScreenshotCaptureRequestFileType?, url: String, width: Int?, height: Int?, fullPage: Bool?, fresh: Bool?, noCookieBanners: Bool?, enableCaching: Bool?, blockAds: Bool?, blockChatWidgets: Bool?, extractText: Bool?, extractHtml: Bool?, destroyScreenshot: Bool?, lazyLoad: Bool?, retina: Bool?, darkMode: Bool?, blockTracking: Bool?, enableIncognito: Bool?, omitBackground: Bool?, thumbnailWidth: Int?, adjustTop: Int?, waitForEvent: ScreenshotCaptureRequestWaitForEvent?, grayscale: Int?, delay: Int?, timeout: Int?, ttl: Int?, clipX: Int?, clipY: Int?, clipWidth: Int?, clipHeight: Int?, cssUrl: String?, css: String?, jsUrl: String?, js: String?, blockJs: Bool?, blockStylesheets: Bool?, blockImages: Bool?, blockMedia: Bool?, blockFont: Bool?, blockTextTrack: Bool?, blockXhr: Bool?, blockFetch: Bool?, blockEventSource: Bool?, blockWebSocket: Bool?, blockManifest: Bool?, blockSpecificRequests: String?, blurSelector: String?, removeSelector: String?, resultFileName: String?, scrollingScreenshot: Bool?, scrollSpeed: ScreenshotCaptureRequestScrollSpeed?, scrollBack: Bool?, startImmediately: Bool?, multipleScrolling: Bool?, sizes: [String]?, duration: Double?, failOnError: Bool?, longitude: Double?, latitude: Double?, proxy: String?, headers: String?, cookies: String?, scrollToElement: String?, selector: String?, userAgent: String?, acceptLanguages: String?, customHtml: String?, imageQuality: Double?, captchaError: String?, captchaImage: String?, captchaInput: String?, captchaRefresh: String?, captchaRetries: Int?, captchaSubmit: String?, classicProxy: Bool?, clickRecursion: Int?, country: String?, extractMarkdown: Bool?, format: ScreenshotCaptureRequestFormat?, getImageUrls: Bool?, gpu: Bool?, markdown: String?, ocrModel: ScreenshotCaptureRequestOcrModel?, pdfOptionsFormat: ScreenshotCaptureRequestPdfOptionsFormat?, pdfOptionsLandscape: Bool?, pdfOptionsMedia: ScreenshotCaptureRequestPdfOptionsMedia?, pdfOptionsPageRange: String?, pdfOptionsPrintBackground: Bool?, premiumProxy: Bool?, scrollDelay: Int?, selectorToClick: String?, solveCaptcha: Bool?, stealth: Bool?, timezone: String?, video: Bool?, requestOptions: RequestOptions?) -> ScreenshotCaptureResponse</code></summary>
 <dl>
 <dd>
 
@@ -6565,7 +8177,7 @@ try await main()
 <dl>
 <dd>
 
-**output:** `ScreenshotCaptureRequestOutput?` — Output format for screenshot results
+**output:** `ScreenshotCaptureRequestOutput?` — Output format for screenshot results. The SDKs support only `json`, which returns metadata with the captured file's URL in `screenshot`; download the file from that URL. (The API's `output=image`, which returns the raw file, is not supported by the SDK methods.)
     
 </dd>
 </dl>
@@ -7014,7 +8626,7 @@ Avoid using spaces or special characters; use hyphens or underscores to separate
 <dl>
 <dd>
 
-**sizes:** `String?` — Comma-separated list of viewport sizes in the format index:XXw:YYh. Example: sizes=0:120w:300h,1:240w:500h
+**sizes:** `[String]?` — Comma-separated list of viewport sizes in the format index:XXw:YYh. Example: sizes=0:120w:300h,1:240w:500h
     
 </dd>
 </dl>
@@ -7119,6 +8731,222 @@ Avoid using spaces or special characters; use hyphens or underscores to separate
 <dd>
 
 **imageQuality:** `Double?` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaError:** `String?` — CSS selector of the message shown for a wrong answer. While it is visible, the solver tries again.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaImage:** `String?` — CSS selector of the captcha picture. Required when solve_captcha is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaInput:** `String?` — CSS selector of the box the answer is typed into. Required when solve_captcha is true.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaRefresh:** `String?` — CSS selector of the control that loads a new captcha picture before the next try.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaRetries:** `Int?` — Number of guesses the solver makes, from 1 to 5.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**captchaSubmit:** `String?` — CSS selector of the button to click after the answer is typed.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**classicProxy:** `Bool?` — Loads the page through a datacenter proxy. Adds 20 credits per request. Ignored when premium_proxy is true or a custom proxy is set.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**clickRecursion:** `Int?` — Number of times to click the selector (when set via `selector_to_click`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `String?` — Two-letter country code, such as US or DE, for the exit address of classic_proxy or premium_proxy. Ignored when you send your own proxy. Any two-letter code is sent, including one that is not listed. Classic proxy countries: BG, GE, DE, HN, MD, UA, GB, US. Premium proxy countries: AF, AL, DZ, AO, AG, AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB, BY, BE, BZ, BJ, BT, BO, BQ, BA, BW, BR, BN, BG, BF, BI, CV, KH, CM, CA, KY, CF, TD, CL, CN, CO, KM, CG, CR, CI, HR, CU, CW, CY, CZ, CD, DK, DJ, DM, DO, EC, EG, SV, GQ, EE, SZ, ET, FO, FJ, FI, FR, GF, PF, GA, GM, GE, DE, GH, GI, GR, GL, GD, GP, GU, GT, GG, GN, GW, GY, HT, HN, HK, HU, IS, IN, ID, IR, IQ, IE, IL, IT, JM, JP, JE, JO, KZ, KE, XK, KW, KG, LA, LV, LB, LS, LR, LY, LT, MO, MG, MW, MY, MV, ML, MT, MQ, MR, MU, YT, MX, MD, MN, ME, MA, MZ, MM, NA, NP, NL, NC, NZ, NI, NE, NG, MK, NO, OM, PK, PS, PA, PG, PY, PE, PH, PL, PT, PR, QA, RE, RO, RU, RW, KN, LC, VC, WS, SA, SN, RS, SC, SL, SG, SK, SI, SB, SO, ZA, KR, SS, ES, LK, SD, SR, SE, CH, SY, TW, TJ, TZ, TH, TL, TG, TO, TT, TN, TR, TM, UG, UA, AE, GB, US, UY, UZ, VE, VN, YE, ZM, ZW.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**extractMarkdown:** `Bool?` — Extracts rendered page content as a structured .md (Markdown) file. Preserves headings, lists, links. Only with output=json.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**format:** `ScreenshotCaptureRequestFormat?` — Response format: json (default).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**getImageUrls:** `Bool?` — Extracts all image URLs from the rendered DOM and returns them in structured format. Only with output=json.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**gpu:** `Bool?` — Renders the page with a GPU, including WebGL and canvas content. Adds 20 credits per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**markdown:** `String?` — Markdown to render instead of loading a URL. Works like custom_html, so you can capture a README or notes without hosting a page.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**ocrModel:** `ScreenshotCaptureRequestOcrModel?` — Recognition model used by the captcha solver: mini-ocr-v1 (default) or ocr-v1.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsFormat:** `ScreenshotCaptureRequestPdfOptionsFormat?` — Paper size of the PDF. Applies when file_type is PDF. Without it, width and height are used if set, otherwise the page renders as one long page: A0, A1, A2, A3, A4, A5, A6, Letter, Legal, Tabloid, or Ledger.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsLandscape:** `Bool?` — Renders the PDF in landscape orientation, swapping the width and height of the paper size. Applies when file_type is PDF.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsMedia:** `ScreenshotCaptureRequestPdfOptionsMedia?` — CSS media type used to render the PDF: print or screen.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsPageRange:** `String?` — Pages to keep in the PDF, as start-end, for example 1-3 or 5-5. Pages are rendered first and then trimmed. Has no effect on a single-page PDF. Applies when file_type is PDF.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pdfOptionsPrintBackground:** `Bool?` — Includes background colors and images in the PDF. Applies when file_type is PDF.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**premiumProxy:** `Bool?` — Loads the page through a residential proxy. Adds 200 credits per request. Used instead of classic_proxy.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scrollDelay:** `Int?` — Delay in milliseconds between scroll steps when `lazy_load` is enabled. Use higher values for heavy pages.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**selectorToClick:** `String?` — CSS selector for an element to click before capturing the screenshot. Useful for opening dropdowns, modals, or triggering content.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**solveCaptcha:** `Bool?` — Solves a captcha made of text drawn in a picture, then takes the screenshot. Requires captcha_image and captcha_input. Adds 20 credits per request.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**stealth:** `Bool?` — Makes the browser look like a regular visitor for pages that block automated traffic. No extra credits.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**timezone:** `String?` — IANA timezone the browser uses while rendering, such as Asia/Karachi or Europe/London. Useful for clocks and localized dates.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**video:** `Bool?` — Records visible viewport only for a specified duration. Use with `duration` parameter. Ideal for dashboards and animations.
     
 </dd>
 </dl>
@@ -7233,7 +9061,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyLatestRates</a>(apiKey: String, format: CurrencyLatestRatesRequestFormat?, base: String?, symbols: String?, updates: CurrencyLatestRatesRequestUpdates?, requestOptions: RequestOptions?) -> CurrencyLatestRatesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyLatestRates</a>(apiKey: String, format: CurrencyLatestRatesRequestFormat?, base: String?, symbols: [String]?, updates: CurrencyLatestRatesRequestUpdates?, requestOptions: RequestOptions?) -> CurrencyLatestRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7308,7 +9136,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — Comma separated list of desired currency codes
+**symbols:** `[String]?` — Comma separated list of desired currency codes
     
 </dd>
 </dl>
@@ -7336,7 +9164,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyHistoricalRates</a>(apiKey: String, format: CurrencyHistoricalRatesRequestFormat?, base: String?, symbols: String?, date: CalendarDate, requestOptions: RequestOptions?) -> CurrencyHistoricalRatesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyHistoricalRates</a>(apiKey: String, format: CurrencyHistoricalRatesRequestFormat?, base: String?, symbols: [String]?, date: CalendarDate, requestOptions: RequestOptions?) -> CurrencyHistoricalRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7414,7 +9242,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — Comma separated list of desired currency codes
+**symbols:** `[String]?` — Comma separated list of desired currency codes
     
 </dd>
 </dl>
@@ -7442,7 +9270,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertLatest</a>(apiKey: String, format: CurrencyConvertLatestRequestFormat?, from: String, to: String, amount: String?, updates: CurrencyConvertLatestRequestUpdates?, requestOptions: RequestOptions?) -> CurrencyConvertLatestResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertLatest</a>(apiKey: String, format: CurrencyConvertLatestRequestFormat?, from: String, to: String, amount: Double?, updates: CurrencyConvertLatestRequestUpdates?, requestOptions: RequestOptions?) -> CurrencyConvertLatestResponse</code></summary>
 <dl>
 <dd>
 
@@ -7529,7 +9357,7 @@ try await main()
 <dl>
 <dd>
 
-**amount:** `String?` — Amount to convert
+**amount:** `Double?` — Amount to convert
     
 </dd>
 </dl>
@@ -7557,7 +9385,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertHistorical</a>(apiKey: String, format: CurrencyConvertHistoricalRequestFormat?, from: String, to: String, amount: String?, date: CalendarDate, requestOptions: RequestOptions?) -> CurrencyConvertHistoricalResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertHistorical</a>(apiKey: String, format: CurrencyConvertHistoricalRequestFormat?, from: String, to: String, amount: Double?, date: CalendarDate, requestOptions: RequestOptions?) -> CurrencyConvertHistoricalResponse</code></summary>
 <dl>
 <dd>
 
@@ -7645,7 +9473,7 @@ try await main()
 <dl>
 <dd>
 
-**amount:** `String?` — The Amount to be converted
+**amount:** `Double?` — The Amount to be converted
     
 </dd>
 </dl>
@@ -7673,7 +9501,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyTimeSeries</a>(apiKey: String, format: CurrencyTimeSeriesRequestFormat?, startDate: CalendarDate, endDate: CalendarDate?, base: String?, symbols: String?, requestOptions: RequestOptions?) -> CurrencyTimeSeriesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyTimeSeries</a>(apiKey: String, format: CurrencyTimeSeriesRequestFormat?, startDate: CalendarDate, endDate: CalendarDate?, base: String?, symbols: [String]?, requestOptions: RequestOptions?) -> CurrencyTimeSeriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -7767,7 +9595,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — comma separated list of desired currencies/ commodities symbols
+**symbols:** `[String]?` — comma separated list of desired currencies/ commodities symbols
     
 </dd>
 </dl>
@@ -7787,7 +9615,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyFluctuation</a>(apiKey: String, format: CurrencyFluctuationRequestFormat?, startDate: CalendarDate, endDate: CalendarDate?, base: String?, symbols: String?, requestOptions: RequestOptions?) -> CurrencyFluctuationResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyFluctuation</a>(apiKey: String, format: CurrencyFluctuationRequestFormat?, startDate: CalendarDate, endDate: CalendarDate?, base: String?, symbols: [String]?, requestOptions: RequestOptions?) -> CurrencyFluctuationResponse</code></summary>
 <dl>
 <dd>
 
@@ -7882,7 +9710,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String?` — comma separated list of desired currencies/ commodities symbols
+**symbols:** `[String]?` — comma separated list of desired currencies/ commodities symbols
     
 </dd>
 </dl>
@@ -7902,7 +9730,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertByIp</a>(apiKey: String, format: CurrencyConvertByIpRequestFormat?, updates: CurrencyConvertByIpRequestUpdates?, from: String, ip: String?, amount: String?, requestOptions: RequestOptions?) -> CurrencyConvertByIpResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">currencyConvertByIp</a>(apiKey: String, format: CurrencyConvertByIpRequestFormat?, updates: CurrencyConvertByIpRequestUpdates?, from: String, ip: String?, amount: Double?, requestOptions: RequestOptions?) -> CurrencyConvertByIpResponse</code></summary>
 <dl>
 <dd>
 
@@ -7996,7 +9824,7 @@ try await main()
 <dl>
 <dd>
 
-**amount:** `String?` — Amount to convert
+**amount:** `Double?` — Amount to convert
     
 </dd>
 </dl>
@@ -8253,7 +10081,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityLatestRates</a>(apiKey: String, format: CommodityLatestRatesRequestFormat?, symbols: String, updates: CommodityLatestRatesRequestUpdates, quote: String?, requestOptions: RequestOptions?) -> CommodityLatestRatesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityLatestRates</a>(apiKey: String, format: CommodityLatestRatesRequestFormat?, symbols: [String]?, updates: CommodityLatestRatesRequestUpdates, quote: String?, requestOptions: RequestOptions?) -> CommodityLatestRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -8288,7 +10116,9 @@ private func main() async throws {
 
     _ = try await client.commodityLatestRates(
         apiKey: "apiKey",
-        symbols: "symbols",
+        symbols: [
+            "symbols"
+        ],
         updates: .tenM
     )
 }
@@ -8324,7 +10154,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String` — Comma separated list of desired commodities symbols *(e.g. XAU,XAG,WTI,BRENT)* **Required**
+**symbols:** `[String]?` — Comma separated list of desired commodities symbols *(e.g. XAU,XAG,WTI,BRENT)* **Required**
     
 </dd>
 </dl>
@@ -8360,7 +10190,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityHistoricalRates</a>(apiKey: String, format: CommodityHistoricalRatesRequestFormat?, date: CalendarDate, symbols: String, requestOptions: RequestOptions?) -> CommodityHistoricalRatesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityHistoricalRates</a>(apiKey: String, format: CommodityHistoricalRatesRequestFormat?, date: CalendarDate, symbols: [String]?, requestOptions: RequestOptions?) -> CommodityHistoricalRatesResponse</code></summary>
 <dl>
 <dd>
 
@@ -8396,7 +10226,9 @@ private func main() async throws {
     _ = try await client.commodityHistoricalRates(
         apiKey: "apiKey",
         date: CalendarDate("2023-01-15")!,
-        symbols: "symbols"
+        symbols: [
+            "symbols"
+        ]
     )
 }
 
@@ -8439,7 +10271,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String` — Comma-separated list of commodity symbols **Required**
+**symbols:** `[String]?` — Comma-separated list of commodity symbols
     
 </dd>
 </dl>
@@ -8459,7 +10291,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityFluctuation</a>(apiKey: String, format: CommodityFluctuationRequestFormat?, symbols: String?, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityFluctuationResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityFluctuation</a>(apiKey: String, format: CommodityFluctuationRequestFormat?, symbols: [String]?, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityFluctuationResponse</code></summary>
 <dl>
 <dd>
 
@@ -8494,7 +10326,9 @@ private func main() async throws {
 
     _ = try await client.commodityFluctuation(
         apiKey: "apiKey",
-        symbols: "symbols",
+        symbols: [
+            "symbols"
+        ],
         startDate: CalendarDate("2023-01-15")!,
         endDate: CalendarDate("2023-01-15")!
     )
@@ -8531,7 +10365,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String` — Comma-separated list of commodity symbols **Required**
+**symbols:** `[String]?` — Comma-separated list of commodity symbols
     
 </dd>
 </dl>
@@ -8567,7 +10401,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityTimeSeries</a>(apiKey: String, format: CommodityTimeSeriesRequestFormat?, symbols: String, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityTimeSeriesResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">commodityTimeSeries</a>(apiKey: String, format: CommodityTimeSeriesRequestFormat?, symbols: [String]?, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions?) -> CommodityTimeSeriesResponse</code></summary>
 <dl>
 <dd>
 
@@ -8602,7 +10436,9 @@ private func main() async throws {
 
     _ = try await client.commodityTimeSeries(
         apiKey: "apiKey",
-        symbols: "symbols",
+        symbols: [
+            "symbols"
+        ],
         startDate: CalendarDate("2023-01-15")!,
         endDate: CalendarDate("2023-01-15")!
     )
@@ -8639,7 +10475,7 @@ try await main()
 <dl>
 <dd>
 
-**symbols:** `String` — Comma-separated list of commodity symbols **Required**
+**symbols:** `[String]?` — Comma-separated list of commodity symbols
     
 </dd>
 </dl>
@@ -8821,7 +10657,7 @@ try await main()
 <dl>
 <dd>
 
-**type:** `VatSupportedCountriesRequestType?` — Type of supported country. Supported values: IBAN, SWIFT, VAT. By default, it returns all supported countries for all types.
+**type:** `VatSupportedCountriesRequestType?` — Which list to return: VAT (`VAT_Supported_Countries_And_States`), IBAN (`IBAN_Supported_Countries`) or SWIFT (`SWIFT_Supported_Countries`). Each value returns only its own list. If omitted (or unknown), all three lists are returned.
     
 </dd>
 </dl>
@@ -9026,7 +10862,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkVatRateByCountry</a>(apiKey: String, format: BulkVatRateByCountryRequestFormat?, request: Requests.BulkVatRateByCountryRequest, requestOptions: RequestOptions?) -> BulkVatRateByCountryResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">bulkVatRateByCountry</a>(apiKey: String, format: BulkVatRateByCountryRequestFormat?, request: Requests.BulkVatRateByCountryRequest, requestOptions: RequestOptions?) -> [BulkVatRateByCountryResponseItem]</code></summary>
 <dl>
 <dd>
 
@@ -9782,7 +11618,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">zipcodeSearchByRegion</a>(apiKey: String, format: ZipcodeSearchByRegionRequestFormat?, country: String, region: String, page: Int?, requestOptions: RequestOptions?) -> ZipcodeSearchByRegionResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">zipcodeSearchByRegion</a>(apiKey: String, format: ZipcodeSearchByRegionRequestFormat?, country: String, region: String?, page: Int?, regionCode: String?, requestOptions: RequestOptions?) -> ZipcodeSearchByRegionResponse</code></summary>
 <dl>
 <dd>
 
@@ -9803,8 +11639,7 @@ private func main() async throws {
 
     _ = try await client.zipcodeSearchByRegion(
         apiKey: "apiKey",
-        country: "country",
-        region: "region"
+        country: "country"
     )
 }
 
@@ -9847,7 +11682,7 @@ try await main()
 <dl>
 <dd>
 
-**region:** `String` — Name of the region, state or province associated with the country.
+**region:** `String?` — Name of the region, state or province associated with the country. Either region or region_code is required; region_code takes priority if both are given.
     
 </dd>
 </dl>
@@ -9856,6 +11691,14 @@ try await main()
 <dd>
 
 **page:** `Int?` — Page no. to retrieve paginated results.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**regionCode:** `String?` — ISO code of the region, state, or province associated with the country. Either region or region_code is required. region_code takes priority if both are given.
     
 </dd>
 </dl>
@@ -10248,7 +12091,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `CurrentWeatherRequestFormat?` — Response format returned by the API.
+**format:** `CurrentWeatherRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -10384,7 +12227,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `BulkCurrentWeatherRequestFormat?` — Response format returned by the API.
+**format:** `BulkCurrentWeatherRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -10479,7 +12322,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `WeatherForecastRequestFormat?` — Response format returned by the API.
+**format:** `WeatherForecastRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -10633,7 +12476,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `HistoricalWeatherRequestFormat?` — Response format returned by the API.
+**format:** `HistoricalWeatherRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -10772,7 +12615,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `WeatherTimeSeriesRequestFormat?` — Response format returned by the API.
+**format:** `WeatherTimeSeriesRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -10915,7 +12758,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `MarineWeatherRequestFormat?` — Response format returned by the API.
+**format:** `MarineWeatherRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -11058,7 +12901,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `AirQualityRequestFormat?` — Response format returned by the API.
+**format:** `AirQualityRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -11205,7 +13048,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `FloodForecastRequestFormat?` — Response format returned by the API.
+**format:** `FloodForecastRequestFormat?` — Response format returned by the API. Only JSON is supported.
     
 </dd>
 </dl>
@@ -11525,7 +13368,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getSubregions</a>(apiKey: String, format: GetSubregionsRequestFormat?, region: String, requestOptions: RequestOptions?) -> GetSubregionsResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getSubregions</a>(apiKey: String, format: GetSubregionsRequestFormat?, region: String?, requestOptions: RequestOptions?) -> GetSubregionsResponse</code></summary>
 <dl>
 <dd>
 
@@ -11544,10 +13387,7 @@ import APIFreaks
 private func main() async throws {
     let client = APIFreaks()
 
-    _ = try await client.getSubregions(
-        apiKey: "apiKey",
-        region: "region"
-    )
+    _ = try await client.getSubregions(apiKey: "apiKey")
 }
 
 try await main()
@@ -11581,7 +13421,7 @@ try await main()
 <dl>
 <dd>
 
-**region:** `String` — Name of the region.
+**region:** `String?` — Name of the region. If omitted, all subregions are returned.
     
 </dd>
 </dl>
@@ -11691,7 +13531,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getAdminUnits</a>(apiKey: String, format: GetAdminUnitsRequestFormat?, country: String, adminLevels: String?, requestOptions: RequestOptions?) -> GetAdminUnitsResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getAdminUnits</a>(apiKey: String, format: GetAdminUnitsRequestFormat?, country: String, adminLevel: [String]?, requestOptions: RequestOptions?) -> GetAdminUnitsResponse</code></summary>
 <dl>
 <dd>
 
@@ -11769,7 +13609,7 @@ try await main()
 <dl>
 <dd>
 
-**adminLevels:** `String?` — Comma-separated list to filter results by one or more administrative levels.
+**adminLevel:** `[String]?` — Filter results by one or more administrative level names (e.g. `land`, `state`, `province`), sent as a comma-separated list. Use the admin levels endpoint to list the levels a country has.
     
 </dd>
 </dl>
@@ -11986,7 +13826,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getSupportedFlags</a>(apiKey: String, requestOptions: RequestOptions?) -> [GetSupportedFlagsResponseItem]</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getSupportedFlags</a>(apiKey: String, requestOptions: RequestOptions?) -> GetSupportedFlagsResponse</code></summary>
 <dl>
 <dd>
 
@@ -12324,157 +14164,6 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">timezoneLookupV2</a>(apiKey: String, format: TimezoneLookupRequestFormat?, ip: String?, tz: String?, location: String?, lat: Float?, long: Float?, lang: TimezoneLookupRequestLang?, iataCode: String?, icaoCode: String?, loCode: String?, requestOptions: RequestOptions?) -> TimezoneLookupResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed (v2.0 endpoint).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```swift
-import Foundation
-import APIFreaks
-
-private func main() async throws {
-    let client = APIFreaks()
-
-    _ = try await client.timezoneLookupV2(apiKey: "apiKey")
-}
-
-try await main()
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**apiKey:** `String` — Your API key
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**format:** `TimezoneLookupRequestFormat?` — Format of the response
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ip:** `String?` — IPv4 or IPv6 address to extract timezone information.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**tz:** `String?` — Timezone name (e.g., "Asia/Kolkata") to retrieve information directly.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**location:** `String?` — Location string (preferably city and country) to extract timezone.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lat:** `Float?` — Latitude for geolocation lookup.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**long:** `Float?` — Longitude for geolocation lookup.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lang:** `TimezoneLookupRequestLang?` — Language code for response localization (default is "en").
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**iataCode:** `String?` — 3-letter IATA airport code (e.g., JFK).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**icaoCode:** `String?` — 4-letter ICAO airport code (e.g., KJFK).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**loCode:** `String?` — 5-letter UN/LO city code.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `RequestOptions?` — Additional options for configuring the request, such as custom headers or timeout settings.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.<a href="/Sources/APIFreaks.swift">timezoneConvert</a>(apiKey: String, format: TimezoneConvertRequestFormat?, time: String?, tzFrom: String?, tzTo: String?, latFrom: Double?, longFrom: Double?, latTo: Double?, longTo: Double?, locationFrom: String?, locationTo: String?, iataFrom: String?, iataTo: String?, icaoFrom: String?, icaoTo: String?, locodeFrom: String?, locodeTo: String?, requestOptions: RequestOptions?) -> TimezoneConvertResponse</code></summary>
 <dl>
 <dd>
@@ -12674,7 +14363,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">userAgentLookup</a>(apiKey: String, format: UserAgentLookupRequestFormat?, userAgent: String, requestOptions: RequestOptions?) -> UserAgentLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">userAgentLookup</a>(apiKey: String, userAgent: String, format: UserAgentLookupRequestFormat?, requestOptions: RequestOptions?) -> UserAgentLookupResponse</code></summary>
 <dl>
 <dd>
 
@@ -12707,7 +14396,10 @@ import APIFreaks
 private func main() async throws {
     let client = APIFreaks()
 
-    _ = try await client.userAgentLookup(apiKey: "apiKey", userAgent: "User-Agent")
+    _ = try await client.userAgentLookup(
+        apiKey: "apiKey",
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"
+    )
 }
 
 try await main()
@@ -12733,7 +14425,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `UserAgentLookupRequestFormat?` — Format of the response
+**userAgent:** `String` — The User-Agent string to parse. Sent as the `User-Agent` request header.
     
 </dd>
 </dl>
@@ -12741,7 +14433,7 @@ try await main()
 <dl>
 <dd>
 
-**userAgent:** `String` — User-Agent string to parse. Sent as the `User-Agent` HTTP header. **Required**
+**format:** `UserAgentLookupRequestFormat?` — Format of the response
     
 </dd>
 </dl>
@@ -12773,7 +14465,7 @@ try await main()
 <dl>
 <dd>
 
-Parse up to `50,000 User-Agent strings` at once in a single request.
+Parse up to `20000 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
 </dd>
 </dl>
 </dd>
@@ -12853,7 +14545,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">ocrPredict</a>(apiKey: String, url: String?, model: OcrPredictRequestModel, pageRange: String?, zone: String?, newLine: Int?, request: Requests.OcrPredictRequest, requestOptions: RequestOptions?) -> OcrPredictResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">ocrPredict</a>(apiKey: String, model: OcrPredictRequestModel, url: String?, pageRange: String?, zone: String?, newLine: Int?, request: Requests.OcrPredictRequest, requestOptions: RequestOptions?) -> OcrPredictResponse</code></summary>
 <dl>
 <dd>
 
@@ -12897,7 +14589,7 @@ private func main() async throws {
     _ = try await client.ocrPredict(
         apiKey: "apiKey",
         model: .miniOcrV1,
-        request: .init(ocrPredictRequestModel: .miniOcrV1)
+        request: .init(file: .init(data: Data("".utf8)))
     )
 }
 
@@ -12924,7 +14616,7 @@ try await main()
 <dl>
 <dd>
 
-**url:** `String?` — URL of the image or PDF (required if `file` not provided)
+**model:** `OcrPredictRequestModel` — OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR.
     
 </dd>
 </dl>
@@ -12932,7 +14624,7 @@ try await main()
 <dl>
 <dd>
 
-**model:** `OcrPredictRequestModel` — OCR model to use.
+**url:** `String?` — URL of the image or PDF (required if `file` is not uploaded).
     
 </dd>
 </dl>
@@ -12956,7 +14648,7 @@ try await main()
 <dl>
 <dd>
 
-**newLine:** `Int?` — Set to 1 to split output text into individual lines (default: 0)
+**newLine:** `Int?` — Set to 1 to split output text into individual lines (default: 0). This changes the shape of `OCRText` (see the response).
     
 </dd>
 </dl>
@@ -13471,7 +15163,7 @@ try await main()
 </dl>
 </details>
 
-<details><summary><code>client.<a href="/Sources/APIFreaks.swift">astronomyLookupV2</a>(apiKey: String, format: AstronomyLookupRequestFormat?, location: String?, lat: Float?, long: Float?, ip: String?, lang: String?, date: CalendarDate?, elevation: Double?, timeZone: String?, requestOptions: RequestOptions?) -> AstronomyLookupResponse</code></summary>
+<details><summary><code>client.<a href="/Sources/APIFreaks.swift">getCreditsUsage</a>(apiKey: String, format: GetCreditsUsageRequestFormat?, requestOptions: RequestOptions?) -> GetCreditsUsageResponse</code></summary>
 <dl>
 <dd>
 
@@ -13483,7 +15175,7 @@ try await main()
 <dl>
 <dd>
 
-Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed (v2.0 endpoint).
+Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.
 </dd>
 </dl>
 </dd>
@@ -13504,7 +15196,7 @@ import APIFreaks
 private func main() async throws {
     let client = APIFreaks()
 
-    _ = try await client.astronomyLookupV2(apiKey: "apiKey")
+    _ = try await client.getCreditsUsage(apiKey: "apiKey")
 }
 
 try await main()
@@ -13530,71 +15222,7 @@ try await main()
 <dl>
 <dd>
 
-**format:** `AstronomyLookupRequestFormat?` — Format of the response.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**location:** `String?` — Location name or address
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lat:** `Float?` — Latitude for location coordinates
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**long:** `Float?` — Longitude for location coordinates
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**ip:** `String?` — IP address for location detection
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**lang:** `String?` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**date:** `CalendarDate?` — Date for astronomy data (YYYY-MM-DD)
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**elevation:** `Double?` — Timezone of the location for which astronomy data is required
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**timeZone:** `String?` — 
+**format:** `GetCreditsUsageRequestFormat?` — Format of the response. Possible values: json, xml.
     
 </dd>
 </dl>

@@ -7,7 +7,7 @@ public struct DomainReputationResponseEmailDeliverabilityInfrastructure: Codable
     /// List of mail exchange server hostnames for the domain.
     public let mxRecords: [String]
     /// Email hosting provider inferred from the MX records.
-    public let mxProvider: String
+    public let mxProvider: Nullable<String>
     /// Indicates whether the domain explicitly declines email via a null MX record.
     public let nullMx: Bool
     /// Additional properties that are not explicitly defined in the schema
@@ -16,7 +16,7 @@ public struct DomainReputationResponseEmailDeliverabilityInfrastructure: Codable
     public init(
         mxCount: Int,
         mxRecords: [String],
-        mxProvider: String,
+        mxProvider: Nullable<String>,
         nullMx: Bool,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -31,7 +31,7 @@ public struct DomainReputationResponseEmailDeliverabilityInfrastructure: Codable
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.mxCount = try container.decode(Int.self, forKey: .mxCount)
         self.mxRecords = try container.decode([String].self, forKey: .mxRecords)
-        self.mxProvider = try container.decode(String.self, forKey: .mxProvider)
+        self.mxProvider = try container.decode(Nullable<String>.self, forKey: .mxProvider)
         self.nullMx = try container.decode(Bool.self, forKey: .nullMx)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }

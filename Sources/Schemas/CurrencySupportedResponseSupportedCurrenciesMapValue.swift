@@ -2,9 +2,12 @@ import Foundation
 
 public struct CurrencySupportedResponseSupportedCurrenciesMapValue: Codable, Hashable, Sendable {
     public let currencyCode: String
-    public let currencyName: String
-    public let countryCode: String
-    public let countryName: String
+    /// Currency name; null for some entries (e.g. crypto tokens).
+    public let currencyName: Nullable<String>
+    /// Country code; null for currencies not tied to a country.
+    public let countryCode: Nullable<String>
+    /// Country name; null for currencies not tied to a country.
+    public let countryName: Nullable<String>
     public let status: CurrencySupportedResponseSupportedCurrenciesMapValueStatus
     public let availableFrom: String
     public let availableUntil: String
@@ -14,9 +17,9 @@ public struct CurrencySupportedResponseSupportedCurrenciesMapValue: Codable, Has
 
     public init(
         currencyCode: String,
-        currencyName: String,
-        countryCode: String,
-        countryName: String,
+        currencyName: Nullable<String>,
+        countryCode: Nullable<String>,
+        countryName: Nullable<String>,
         status: CurrencySupportedResponseSupportedCurrenciesMapValueStatus,
         availableFrom: String,
         availableUntil: String,
@@ -37,9 +40,9 @@ public struct CurrencySupportedResponseSupportedCurrenciesMapValue: Codable, Has
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.currencyCode = try container.decode(String.self, forKey: .currencyCode)
-        self.currencyName = try container.decode(String.self, forKey: .currencyName)
-        self.countryCode = try container.decode(String.self, forKey: .countryCode)
-        self.countryName = try container.decode(String.self, forKey: .countryName)
+        self.currencyName = try container.decode(Nullable<String>.self, forKey: .currencyName)
+        self.countryCode = try container.decode(Nullable<String>.self, forKey: .countryCode)
+        self.countryName = try container.decode(Nullable<String>.self, forKey: .countryName)
         self.status = try container.decode(CurrencySupportedResponseSupportedCurrenciesMapValueStatus.self, forKey: .status)
         self.availableFrom = try container.decode(String.self, forKey: .availableFrom)
         self.availableUntil = try container.decode(String.self, forKey: .availableUntil)

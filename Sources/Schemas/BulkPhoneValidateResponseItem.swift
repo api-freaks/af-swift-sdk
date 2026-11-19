@@ -29,6 +29,10 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
     public let ndcLength: Int?
     /// Whether the number can be dialled internationally.
     public let canBeInternationallyDialled: Bool?
+    /// Short error category. Present only when this item failed validation (e.g. malformed number, conflicting region parameters).
+    public let error: String?
+    /// Human-readable reason for failure. Present only when this item failed validation.
+    public let message: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -47,6 +51,8 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         areaCodeLength: Int? = nil,
         ndcLength: Int? = nil,
         canBeInternationallyDialled: Bool? = nil,
+        error: String? = nil,
+        message: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.rawInput = rawInput
@@ -63,6 +69,8 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         self.areaCodeLength = areaCodeLength
         self.ndcLength = ndcLength
         self.canBeInternationallyDialled = canBeInternationallyDialled
+        self.error = error
+        self.message = message
         self.additionalProperties = additionalProperties
     }
 
@@ -82,6 +90,8 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         self.areaCodeLength = try container.decodeIfPresent(Int.self, forKey: .areaCodeLength)
         self.ndcLength = try container.decodeIfPresent(Int.self, forKey: .ndcLength)
         self.canBeInternationallyDialled = try container.decodeIfPresent(Bool.self, forKey: .canBeInternationallyDialled)
+        self.error = try container.decodeIfPresent(String.self, forKey: .error)
+        self.message = try container.decodeIfPresent(String.self, forKey: .message)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -102,6 +112,8 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         try container.encodeIfPresent(self.areaCodeLength, forKey: .areaCodeLength)
         try container.encodeIfPresent(self.ndcLength, forKey: .ndcLength)
         try container.encodeIfPresent(self.canBeInternationallyDialled, forKey: .canBeInternationallyDialled)
+        try container.encodeIfPresent(self.error, forKey: .error)
+        try container.encodeIfPresent(self.message, forKey: .message)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -120,5 +132,7 @@ public struct BulkPhoneValidateResponseItem: Codable, Hashable, Sendable {
         case areaCodeLength = "area_code_length"
         case ndcLength = "ndc_length"
         case canBeInternationallyDialled = "can_be_internationally_dialled"
+        case error
+        case message
     }
 }

@@ -5,7 +5,7 @@ public struct WebScrapeRequestBodyBlockUrl: Codable, Hashable, Sendable {
     public let blockUrl: [String]?
     /// List of cookies to be set in the browser session.
     public let cookies: [WebScrapeRequestBodyBlockUrlCookiesItem]?
-    /// An ordered list of step-by-step scraping instructions to be executed in the browser.
+    /// An ordered list of step-by-step scraping instructions to be executed in the browser. Each item is one Instruction object, with exactly one action field set.
     public let instructions: [WebScrapeRequestBodyBlockUrlInstructionsItem]
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

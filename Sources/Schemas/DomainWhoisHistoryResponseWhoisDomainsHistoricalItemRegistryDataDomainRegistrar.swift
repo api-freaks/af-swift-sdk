@@ -7,6 +7,8 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
     public let websiteUrl: String?
     public let emailAddress: String?
     public let phoneNumber: String?
+    /// Registrar handle as published in the snapshot, when present (for example `292`, usually the same as `iana_id`).
+    public let handle: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,6 +19,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
         websiteUrl: String? = nil,
         emailAddress: String? = nil,
         phoneNumber: String? = nil,
+        handle: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.ianaId = ianaId
@@ -25,6 +28,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
         self.websiteUrl = websiteUrl
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
+        self.handle = handle
         self.additionalProperties = additionalProperties
     }
 
@@ -36,6 +40,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
         self.websiteUrl = try container.decodeIfPresent(String.self, forKey: .websiteUrl)
         self.emailAddress = try container.decodeIfPresent(String.self, forKey: .emailAddress)
         self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
+        self.handle = try container.decodeIfPresent(String.self, forKey: .handle)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -48,6 +53,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
         try container.encodeIfPresent(self.websiteUrl, forKey: .websiteUrl)
         try container.encodeIfPresent(self.emailAddress, forKey: .emailAddress)
         try container.encodeIfPresent(self.phoneNumber, forKey: .phoneNumber)
+        try container.encodeIfPresent(self.handle, forKey: .handle)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -58,5 +64,6 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDo
         case websiteUrl = "website_url"
         case emailAddress = "email_address"
         case phoneNumber = "phone_number"
+        case handle
     }
 }

@@ -21,7 +21,8 @@ final class HTTPClient: Swift.Sendable {
         headers requestHeaders: [Swift.String: Swift.String?] = [:],
         queryParams requestQueryParams: [Swift.String: QueryParameter?] = [:],
         body requestBody: Any? = nil,
-        requestOptions: RequestOptions? = nil
+        requestOptions: RequestOptions? = nil,
+        retriesDisabled: Swift.Bool = false
     ) async throws {
         _ = try await performRequest(
             method: method,
@@ -31,6 +32,7 @@ final class HTTPClient: Swift.Sendable {
             queryParams: requestQueryParams,
             body: requestBody,
             requestOptions: requestOptions,
+            retriesDisabled: retriesDisabled,
             responseType: Foundation.Data.self
         )
     }
@@ -44,6 +46,7 @@ final class HTTPClient: Swift.Sendable {
         queryParams requestQueryParams: [Swift.String: QueryParameter?] = [:],
         body requestBody: Any? = nil,
         requestOptions: RequestOptions? = nil,
+        retriesDisabled: Swift.Bool = false,
         responseType: T.Type
     ) async throws -> T {
         let requestBody: HTTP.RequestBody? = requestBody.map { body in
@@ -70,7 +73,8 @@ final class HTTPClient: Swift.Sendable {
 
         let (data, _) = try await executeRequestWithURLSession(
             request,
-            requestOptions: requestOptions
+            requestOptions: requestOptions,
+            retriesDisabled: retriesDisabled
         )
 
         if responseType == Foundation.Data.self {
@@ -131,12 +135,11 @@ final class HTTPClient: Swift.Sendable {
         }
 
         // Set body
-        if let requestBody = requestBody {
-            request.httpBody = buildRequestBody(
-                requestBody: requestBody,
-                requestOptions: requestOptions
-            )
-        }
+        request.httpBody = try buildRequestBody(
+            method: method,
+            requestBody: requestBody,
+            requestOptions: requestOptions
+        )
 
         return request
     }
@@ -153,11 +156,14 @@ final class HTTPClient: Swift.Sendable {
             )
         }
         if !requestQueryParams.isEmpty {
-            let baseItems: [Foundation.URLQueryItem] = requestQueryParams.compactMap { key, value in
-                guard let unwrapped = value else { return nil }
+            let baseItems: [Foundation.URLQueryItem] = requestQueryParams.flatMap { key, value -> [Foundation.URLQueryItem] in
+                guard let unwrapped = value else { return [] }
+                if case .repeatedStringArray(let values) = unwrapped {
+                    return values.filter { !$0.isEmpty }.map { Foundation.URLQueryItem(name: key, value: $0) }
+                }
                 let stringValue = unwrapped.toString()
-                guard !stringValue.isEmpty else { return nil }
-                return Foundation.URLQueryItem(name: key, value: stringValue)
+                guard !stringValue.isEmpty else { return [] }
+                return [Foundation.URLQueryItem(name: key, value: stringValue)]
             }
             if !baseItems.isEmpty {
                 components.queryItems = baseItems
@@ -244,30 +250,100 @@ final class HTTPClient: Swift.Sendable {
     }
 
     private func buildRequestBody(
-        requestBody: HTTP.RequestBody,
+        method: HTTP.Method,
+        requestBody: HTTP.RequestBody?,
         requestOptions: RequestOptions? = nil
-    ) -> Data {
+    ) throws -> Foundation.Data? {
+        let additionalBodyParameters = mergedAdditionalBodyParameters(requestOptions: requestOptions)
+        guard let requestBody else {
+            // URLSession rejects GET/HEAD requests that carry a body, so additional body parameters are not applied.
+            if additionalBodyParameters.isEmpty || method == .get || method == .head {
+                return nil
+            }
+            return try encodeAdditionalBodyParameters(.object(additionalBodyParameters))
+        }
         switch requestBody {
         case .jsonEncodable(let encodableBody):
+            let encodedBody: Foundation.Data
             do {
-                return try jsonEncoder.encode(encodableBody)
+                encodedBody = try jsonEncoder.encode(encodableBody)
             } catch {
                 preconditionFailure(
                     "Failed to encode request body: \(error) - this indicates an unexpected error in the SDK."
                 )
             }
+            if additionalBodyParameters.isEmpty {
+                return encodedBody
+            }
+            return try mergeAdditionalBodyParameters(
+                additionalBodyParameters,
+                into: encodedBody
+            )
         case .data(let dataBody):
+            // Raw data bodies are sent as-is; additional body parameters are not applied.
             return dataBody
         case .multipartFormData(let multipartData):
+            // Multipart form data bodies are sent as-is; additional body parameters are not applied.
             return multipartData.data()
+        }
+    }
+
+    /// Combines `additionalBodyParameters` (sent as JSON strings) and `additionalBodyProperties`;
+    /// `additionalBodyProperties` wins when both set the same key.
+    private func mergedAdditionalBodyParameters(requestOptions: RequestOptions?) -> [Swift.String: JSONValue] {
+        let stringParameters = (requestOptions?.additionalBodyParameters ?? [:]).mapValues(JSONValue.string)
+        return stringParameters.merging(requestOptions?.additionalBodyProperties ?? [:]) { _, property in property }
+    }
+
+    /// Merges additional body parameters into an encoded JSON body. Additional parameters take precedence
+    /// over existing keys. Bodies that are `null` are replaced with the additional parameters, and bodies that
+    /// are not JSON objects (e.g. arrays or primitives) are returned unchanged.
+    private func mergeAdditionalBodyParameters(
+        _ additionalBodyParameters: [Swift.String: JSONValue],
+        into encodedBody: Foundation.Data
+    ) throws -> Foundation.Data {
+        let decodedBody = try? Foundation.JSONSerialization.jsonObject(
+            with: encodedBody,
+            options: [.fragmentsAllowed]
+        )
+        if decodedBody is Foundation.NSNull {
+            return try encodeAdditionalBodyParameters(.object(additionalBodyParameters))
+        }
+        guard var bodyObject = decodedBody as? [Swift.String: Any] else {
+            return encodedBody
+        }
+        for (key, value) in additionalBodyParameters {
+            bodyObject[key] = try Foundation.JSONSerialization.jsonObject(
+                with: encodeAdditionalBodyParameters(value),
+                options: [.fragmentsAllowed]
+            )
+        }
+        do {
+            return try Foundation.JSONSerialization.data(
+                withJSONObject: bodyObject,
+                options: [.withoutEscapingSlashes]
+            )
+        } catch {
+            throw APIFreaksError.encodingError(error)
+        }
+    }
+
+    private func encodeAdditionalBodyParameters(_ value: JSONValue) throws -> Foundation.Data {
+        do {
+            return try jsonEncoder.encode(value)
+        } catch {
+            throw APIFreaksError.encodingError(error)
         }
     }
 
     private func executeRequestWithURLSession(
         _ request: Networking.URLRequest,
-        requestOptions: RequestOptions? = nil
+        requestOptions: RequestOptions? = nil,
+        retriesDisabled: Swift.Bool = false
     ) async throws -> (Foundation.Data, Swift.String?) {
-        let maxRetries = requestOptions?.maxRetries ?? clientConfig.maxRetries
+        // Endpoints declaring `retries: { disabled: true }` never retry, taking precedence over both
+        // the client-level and the per-request retry configuration.
+        let maxRetries = retriesDisabled ? 0 : (requestOptions?.maxRetries ?? clientConfig.maxRetries)
         var lastResponse: (Foundation.Data, Networking.HTTPURLResponse)?
 
         for attempt in 0...maxRetries {

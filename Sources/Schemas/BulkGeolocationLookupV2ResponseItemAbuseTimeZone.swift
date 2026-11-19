@@ -11,7 +11,7 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseTimeZone: Codable, Hashabl
     /// Local date/time in YYYY-MM-DD HH:mm:ss.SSS±ZZZZ format.
     public let currentTime: String
     /// Local time as Unix epoch seconds.
-    public let currentTimeUnix: Float
+    public let currentTimeUnix: Double
     /// Current time zone abbreviation.
     public let currentTzAbbreviation: String?
     /// Current time zone full name.
@@ -42,7 +42,7 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseTimeZone: Codable, Hashabl
         offset: Float,
         offsetWithDst: Float,
         currentTime: String,
-        currentTimeUnix: Float,
+        currentTimeUnix: Double,
         currentTzAbbreviation: String? = nil,
         currentTzFullName: String? = nil,
         standardTzAbbreviation: String? = nil,
@@ -81,7 +81,7 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseTimeZone: Codable, Hashabl
         self.offset = try container.decode(Float.self, forKey: .offset)
         self.offsetWithDst = try container.decode(Float.self, forKey: .offsetWithDst)
         self.currentTime = try container.decode(String.self, forKey: .currentTime)
-        self.currentTimeUnix = try container.decode(Float.self, forKey: .currentTimeUnix)
+        self.currentTimeUnix = try container.decode(Double.self, forKey: .currentTimeUnix)
         self.currentTzAbbreviation = try container.decodeIfPresent(String.self, forKey: .currentTzAbbreviation)
         self.currentTzFullName = try container.decodeIfPresent(String.self, forKey: .currentTzFullName)
         self.standardTzAbbreviation = try container.decodeIfPresent(String.self, forKey: .standardTzAbbreviation)

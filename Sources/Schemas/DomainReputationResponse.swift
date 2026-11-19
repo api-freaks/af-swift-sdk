@@ -24,6 +24,10 @@ public struct DomainReputationResponse: Codable, Hashable, Sendable {
     public let evidenceSummary: DomainReputationResponseEvidenceSummary
     /// List of errors encountered during processing, if any (e.g. "WHOIS lookup failed"). An empty array means every signal resolved.
     public let errors: [String]
+    /// Backlink profile of the domain.
+    public let backlinks: DomainReputationResponseBacklinks?
+    /// Current registration status of the domain.
+    public let registration: DomainReputationResponseRegistration?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -39,6 +43,8 @@ public struct DomainReputationResponse: Codable, Hashable, Sendable {
         intelligence: DomainReputationResponseIntelligence,
         evidenceSummary: DomainReputationResponseEvidenceSummary,
         errors: [String],
+        backlinks: DomainReputationResponseBacklinks? = nil,
+        registration: DomainReputationResponseRegistration? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.input = input
@@ -52,6 +58,8 @@ public struct DomainReputationResponse: Codable, Hashable, Sendable {
         self.intelligence = intelligence
         self.evidenceSummary = evidenceSummary
         self.errors = errors
+        self.backlinks = backlinks
+        self.registration = registration
         self.additionalProperties = additionalProperties
     }
 
@@ -68,6 +76,8 @@ public struct DomainReputationResponse: Codable, Hashable, Sendable {
         self.intelligence = try container.decode(DomainReputationResponseIntelligence.self, forKey: .intelligence)
         self.evidenceSummary = try container.decode(DomainReputationResponseEvidenceSummary.self, forKey: .evidenceSummary)
         self.errors = try container.decode([String].self, forKey: .errors)
+        self.backlinks = try container.decodeIfPresent(DomainReputationResponseBacklinks.self, forKey: .backlinks)
+        self.registration = try container.decodeIfPresent(DomainReputationResponseRegistration.self, forKey: .registration)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -85,6 +95,8 @@ public struct DomainReputationResponse: Codable, Hashable, Sendable {
         try container.encode(self.intelligence, forKey: .intelligence)
         try container.encode(self.evidenceSummary, forKey: .evidenceSummary)
         try container.encode(self.errors, forKey: .errors)
+        try container.encodeIfPresent(self.backlinks, forKey: .backlinks)
+        try container.encodeIfPresent(self.registration, forKey: .registration)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -100,5 +112,7 @@ public struct DomainReputationResponse: Codable, Hashable, Sendable {
         case intelligence
         case evidenceSummary = "evidence_summary"
         case errors
+        case backlinks
+        case registration
     }
 }

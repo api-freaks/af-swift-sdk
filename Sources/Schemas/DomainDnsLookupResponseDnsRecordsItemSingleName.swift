@@ -7,7 +7,7 @@ public struct DomainDnsLookupResponseDnsRecordsItemSingleName: Codable, Hashable
     public let ttl: Int
     public let rawText: String
     public let rRsetType: Int
-    /// Name server for the domain
+    /// The name server (NS records), or the host name the IP address resolves to (PTR records from IP address lookups).
     public let singleName: String
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]

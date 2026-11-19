@@ -9,6 +9,8 @@ public struct CommodityFluctuationV2Response: Codable, Hashable, Sendable {
     public let endDate: String
     /// Map keyed by commodity symbol; value contains fluctuation metrics.
     public let rates: [String: CommodityFluctuationV2ResponseRatesValue]
+    /// Present only on a 206 Partial Content response, when some requested symbols could not be resolved. Map of each unresolved symbol to a detail message and optional close-match suggestions.
+    public let unresolved: [String: CommodityFluctuationV2ResponseUnresolvedValue]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,12 +19,14 @@ public struct CommodityFluctuationV2Response: Codable, Hashable, Sendable {
         startDate: String,
         endDate: String,
         rates: [String: CommodityFluctuationV2ResponseRatesValue],
+        unresolved: [String: CommodityFluctuationV2ResponseUnresolvedValue]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.success = success
         self.startDate = startDate
         self.endDate = endDate
         self.rates = rates
+        self.unresolved = unresolved
         self.additionalProperties = additionalProperties
     }
 
@@ -32,6 +36,7 @@ public struct CommodityFluctuationV2Response: Codable, Hashable, Sendable {
         self.startDate = try container.decode(String.self, forKey: .startDate)
         self.endDate = try container.decode(String.self, forKey: .endDate)
         self.rates = try container.decode([String: CommodityFluctuationV2ResponseRatesValue].self, forKey: .rates)
+        self.unresolved = try container.decodeIfPresent([String: CommodityFluctuationV2ResponseUnresolvedValue].self, forKey: .unresolved)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -42,6 +47,7 @@ public struct CommodityFluctuationV2Response: Codable, Hashable, Sendable {
         try container.encode(self.startDate, forKey: .startDate)
         try container.encode(self.endDate, forKey: .endDate)
         try container.encode(self.rates, forKey: .rates)
+        try container.encodeIfPresent(self.unresolved, forKey: .unresolved)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -50,5 +56,6 @@ public struct CommodityFluctuationV2Response: Codable, Hashable, Sendable {
         case startDate
         case endDate
         case rates
+        case unresolved
     }
 }

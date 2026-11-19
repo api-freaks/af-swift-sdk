@@ -11,7 +11,10 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData: Co
     public let expiryDate: CalendarDate?
     public let nameServers: [String]?
     public let domainStatus: [String]?
+    /// Deprecated: the API never returns this key; the raw registry WHOIS text is in `whois_raw_registery`.
     public let whoisRawRegistry: String?
+    /// Raw WHOIS text returned by the registry's WHOIS server (the key is spelled `whois_raw_registery` by the API).
+    public let whoisRawRegistery: String?
     public let domainRegistrar: BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryDataDomainRegistrar?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
@@ -27,6 +30,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData: Co
         nameServers: [String]? = nil,
         domainStatus: [String]? = nil,
         whoisRawRegistry: String? = nil,
+        whoisRawRegistery: String? = nil,
         domainRegistrar: BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryDataDomainRegistrar? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -40,6 +44,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData: Co
         self.nameServers = nameServers
         self.domainStatus = domainStatus
         self.whoisRawRegistry = whoisRawRegistry
+        self.whoisRawRegistery = whoisRawRegistery
         self.domainRegistrar = domainRegistrar
         self.additionalProperties = additionalProperties
     }
@@ -56,6 +61,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData: Co
         self.nameServers = try container.decodeIfPresent([String].self, forKey: .nameServers)
         self.domainStatus = try container.decodeIfPresent([String].self, forKey: .domainStatus)
         self.whoisRawRegistry = try container.decodeIfPresent(String.self, forKey: .whoisRawRegistry)
+        self.whoisRawRegistery = try container.decodeIfPresent(String.self, forKey: .whoisRawRegistery)
         self.domainRegistrar = try container.decodeIfPresent(BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryDataDomainRegistrar.self, forKey: .domainRegistrar)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -73,6 +79,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData: Co
         try container.encodeIfPresent(self.nameServers, forKey: .nameServers)
         try container.encodeIfPresent(self.domainStatus, forKey: .domainStatus)
         try container.encodeIfPresent(self.whoisRawRegistry, forKey: .whoisRawRegistry)
+        try container.encodeIfPresent(self.whoisRawRegistery, forKey: .whoisRawRegistery)
         try container.encodeIfPresent(self.domainRegistrar, forKey: .domainRegistrar)
     }
 
@@ -88,6 +95,7 @@ public struct BulkDomainWhoisLookupResponseBulkWhoisResponseItemRegistryData: Co
         case nameServers = "name_servers"
         case domainStatus = "domain_status"
         case whoisRawRegistry = "whois_raw_registry"
+        case whoisRawRegistery = "whois_raw_registery"
         case domainRegistrar = "domain_registrar"
     }
 }

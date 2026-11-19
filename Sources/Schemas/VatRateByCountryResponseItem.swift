@@ -6,11 +6,11 @@ public struct VatRateByCountryResponseItem: Codable, Hashable, Sendable {
     public let type: String
     public let currency: String
     public let standardRate: Float
-    public let reducedRate: [Float]
+    public let reducedRate: [Float]?
     /// Optional super-reduced VAT rates applicable in specific categories.
     public let superReducedRate: [Float]?
     public let parkingRate: Float?
-    public let categories: [String: Float]
+    public let categories: [String: Float]?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -20,10 +20,10 @@ public struct VatRateByCountryResponseItem: Codable, Hashable, Sendable {
         type: String,
         currency: String,
         standardRate: Float,
-        reducedRate: [Float],
+        reducedRate: [Float]? = nil,
         superReducedRate: [Float]? = nil,
         parkingRate: Float? = nil,
-        categories: [String: Float],
+        categories: [String: Float]? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.country = country
@@ -45,10 +45,10 @@ public struct VatRateByCountryResponseItem: Codable, Hashable, Sendable {
         self.type = try container.decode(String.self, forKey: .type)
         self.currency = try container.decode(String.self, forKey: .currency)
         self.standardRate = try container.decode(Float.self, forKey: .standardRate)
-        self.reducedRate = try container.decode([Float].self, forKey: .reducedRate)
+        self.reducedRate = try container.decodeIfPresent([Float].self, forKey: .reducedRate)
         self.superReducedRate = try container.decodeIfPresent([Float].self, forKey: .superReducedRate)
         self.parkingRate = try container.decodeIfPresent(Float.self, forKey: .parkingRate)
-        self.categories = try container.decode([String: Float].self, forKey: .categories)
+        self.categories = try container.decodeIfPresent([String: Float].self, forKey: .categories)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -60,10 +60,10 @@ public struct VatRateByCountryResponseItem: Codable, Hashable, Sendable {
         try container.encode(self.type, forKey: .type)
         try container.encode(self.currency, forKey: .currency)
         try container.encode(self.standardRate, forKey: .standardRate)
-        try container.encode(self.reducedRate, forKey: .reducedRate)
+        try container.encodeIfPresent(self.reducedRate, forKey: .reducedRate)
         try container.encodeIfPresent(self.superReducedRate, forKey: .superReducedRate)
         try container.encodeIfPresent(self.parkingRate, forKey: .parkingRate)
-        try container.encode(self.categories, forKey: .categories)
+        try container.encodeIfPresent(self.categories, forKey: .categories)
     }
 
     /// Keys for encoding/decoding struct properties.

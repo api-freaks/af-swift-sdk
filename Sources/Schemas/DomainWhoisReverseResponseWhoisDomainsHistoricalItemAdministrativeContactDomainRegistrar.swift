@@ -7,6 +7,12 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     public let websiteUrl: String?
     public let emailAddress: String?
     public let phoneNumber: String?
+    /// Normalized (lowercase, stripped) registrar name, when published.
+    public let normalizedName: Nullable<String>?
+    /// RDAP (Registration Data Access Protocol) server URL of the registrar, when published.
+    public let rdapServer: Nullable<String>?
+    /// Accreditation status of the registrar (e.g., 'accredited'), when published.
+    public let status: Nullable<String>?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -17,6 +23,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         websiteUrl: String? = nil,
         emailAddress: String? = nil,
         phoneNumber: String? = nil,
+        normalizedName: Nullable<String>? = nil,
+        rdapServer: Nullable<String>? = nil,
+        status: Nullable<String>? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.ianaId = ianaId
@@ -25,6 +34,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         self.websiteUrl = websiteUrl
         self.emailAddress = emailAddress
         self.phoneNumber = phoneNumber
+        self.normalizedName = normalizedName
+        self.rdapServer = rdapServer
+        self.status = status
         self.additionalProperties = additionalProperties
     }
 
@@ -36,6 +48,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         self.websiteUrl = try container.decodeIfPresent(String.self, forKey: .websiteUrl)
         self.emailAddress = try container.decodeIfPresent(String.self, forKey: .emailAddress)
         self.phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
+        self.normalizedName = try container.decodeNullableIfPresent(String.self, forKey: .normalizedName)
+        self.rdapServer = try container.decodeNullableIfPresent(String.self, forKey: .rdapServer)
+        self.status = try container.decodeNullableIfPresent(String.self, forKey: .status)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -48,6 +63,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         try container.encodeIfPresent(self.websiteUrl, forKey: .websiteUrl)
         try container.encodeIfPresent(self.emailAddress, forKey: .emailAddress)
         try container.encodeIfPresent(self.phoneNumber, forKey: .phoneNumber)
+        try container.encodeNullableIfPresent(self.normalizedName, forKey: .normalizedName)
+        try container.encodeNullableIfPresent(self.rdapServer, forKey: .rdapServer)
+        try container.encodeNullableIfPresent(self.status, forKey: .status)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -58,5 +76,8 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         case websiteUrl = "website_url"
         case emailAddress = "email_address"
         case phoneNumber = "phone_number"
+        case normalizedName = "normalized_name"
+        case rdapServer = "rdap_server"
+        case status
     }
 }

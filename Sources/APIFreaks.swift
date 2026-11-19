@@ -55,6 +55,19 @@ public final class APIFreaks: Sendable {
 
     /// Get detailed geolocation data for an IP address including country, city, timezone, currency, and optional security and user-agent information
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.geolocationLookup(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter ip: IPv4, IPv6, or hostname for geolocation lookup
@@ -84,6 +97,24 @@ public final class APIFreaks: Sendable {
     /// Retrieve detailed geolocation data for multiple IP addresses in a single request.
     /// Supports up to `50,000` IP-addresses/host-names per request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkGeolocationLookup(
+    ///         apiKey: "apiKey",
+    ///         request: .init(ips: [
+    ///             "ips"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter lang: Language of the response.
@@ -111,6 +142,19 @@ public final class APIFreaks: Sendable {
 
     /// Get comprehensive security information for a given IP address. Detects VPNs, proxies, Tor nodes, and other security threats.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.ipSecurityLookup(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter ip: A valid IPv4 or IPv6 address to look up. If omitted, the API uses the public IP of the requesting client.
@@ -135,6 +179,24 @@ public final class APIFreaks: Sendable {
 
     /// The Bulk IP Security Lookup API allows you to retrieve security details for up to `50,000` IP-addresses in a single request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkIpSecurityLookup(
+    ///         apiKey: "apiKey",
+    ///         request: .init(ips: [
+    ///             "ips"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter fields: Comma-separated list of fields to return. Supports dot notation (e.g. security.threat_score).
@@ -157,6 +219,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Convert a given address or place name into geographic coordinates (latitude and longitude).
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.geocoderSearch(
+    ///         apiKey: "apiKey",
+    ///         query: "query"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter acceptLanguage: Preferred language order for showing search results. This may either be a simple comma-separated list of language codes or a single entry. The results will be in the 1st language which is matched from the header. As a fallback if the results are not supported in the given language, 'en' will be used.
     /// - Parameter apiKey: Your API key
@@ -192,6 +270,23 @@ public final class APIFreaks: Sendable {
 
     /// Convert geographic coordinates (latitude and longitude) into a human-readable address or place name.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.geocoderReverse(
+    ///         apiKey: "apiKey",
+    ///         lat: 1.1,
+    ///         lon: 1.1
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter acceptLanguage: Preferred language order for showing search results. This may either be a simple comma-separated list of language codes or a single entry. The results will be in the 1st language which is matched from the header. As a fallback if the results are not supported in the given language, en will be used.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -220,6 +315,22 @@ public final class APIFreaks: Sendable {
     /// This endpoint provides detailed registration information including registrar details,
     /// dates, nameservers, and registrant information.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainWhoisLookup(
+    ///         apiKey: "apiKey",
+    ///         domainName: "domainName"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format (defaults to json)
     /// - Parameter domainName: Domain name for WHOIS lookup
@@ -240,6 +351,24 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve WHOIS information for `100 Domains per Request`.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkDomainWhoisLookup(
+    ///         apiKey: "apiKey",
+    ///         request: .init(domainNames: [
+    ///             "domainNames"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -258,6 +387,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Returns WHOIS registration details for a specified IP address (IPv4 or IPv6).
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.ipWhoisLookup(
+    ///         apiKey: "apiKey",
+    ///         ip: "ip"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -278,6 +423,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Returns WHOIS registration details for a specified ASN, with or without the 'as' prefix.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.asnWhoisLookup(
+    ///         apiKey: "apiKey",
+    ///         asn: "asn"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -300,6 +461,22 @@ public final class APIFreaks: Sendable {
     /// Retrieve historical WHOIS records for a domain name.
     /// This endpoint provides a timeline of all recorded changes in domain registration information.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainWhoisHistory(
+    ///         apiKey: "apiKey",
+    ///         domainName: "domainName"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter domainName: Domain name for historical WHOIS lookup
@@ -319,6 +496,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Performs a reverse WHOIS search using one or more search parameters like keyword, email, owner, or company.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainWhoisReverse(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -351,13 +541,31 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve real-time DNS records for any hostname. Supports multiple record types including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainDnsLookup(
+    ///         apiKey: "apiKey",
+    ///         type: [
+    ///             "type"
+    ///         ]
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
-    /// - Parameter hostName: Hostname or URL whose DNS records are required.
-    /// - Parameter ipAddress: The IP address for requested DNS's PTR record. 'type' parameter must be set to 'all'.
-    /// - Parameter type: A comma-separated list of DNS record types for lookup. Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all. When ipAddress is provided, type must be "all".
+    /// - Parameter hostName: Hostname or URL whose DNS records are required. Give either `host-name` or `ipAddress`.
+    /// - Parameter ipAddress: The IP address whose PTR (reverse DNS) record is required. Give either `host-name` or `ipAddress`; with `ipAddress`, set `type` to `all` or `PTR`.
+    /// - Parameter type: DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, PTR, or all. When ipAddress is provided, use "all" or "PTR".
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainDnsLookup(apiKey: String, format: DomainDnsLookupRequestFormat? = nil, hostName: String? = nil, ipAddress: String? = nil, type: String? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsLookupResponse {
+    public func domainDnsLookup(apiKey: String, format: DomainDnsLookupRequestFormat? = nil, hostName: String? = nil, ipAddress: String? = nil, type: [String]? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/dns/live",
@@ -366,7 +574,7 @@ public final class APIFreaks: Sendable {
                 "format": format.map { .string($0.rawValue) }, 
                 "host-name": hostName.map { .string($0) }, 
                 "ipAddress": ipAddress.map { .string($0) }, 
-                "type": type.map { .string($0) }
+                "type": type.map { .stringArray($0) }
             ],
             requestOptions: requestOptions,
             responseType: DomainDnsLookupResponse.self
@@ -376,19 +584,39 @@ public final class APIFreaks: Sendable {
     /// Perform DNS lookups for multiple hostnames in a single request. Supports up to `100 host-names per request`
     /// and returns DNS records including A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkDomainDnsLookup(
+    ///         apiKey: "apiKey",
+    ///         type: [
+    ///             "type"
+    ///         ],
+    ///         request: .init(domainNames: [
+    ///             "domainNames"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
-    /// - Parameter type: A comma-separated list of DNS record types for lookup.
-    /// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
+    /// - Parameter type: DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func bulkDomainDnsLookup(apiKey: String, format: BulkDomainDnsLookupRequestFormat? = nil, type: String? = nil, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainDnsLookupResponse {
+    public func bulkDomainDnsLookup(apiKey: String, format: BulkDomainDnsLookupRequestFormat? = nil, type: [String]? = nil, request: Requests.BulkDomainDnsLookupRequest, requestOptions: RequestOptions? = nil) async throws -> BulkDomainDnsLookupResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/domain/dns/live",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "type": type.map { .string($0) }
+                "type": type.map { .stringArray($0) }
             ],
             body: request,
             requestOptions: requestOptions,
@@ -399,14 +627,32 @@ public final class APIFreaks: Sendable {
     /// Retrieve historical DNS records for any hostname. Access unique historical data for A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME records,
     /// including subdomains. Results are paginated with up to 100 unique records per page.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainDnsHistory(
+    ///         apiKey: "apiKey",
+    ///         hostName: "host-name",
+    ///         type: [
+    ///             "type"
+    ///         ]
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter hostName: Hostname or URL whose historical DNS records are required
-    /// - Parameter type: A comma-separated list of DNS record types for lookup.
-    /// Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all
+    /// - Parameter type: DNS record types to look up, sent as a comma-separated list (e.g. `A,MX`). Possible values: A, AAAA, MX, NS, SOA, SPF, TXT, CNAME, or all.
     /// - Parameter page: Page number for paginated results
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func domainDnsHistory(apiKey: String, format: DomainDnsHistoryRequestFormat? = nil, hostName: String, type: String? = nil, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsHistoryResponse {
+    public func domainDnsHistory(apiKey: String, format: DomainDnsHistoryRequestFormat? = nil, hostName: String, type: [String]? = nil, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> DomainDnsHistoryResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/domain/dns/history",
@@ -414,7 +660,7 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "host-name": .string(hostName), 
-                "type": type.map { .string($0) }, 
+                "type": type.map { .stringArray($0) }, 
                 "page": page.map { .int($0) }
             ],
             requestOptions: requestOptions,
@@ -423,6 +669,23 @@ public final class APIFreaks: Sendable {
     }
 
     /// Retrieve all the hostnames associated with any particular A, AAAA, MX, NS, SOA, SPF, TXT, and CNAME DNS records. For instance, you can access all the hostnames hosted on any IP/CIDR notation, all the domain names using Cloudflare name servers, and all the domain names using Google Mailbox
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainDnsReverse(
+    ///         apiKey: "apiKey",
+    ///         type: .a,
+    ///         value: "value"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -458,6 +721,53 @@ public final class APIFreaks: Sendable {
     /// Execute a series of web scraping instructions on a target URL. 
     /// Supports various operations like form filling, clicking, data extraction, and CAPTCHA solving.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.webScrape(
+    ///         apiKey: "apiKey",
+    ///         url: "https://example.com",
+    ///         request: WebScrapeRequestBody.webScrapeRequestBodyBlockUrl(
+    ///             WebScrapeRequestBodyBlockUrl(
+    ///                 instructions: [
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///
+    ///                     ),
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///
+    ///                     ),
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///
+    ///                     ),
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///
+    ///                     ),
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///                         extract: [
+    ///                             "profile": "#profile", 
+    ///                             "welcomeMessage": "#welcome-message", 
+    ///                             "userInfo": "#user-info"
+    ///                         ]
+    ///                     ),
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///
+    ///                     ),
+    ///                     WebScrapeRequestBodyBlockUrlInstructionsItem(
+    ///
+    ///                     )
+    ///                 ]
+    ///             )
+    ///         )
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format returned by the API.
     /// - Parameter url: Target URL to scrape
@@ -466,7 +776,7 @@ public final class APIFreaks: Sendable {
     /// 
     /// 
     ///  Default value is `true`.
-    /// - Parameter proxy: Use proxy for requests
+    /// - Parameter proxy: Use a proxy for the request. Pass true/false to toggle the default proxy pool, or a proxy URL string to use a specific proxy.
     /// - Parameter sslIgnore: Ignore SSL certificate errors.
     /// 
     /// 
@@ -494,7 +804,12 @@ public final class APIFreaks: Sendable {
                 "url": .string(url), 
                 "text": text.map { .bool($0) }, 
                 "jsEnabled": jsEnabled.map { .bool($0) }, 
-                "proxy": proxy.map { .unknown($0) }, 
+                "proxy": proxy.map { (p: WebScrapeRequestProxy) -> QueryParameter in
+                    switch p {
+                    case .bool(let v): return .bool(v)
+                    case .string(let v): return .string(v)
+                    }
+                }, 
                 "sslIgnore": sslIgnore.map { .bool($0) }, 
                 "windowSize": windowSize.map { .string($0) }, 
                 "adBlock": adBlock.map { .bool($0) }, 
@@ -507,6 +822,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Validates a single email address and returns result.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.emailValidate(
+    ///         apiKey: "apiKey",
+    ///         request: .init(email: "email")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
@@ -527,6 +858,26 @@ public final class APIFreaks: Sendable {
 
     /// Validates a bulk of email addresses and returns result for each. Maximum `10` email addresses per request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkEmailValidate(
+    ///         apiKey: "apiKey",
+    ///         request: .init(emailData: [
+    ///             BulkEmailValidateRequestEmailDataItem(
+    ///                 email: "email"
+    ///             )
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -544,7 +895,104 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// Validates email syntax and checks the domain for disposable, free, spam, and role-account signals, plus MX/A DNS records. Send the email (and optionally an ip) as a JSON request body. When an ip is included, the response also carries geolocation and security data for it.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.disposableEmailCheckV2(
+    ///         apiKey: "apiKey",
+    ///         request: .init(email: "test@sogetthis.com")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func disposableEmailCheckV2(apiKey: String, format: DisposableEmailCheckV2RequestFormat? = nil, request: Requests.DisposableEmailCheckV2Request, requestOptions: RequestOptions? = nil) async throws -> DisposableEmailCheckV2Response {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v2.0/email/disposable-check",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: DisposableEmailCheckV2Response.self
+        )
+    }
+
+    /// Checks a bulk of email addresses (each with an optional ip) and returns a disposable email check result for each, in the same order as the request. Maximum `100` entries per request.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkDisposableEmailCheckV2(
+    ///         apiKey: "apiKey",
+    ///         request: .init(emailData: [
+    ///             BulkDisposableEmailCheckV2RequestEmailDataItem(
+    ///                 email: "abc"
+    ///             ),
+    ///             BulkDisposableEmailCheckV2RequestEmailDataItem(
+    ///                 email: "john@microsoft.com",
+    ///                 ip: "8.8.8.8"
+    ///             ),
+    ///             BulkDisposableEmailCheckV2RequestEmailDataItem(
+    ///                 email: "test@mailinator.com"
+    ///             )
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func bulkDisposableEmailCheckV2(apiKey: String, format: BulkDisposableEmailCheckV2RequestFormat? = nil, request: Requests.BulkDisposableEmailCheckV2Request, requestOptions: RequestOptions? = nil) async throws -> BulkDisposableEmailCheckV2Response {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v2.0/email/disposable-check/bulk",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: BulkDisposableEmailCheckV2Response.self
+        )
+    }
+
     /// Validates a single phone number and returns detailed metadata including carrier, line type, geolocation, time zones, and standardized formats.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.phoneValidate(
+    ///         apiKey: "apiKey",
+    ///         request: .init(number: "+14155552671")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format.
@@ -565,6 +1013,32 @@ public final class APIFreaks: Sendable {
 
     /// Validates up to 100 phone numbers in a single request. Each number is processed independently — invalid entries return per-number errors without affecting the rest of the batch.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkPhoneValidate(
+    ///         apiKey: "apiKey",
+    ///         request: .init(numbers: [
+    ///             BulkPhoneValidateRequestNumbersItem(
+    ///                 number: "+14155552671"
+    ///             ),
+    ///             BulkPhoneValidateRequestNumbersItem(
+    ///                 number: "+447911123456"
+    ///             ),
+    ///             BulkPhoneValidateRequestNumbersItem(
+    ///                 number: "+919876543210"
+    ///             )
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object. If not provided, the API defaults to JSON format.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -584,6 +1058,22 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve comprehensive SSL certificate information without the certificate chain.
     /// This endpoint provides detailed information about the SSL certificate including expiry dates, issuer details, and encryption methods.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainSslLookup(
+    ///         apiKey: "apiKey",
+    ///         domainName: "domainName"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -608,6 +1098,22 @@ public final class APIFreaks: Sendable {
     /// Retrieve the complete SSL certificate chain from root Certificate Authority (CA) to end-user certificate.
     /// This endpoint provides comprehensive information about each certificate in the chain.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainSslChainLookup(
+    ///         apiKey: "apiKey",
+    ///         domainName: "domainName"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter domainName: Domain name or URL whose SSL certificate chain lookup is required
@@ -629,6 +1135,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainAvailabilityCheck(
+    ///         apiKey: "apiKey",
+    ///         domain: "domain"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -652,6 +1174,24 @@ public final class APIFreaks: Sendable {
 
     /// Perform Bulk Domain Availability checks using a list of domains. Supports upto `100 Domains Per Request`.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkDomainAvailabilityCheck(
+    ///         apiKey: "apiKey",
+    ///         request: .init(domainNames: [
+    ///             "domainNames"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter source: Specify the data source for domain availability checks. Use "dns" for DNS-based lookups or "whois" for WHOIS-based lookups. By default, "dns" is used.
@@ -672,6 +1212,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// The Domain Search API is designed to simplify the process of finding available domain names across all top-level domains (TLDs) and second-level domains (SLDs).
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainAvailabilitySuggestions(
+    ///         apiKey: "apiKey",
+    ///         domain: "domain"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -698,6 +1254,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// The Subdomain Lookup API is designed to retrieve subdomains related to the given domain name. It helps you explore subdomains that are available for registration or usage.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.subdomainsLookup(
+    ///         apiKey: "apiKey",
+    ///         domain: "domain"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -727,6 +1299,19 @@ public final class APIFreaks: Sendable {
 
     /// The Domain Typosquatting API searches for registered domains that are typo or look-alike variants of a brand keyword, or that match a wildcard pattern. Results include registration lifecycle data and drop status across 1529+ TLDs, paginated at 100 domains per page.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainTyposquatting(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter keyword: Brand or label to find typo variants for. 3-63 characters, letters, digits, or hyphens, a single label with no dots. Case-insensitive. Use either keyword or pattern, never both.
@@ -751,6 +1336,22 @@ public final class APIFreaks: Sendable {
 
     /// The Domain Reputation API evaluates a domain against threat intelligence sources, DGA (domain generation algorithm) scoring, trust signals, and email deliverability configuration, returning a consolidated risk assessment with a verdict, severity, and supporting evidence.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainReputation(
+    ///         apiKey: "apiKey",
+    ///         domainName: "domainName"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter domainName: The domain name to assess (e.g. example.com). Must contain at least one dot and be at most 253 characters. Automatically lowercased.
@@ -770,6 +1371,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.astronomyLookupV2(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response. Can be "json" or "xml".
@@ -804,6 +1418,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Get current time, date, and timezone details by specifying a timezone name, location address, GPS coordinates, IP address, IATA/ICAO airport code, UN/LOCODE, or use the client IP if no parameter is provided.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.timezoneLookupV2(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response. Possible values: json, xml.
@@ -841,6 +1468,19 @@ public final class APIFreaks: Sendable {
 
     /// Get detailed IP geolocation data for an IP address including country, city, timezone, currency, and optional threat intelligence and user-agent information.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.geolocationLookupV2(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter ip: IPv4, IPv6, or hostname for geolocation lookup.
@@ -869,6 +1509,24 @@ public final class APIFreaks: Sendable {
 
     /// Get detailed IP geolocation data for multiple IP addresses including country, city, timezone, currency, and optional threat intelligence information. Supports up to 50,000 IP addresses per request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkGeolocationLookupV2(
+    ///         apiKey: "apiKey",
+    ///         request: .init(ips: [
+    ///             "ips"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter lang: Response language for location fields. Default: en.
@@ -896,6 +1554,22 @@ public final class APIFreaks: Sendable {
 
     /// Returns the current WHOIS record for the specified domain, including registrar details, registrant/administrative/technical/billing/reseller contacts, name servers, status codes, and raw WHOIS text.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.domainWhoisLookupV2(
+    ///         apiKey: "apiKey",
+    ///         domainName: "domainName"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter domainName: Domain name to retrieve WHOIS data for (e.g. example.com).
@@ -916,6 +1590,24 @@ public final class APIFreaks: Sendable {
 
     /// Returns the current WHOIS record for each requested domain, in request order. Supports up to 100 domain names per request; a domain that fails to resolve yields an error item instead of failing the whole batch.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkDomainWhoisLookupV2(
+    ///         apiKey: "apiKey",
+    ///         request: .init(domainNames: [
+    ///             "domainNames"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -935,19 +1627,37 @@ public final class APIFreaks: Sendable {
 
     /// Returns the current live price for the requested commodity symbols. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityLatestRatesV2(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ]
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format. Currently only `json` is supported.
     /// - Parameter symbols: Comma-separated list of commodity symbols (e.g., XAU, WTIOIL-SPOT). Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
     /// - Parameter quote: Target currency for the exchange rate. If omitted (or set to `default`), the default quote currency of each commodity is used. Requires a premium plan; ignored on lower-tier plans.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityLatestRatesV2(apiKey: String, format: CommodityLatestRatesV2RequestFormat? = nil, symbols: String? = nil, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesV2Response {
+    public func commodityLatestRatesV2(apiKey: String, format: CommodityLatestRatesV2RequestFormat? = nil, symbols: [String]? = nil, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesV2Response {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v2.0/commodity/rates/latest",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "quote": quote.map { .string($0) }
             ],
             requestOptions: requestOptions,
@@ -957,19 +1667,38 @@ public final class APIFreaks: Sendable {
 
     /// Returns OHLC price data for the requested commodity symbols on a specific date. Falls back to the nearest earlier rate if none exists for the exact date. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityHistoricalRatesV2(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ],
+    ///         date: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format. Currently only `json` is supported.
     /// - Parameter symbols: Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
     /// - Parameter date: Date in YYYY-MM-DD format. Data available from 1990 onwards.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityHistoricalRatesV2(apiKey: String, format: CommodityHistoricalRatesV2RequestFormat? = nil, symbols: String? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesV2Response {
+    public func commodityHistoricalRatesV2(apiKey: String, format: CommodityHistoricalRatesV2RequestFormat? = nil, symbols: [String]? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesV2Response {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v2.0/commodity/rates/historical",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "date": .calendarDate(date)
             ],
             requestOptions: requestOptions,
@@ -979,20 +1708,40 @@ public final class APIFreaks: Sendable {
 
     /// Returns price fluctuation metrics (start, end, change, percent change) for the requested commodity symbols over a date range. For monthly-updated commodities the range snaps to month boundaries. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityFluctuationV2(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ],
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         endDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format. Currently only `json` is supported.
     /// - Parameter symbols: Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityFluctuationV2(apiKey: String, format: CommodityFluctuationV2RequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationV2Response {
+    public func commodityFluctuationV2(apiKey: String, format: CommodityFluctuationV2RequestFormat? = nil, symbols: [String]? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationV2Response {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v2.0/commodity/fluctuation",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -1003,20 +1752,40 @@ public final class APIFreaks: Sendable {
 
     /// Returns day-by-day OHLC data for the requested commodity symbols within a date range, indexed by date. Non-trading days are excluded. Unresolved symbols degrade to a 206 partial response instead of failing the whole request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityTimeSeriesV2(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ],
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         endDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format. Currently only `json` is supported.
     /// - Parameter symbols: Comma-separated list of commodity symbols. Case-insensitive; duplicates are deduplicated server-side, with one response entry and one credit charge per unique symbol.
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD). Maximum range is 365 days.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityTimeSeriesV2(apiKey: String, format: CommodityTimeSeriesV2RequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesV2Response {
+    public func commodityTimeSeriesV2(apiKey: String, format: CommodityTimeSeriesV2RequestFormat? = nil, symbols: [String]? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesV2Response {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v2.0/commodity/time-series",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -1026,6 +1795,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Returns the list of supported commodity symbols with metadata. Deprecated symbols stay listed with status "inactive" and a deprecationDate.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commoditySymbolsV2(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Response format. Currently only `json` is supported.
@@ -1043,7 +1825,67 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// Returns the prices of one commodity through a UTC day at the requested interval, keyed by UTC timestamp. Each request costs a flat 50 credits however many points it returns.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityIntradayRatesV2(
+    ///         apiKey: "apiKey",
+    ///         symbols: "symbols",
+    ///         interval: .oneM,
+    ///         date: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter symbols: Exactly one commodity symbol. Case-insensitive. Sending two or more returns a 400. Only symbols updated every second, every minute, or every 10 minutes have intraday rates; symbols updated hourly or less often return a 400. Use the Commodity Symbols endpoint for all valid values.
+    /// - Parameter interval: Spacing between points. Case-insensitive. Symbols updated every 10 minutes accept only `10m`, `30m`, `1h`, `2h`, `4h`, `8h`, `12h`, `1d`.
+    /// - Parameter date: The UTC day to read, in `YYYY-MM-DD` format. Cannot be in the future. For today, points stop at the current UTC minute.
+    /// - Parameter startTime: First mark of the window, as a 24-hour UTC time in `HH:mm`. Must fall on a mark of the interval (for example, `14:30` works for `5m` or `30m`, but not for `1h`). For `1d` it can only be `00:00`.
+    /// - Parameter metadata: Whether to include the `metadata` object. Pass `false` to receive only the prices.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func commodityIntradayRatesV2(apiKey: String, symbols: String, interval: CommodityIntradayRatesV2RequestInterval, date: CalendarDate, startTime: String? = nil, metadata: Bool? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityIntradayRatesV2Response {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v2.0/commodity/rates/intraday",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "symbols": .string(symbols), 
+                "interval": .string(interval.rawValue), 
+                "date": .calendarDate(date), 
+                "startTime": startTime.map { .string($0) }, 
+                "metadata": metadata.map { .bool($0) }
+            ],
+            requestOptions: requestOptions,
+            responseType: CommodityIntradayRatesV2Response.self
+        )
+    }
+
     /// This API merges multiple PDF files into a single PDF, in the order they are provided
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfMerge(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: [])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
@@ -1054,7 +1896,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfMerge(webhookAuthorization: String? = nil, apiKey: String, format: PdfMergeRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfMergeRequest, requestOptions: RequestOptions? = nil) async throws -> PdfMergeResponse {
+    public func pdfMerge(webhookAuthorization: String? = nil, apiKey: String, format: PdfMergeRequestFormat? = nil, fileId: [String]? = nil, destroy: Bool? = nil, output: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfMergeRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfMergeResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/merge",
@@ -1065,7 +1907,7 @@ public final class APIFreaks: Sendable {
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "file_id": fileId.map { .string($0) }, 
+                "file_id": fileId.map { .repeatedStringArray($0) }, 
                 "destroy": destroy.map { .bool($0) }, 
                 "output": output.map { .string($0) }, 
                 "webhook_url": webhookUrl.map { .string($0) }, 
@@ -1079,6 +1921,23 @@ public final class APIFreaks: Sendable {
 
     /// This API removes a selection or range of pages from a PDF file.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfRemovePages(
+    ///         apiKey: "apiKey",
+    ///         pages: "pages",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1089,7 +1948,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfRemovePages(webhookAuthorization: String? = nil, apiKey: String, format: PdfRemovePagesRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfRemovePagesRequest, requestOptions: RequestOptions? = nil) async throws -> PdfRemovePagesResponse {
+    public func pdfRemovePages(webhookAuthorization: String? = nil, apiKey: String, format: PdfRemovePagesRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfRemovePagesRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfRemovePagesResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/remove-pages",
@@ -1114,6 +1973,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API splits a PDF into multiple parts based on specified page numbers or ranges.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfSplit(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
@@ -1143,7 +2018,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfSplit(webhookAuthorization: String? = nil, apiKey: String, format: PdfSplitRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfSplitRequest, requestOptions: RequestOptions? = nil) async throws -> PdfSplitResponse {
+    public func pdfSplit(webhookAuthorization: String? = nil, apiKey: String, format: PdfSplitRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: [String]? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfSplitRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfSplitResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/split",
@@ -1157,7 +2032,7 @@ public final class APIFreaks: Sendable {
                 "file_id": fileId.map { .string($0) }, 
                 "destroy": destroy.map { .bool($0) }, 
                 "output": output.map { .string($0) }, 
-                "pages": pages.map { .string($0) }, 
+                "pages": pages.map { .stringArray($0) }, 
                 "webhook_url": webhookUrl.map { .string($0) }, 
                 "webhook_failure_notification": webhookFailureNotification.map { .bool($0) }
             ],
@@ -1168,6 +2043,23 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API rotates pages of a PDF by a specified angle (in multiples of 90 degrees).
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfRotate(
+    ///         apiKey: "apiKey",
+    ///         rotate: 1,
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
@@ -1180,7 +2072,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfRotate(webhookAuthorization: String? = nil, apiKey: String, format: PdfRotateRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, rotate: Int, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfRotateRequest, requestOptions: RequestOptions? = nil) async throws -> PdfRotateResponse {
+    public func pdfRotate(webhookAuthorization: String? = nil, apiKey: String, format: PdfRotateRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, rotate: Int, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfRotateRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfRotateResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/rotate",
@@ -1207,6 +2099,23 @@ public final class APIFreaks: Sendable {
 
     /// This API compresses a given PDF file to reduce its file size.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfCompress(
+    ///         apiKey: "apiKey",
+    ///         compressionLevel: .low,
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1217,7 +2126,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfCompress(webhookAuthorization: String? = nil, apiKey: String, format: PdfCompressRequestFormat? = nil, fileId: String? = nil, output: String? = nil, compressionLevel: PdfCompressRequestCompressionLevel, destroy: Bool? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfCompressRequest, requestOptions: RequestOptions? = nil) async throws -> PdfCompressResponse {
+    public func pdfCompress(webhookAuthorization: String? = nil, apiKey: String, format: PdfCompressRequestFormat? = nil, fileId: String? = nil, output: String? = nil, compressionLevel: PdfCompressRequestCompressionLevel, destroy: Bool? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfCompressRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfCompressResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/compress",
@@ -1243,6 +2152,23 @@ public final class APIFreaks: Sendable {
 
     /// This API extracts specific pages or page ranges from a PDF file and returns them as a new PDF.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfExtractPages(
+    ///         apiKey: "apiKey",
+    ///         pages: "pages",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1254,7 +2180,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfExtractPages(webhookAuthorization: String? = nil, apiKey: String, format: PdfExtractPagesRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String, separated: Bool? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfExtractPagesRequest, requestOptions: RequestOptions? = nil) async throws -> PdfExtractPagesResponse {
+    public func pdfExtractPages(webhookAuthorization: String? = nil, apiKey: String, format: PdfExtractPagesRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String, separated: Bool? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfExtractPagesRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfExtractPagesResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/extract-pages",
@@ -1281,6 +2207,22 @@ public final class APIFreaks: Sendable {
 
     /// API endpoint that linearizes any given PDF, restructuring it for faster loading and page-by-page viewing in web browsers.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfLinearize(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1290,7 +2232,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfLinearize(webhookAuthorization: String? = nil, apiKey: String, format: PdfLinearizeRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfLinearizeRequest, requestOptions: RequestOptions? = nil) async throws -> PdfLinearizeResponse {
+    public func pdfLinearize(webhookAuthorization: String? = nil, apiKey: String, format: PdfLinearizeRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfLinearizeRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfLinearizeResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/linearize",
@@ -1315,6 +2257,23 @@ public final class APIFreaks: Sendable {
 
     /// This API encrypts a PDF file by setting a password required to open it.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfEncrypt(
+    ///         apiKey: "apiKey",
+    ///         userPassword: "user_password",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1327,7 +2286,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfEncrypt(webhookAuthorization: String? = nil, apiKey: String, format: PdfEncryptRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String? = nil, userPassword: String, ownerPassword: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfEncryptRequest, requestOptions: RequestOptions? = nil) async throws -> PdfEncryptResponse {
+    public func pdfEncrypt(webhookAuthorization: String? = nil, apiKey: String, format: PdfEncryptRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String? = nil, userPassword: String, ownerPassword: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfEncryptRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfEncryptResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/encrypt",
@@ -1355,6 +2314,23 @@ public final class APIFreaks: Sendable {
 
     /// This API decrypts PDF files, removing all encryption, including open passwords and permission restrictions.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfDecrypt(
+    ///         apiKey: "apiKey",
+    ///         filePassword: "file_password",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1365,7 +2341,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfDecrypt(webhookAuthorization: String? = nil, apiKey: String, format: PdfDecryptRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfDecryptRequest, requestOptions: RequestOptions? = nil) async throws -> PdfDecryptResponse {
+    public func pdfDecrypt(webhookAuthorization: String? = nil, apiKey: String, format: PdfDecryptRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfDecryptRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfDecryptResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/decrypt",
@@ -1391,6 +2367,26 @@ public final class APIFreaks: Sendable {
 
     /// This API applies permission restrictions on a PDF file, such as disabling printing, copying, or editing. This can include password protection to enforce restrictions.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfRestrict(
+    ///         apiKey: "apiKey",
+    ///         userPassword: "user_password",
+    ///         restrictions: [
+    ///             .printHigh
+    ///         ],
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1414,7 +2410,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfRestrict(webhookAuthorization: String? = nil, apiKey: String, format: PdfRestrictRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String? = nil, userPassword: String, ownerPassword: String? = nil, restrictions: PdfRestrictRequestRestrictionsItem? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfRestrictRequest, requestOptions: RequestOptions? = nil) async throws -> PdfRestrictResponse {
+    public func pdfRestrict(webhookAuthorization: String? = nil, apiKey: String, format: PdfRestrictRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String? = nil, userPassword: String, ownerPassword: String? = nil, restrictions: [PdfRestrictRequestRestrictionsItem]? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfRestrictRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfRestrictResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/restrict",
@@ -1431,7 +2427,7 @@ public final class APIFreaks: Sendable {
                 "file_password": filePassword.map { .string($0) }, 
                 "user_password": .string(userPassword), 
                 "owner_password": ownerPassword.map { .string($0) }, 
-                "restrictions": restrictions.map { .string($0.rawValue) }, 
+                "restrictions": restrictions.map { .stringArray($0.map(\.rawValue)) }, 
                 "webhook_url": webhookUrl.map { .string($0) }, 
                 "webhook_failure_notification": webhookFailureNotification.map { .bool($0) }
             ],
@@ -1442,6 +2438,24 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API removes permission restrictions from a PDF while keeping it encrypted. If you want to remove all security (including encryption), use the `/pdf/decrypt` endpoint instead.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfUnrestrict(
+    ///         apiKey: "apiKey",
+    ///         filePassword: "file_password",
+    ///         userPassword: "user_password",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
@@ -1455,7 +2469,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfUnrestrict(webhookAuthorization: String? = nil, apiKey: String, format: PdfUnrestrictRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String, userPassword: String? = nil, ownerPassword: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfUnrestrictRequest, requestOptions: RequestOptions? = nil) async throws -> PdfUnrestrictResponse {
+    public func pdfUnrestrict(webhookAuthorization: String? = nil, apiKey: String, format: PdfUnrestrictRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, filePassword: String, userPassword: String, ownerPassword: String? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfUnrestrictRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfUnrestrictResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/unrestrict",
@@ -1470,7 +2484,7 @@ public final class APIFreaks: Sendable {
                 "destroy": destroy.map { .bool($0) }, 
                 "output": output.map { .string($0) }, 
                 "file_password": .string(filePassword), 
-                "user_password": userPassword.map { .string($0) }, 
+                "user_password": .string(userPassword), 
                 "owner_password": ownerPassword.map { .string($0) }, 
                 "webhook_url": webhookUrl.map { .string($0) }, 
                 "webhook_failure_notification": webhookFailureNotification.map { .bool($0) }
@@ -1482,6 +2496,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API converts a given PDF file into a sequence of PNG images.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfConvertToPng(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
@@ -1496,7 +2526,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfConvertToPng(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToPngRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToPngRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToPngRequest, requestOptions: RequestOptions? = nil) async throws -> PdfConvertToPngResponse {
+    public func pdfConvertToPng(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToPngRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToPngRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToPngRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfConvertToPngResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/png",
@@ -1525,6 +2555,22 @@ public final class APIFreaks: Sendable {
 
     /// This API converts a given PDF file into a sequence of JPG images.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfConvertToJpg(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1539,7 +2585,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfConvertToJpg(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToJpgRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, quality: Int? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToJpgRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToJpgRequest, requestOptions: RequestOptions? = nil) async throws -> PdfConvertToJpgResponse {
+    public func pdfConvertToJpg(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToJpgRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, quality: Int? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToJpgRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToJpgRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfConvertToJpgResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/jpg",
@@ -1569,6 +2615,22 @@ public final class APIFreaks: Sendable {
 
     /// This API converts a given PDF file into a sequence of TIFF images. The output images can be saved as a single TIFF file, or as a sequence of TIFF files.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfConvertToTiff(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1582,7 +2644,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfConvertToTiff(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToTiffRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToTiffRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToTiffRequest, requestOptions: RequestOptions? = nil) async throws -> PdfConvertToTiffResponse {
+    public func pdfConvertToTiff(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToTiffRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToTiffRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToTiffRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfConvertToTiffResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/tif",
@@ -1611,6 +2673,22 @@ public final class APIFreaks: Sendable {
 
     /// Converts a PDF file to a BMP image.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfConvertToBmp(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1624,7 +2702,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfConvertToBmp(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToBmpRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToBmpRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToBmpRequest, requestOptions: RequestOptions? = nil) async throws -> PdfConvertToBmpResponse {
+    public func pdfConvertToBmp(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToBmpRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToBmpRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToBmpRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfConvertToBmpResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/bmp",
@@ -1653,6 +2731,22 @@ public final class APIFreaks: Sendable {
 
     /// This API converts a given PDF file into a sequence of GIF images.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfConvertToGif(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter webhookAuthorization: Optional custom header for webhook requests. Format: `Key:Value` (e.g., `Authorization:Bearer token123`). This will be sent as an HTTP header in the webhook call.
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1666,7 +2760,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter webhookUrl: The URL to which the webhook notification will be sent after the task is completed.
     /// - Parameter webhookFailureNotification: If true, a notification will also be sent by email in case the webhook request fails all the retries.  The email notification will be sent to the requesting user or their organization’s admin if part of one.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func pdfConvertToGif(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToGifRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToGifRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToGifRequest, requestOptions: RequestOptions? = nil) async throws -> PdfConvertToGifResponse {
+    public func pdfConvertToGif(webhookAuthorization: String? = nil, apiKey: String, format: PdfConvertToGifRequestFormat? = nil, fileId: String? = nil, destroy: Bool? = nil, output: String? = nil, pages: String? = nil, resolution: Int? = nil, imageSmoothing: String? = nil, profile: PdfConvertToGifRequestProfile? = nil, webhookUrl: String? = nil, webhookFailureNotification: Bool? = nil, request: Requests.PdfConvertToGifRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> PdfConvertToGifResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/pdf/gif",
@@ -1694,6 +2788,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API uploads multiple PDF files to the API Freaks server and generates their unique file IDs.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfUploadResources(
+    ///         apiKey: "apiKey",
+    ///         request: .init(file: [])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1740,6 +2850,22 @@ public final class APIFreaks: Sendable {
 
     /// This API downloads PDF files or ZIP archives from the server using their unique resource ID.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfDownloadResource(
+    ///         apiKey: "apiKey",
+    ///         resourceId: "resource_id"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter resourceId: The unique identifier of the file or ZIP archive to download.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -1758,6 +2884,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API checks the status of a previously initiated PDF processing task using its unique task ID.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfGetTaskStatus(
+    ///         apiKey: "apiKey",
+    ///         taskId: "task_id"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1779,6 +2921,22 @@ public final class APIFreaks: Sendable {
 
     /// This API checks the status of a PDF file using its unique file ID, providing information about its creation and potential deletion time.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfGetFileStatus(
+    ///         apiKey: "apiKey",
+    ///         fileId: "file_id"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     /// - Parameter fileId: The unique ID of the file whose status is requested.
@@ -1799,6 +2957,19 @@ public final class APIFreaks: Sendable {
 
     /// This API retrieves a list of all PDF files uploaded and generated by a specific user. Please note that if the user is part of an organization, only the Organization Administrator can access this endpoint. Organization Members cannot access this endpoint.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfListFiles(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -1816,6 +2987,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// This API deletes a PDF file using its unique file ID.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfDeleteFile(
+    ///         apiKey: "apiKey",
+    ///         fileId: "file_id"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specifies the desired format for the API response. Choose 'json' for a JSON object or 'xml' for an XML structure.
@@ -1835,11 +3022,150 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// Renders the template identified by template_id with the JSON data supplied in the request body (or fetched from data_url). Returns a hosted URL for the generated PDF. Provide either a request body or a data_url; one of the two is required. The keys of the data object are the fields you bound when you designed the template in the APIFreaks PDF Template Builder, so the exact shape is up to you. Pin the version parameter to a specific template version (e.g. version=v2) so later design changes never touch what is already live; omit it to use the latest version.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.pdfGenerateFromTemplate(
+    ///         apiKey: "apiKey",
+    ///         templateId: "template_id",
+    ///         request: [
+    ///             "candidate_name": .string("Ava Thompson"), 
+    ///             "candidate_title": .string("Senior Operations Analyst"), 
+    ///             "email": .string("ava.thompson@example.com"), 
+    ///             "phone": .string("+1 (555) 381-2048"), 
+    ///             "city": .string("Austin, TX"), 
+    ///             "portfolio_url": .string("portfolio.example.com"), 
+    ///             "profile_summary": .string("Analytical operations professional with 8+ years of experience improving reporting pipelines, streamlining process documentation, and coordinating cross-functional delivery for distributed teams across multiple time zones."), 
+    ///             "company_name": .string("Northwind Logistics"), 
+    ///             "job_title": .string("Operations Analyst"), 
+    ///             "employment_period": .string("2021 - Present"), 
+    ///             "job_achievement_1": .string("Led weekly KPI reporting for finance, fulfillment, and customer success stakeholders across three business units."), 
+    ///             "job_achievement_2": .string("Reduced manual reconciliation work by 35% through workflow redesign and documentation automation."), 
+    ///             "job_achievement_3": .string("Spearheaded a cross-team initiative that improved on-time delivery metrics by 18% within six months."), 
+    ///             "skills": .array([
+    ///                 .object([
+    ///                     "skill": .string("Process Improvement"), 
+    ///                     "level": .string("Advanced"), 
+    ///                     "years": .string("7")
+    ///                 ]),
+    ///                 .object([
+    ///                     "skill": .string("Stakeholder Reporting"), 
+    ///                     "level": .string("Expert"), 
+    ///                     "years": .string("8")
+    ///                 ]),
+    ///                 .object([
+    ///                     "skill": .string("Cross-functional Coordination"), 
+    ///                     "level": .string("Advanced"), 
+    ///                     "years": .string("5")
+    ///                 ]),
+    ///                 .object([
+    ///                     "skill": .string("Workflow Documentation"), 
+    ///                     "level": .string("Advanced"), 
+    ///                     "years": .string("6")
+    ///                 ])
+    ///             ]), 
+    ///             "degree": .string("B.S. in Information Systems"), 
+    ///             "institution": .string("University of Texas"), 
+    ///             "graduation_year": .string("2018"), 
+    ///             "certification_1": .string("Certified Business Analysis Professional (CBAP)"), 
+    ///             "certification_2": .string("Six Sigma Green Belt"), 
+    ///             "languages": .string("English (Native), Spanish (Professional)")
+    ///         ]
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter templateId: The template to render, from the APIFreaks PDF Template Builder. Copy it from your dashboard when you save the template.
+    /// - Parameter version: Template version to render, e.g. v2. Must start with v. Omit this parameter entirely to use the latest version; the literal value 'latest' is not accepted by the API.
+    /// - Parameter dataUrl: A URL the API fetches your JSON data from, instead of the request body. Provide this when you are not sending a request body.
+    /// - Parameter request: Free-form JSON object whose keys map to the fields bound in the template.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func pdfGenerateFromTemplate(apiKey: String, templateId: String, version: String? = nil, dataUrl: String? = nil, request: [String: JSONValue], requestOptions: RequestOptions? = nil) async throws -> PdfGenerateFromTemplateResponse {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1.0/pdf/template/generate",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "template_id": .string(templateId), 
+                "version": version.map { .string($0) }, 
+                "data_url": dataUrl.map { .string($0) }
+            ],
+            body: request,
+            requestOptions: requestOptions,
+            responseType: PdfGenerateFromTemplateResponse.self
+        )
+    }
+
+    /// Upload a CSV file where each row is one record. The API generates one PDF per row and returns an array of results, each with its own pdf_url. Rows are processed independently, so a failure in one row does not block the rest of the batch. The response gives a row-by-row breakdown of which PDFs succeeded and which failed.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkPdfGenerateFromTemplate(
+    ///         apiKey: "apiKey",
+    ///         templateId: "template_id",
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter templateId: The template to render, from the APIFreaks PDF Template Builder. Copy it from your dashboard when you save the template.
+    /// - Parameter version: Template version to render, e.g. v2. Must start with v. Omit this parameter entirely to use the latest version; the literal value 'latest' is not accepted by the API.
+    /// - Parameter request: Multipart form-data request body containing the CSV file to render in bulk.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func bulkPdfGenerateFromTemplate(apiKey: String, templateId: String, version: String? = nil, request: Requests.BulkPdfGenerateFromTemplateRequest, requestOptions: RequestOptions? = nil) async throws -> [BulkPdfGenerateFromTemplateResponseItem] {
+        return try await httpClient.performRequest(
+            method: .post,
+            path: "/v1.0/pdf/template/generate/bulk",
+            contentType: .multipartFormData,
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "template_id": .string(templateId), 
+                "version": version.map { .string($0) }
+            ],
+            body: request.asMultipartFormData(),
+            requestOptions: requestOptions,
+            responseType: [BulkPdfGenerateFromTemplateResponseItem].self
+        )
+    }
+
     /// Capture full-page screenshots and videos of websites with advanced options like device simulation, custom code injection, cookie banner blocking, and scrollable content recording.
     /// Supports multiple output formats including JSON, image, GIF, MP4, and WebM.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.screenshotCapture(
+    ///         apiKey: "apiKey",
+    ///         url: "url"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter output: Output format for screenshot results
+    /// - Parameter output: Output format for screenshot results. The SDKs support only `json`, which returns metadata with the captured file's URL in `screenshot`; download the file from that URL. (The API's `output=image`, which returns the raw file, is not supported by the SDK methods.)
     /// - Parameter fileType: File type for screenshot output
     /// - Parameter url: URLs to capture screenshots of
     /// - Parameter width: Browser viewport width in pixels
@@ -1899,8 +3225,35 @@ public final class APIFreaks: Sendable {
     /// - Parameter multipleScrolling: If true, multiple scrolling screenshots will be taken at different viewport sizes.
     /// - Parameter sizes: Comma-separated list of viewport sizes in the format index:XXw:YYh. Example: sizes=0:120w:300h,1:240w:500h
     /// - Parameter duration: Duration in seconds for the scrolling capture. Acceptable range: 0 to 100 seconds.
+    /// - Parameter captchaError: CSS selector of the message shown for a wrong answer. While it is visible, the solver tries again.
+    /// - Parameter captchaImage: CSS selector of the captcha picture. Required when solve_captcha is true.
+    /// - Parameter captchaInput: CSS selector of the box the answer is typed into. Required when solve_captcha is true.
+    /// - Parameter captchaRefresh: CSS selector of the control that loads a new captcha picture before the next try.
+    /// - Parameter captchaRetries: Number of guesses the solver makes, from 1 to 5.
+    /// - Parameter captchaSubmit: CSS selector of the button to click after the answer is typed.
+    /// - Parameter classicProxy: Loads the page through a datacenter proxy. Adds 20 credits per request. Ignored when premium_proxy is true or a custom proxy is set.
+    /// - Parameter clickRecursion: Number of times to click the selector (when set via `selector_to_click`).
+    /// - Parameter country: Two-letter country code, such as US or DE, for the exit address of classic_proxy or premium_proxy. Ignored when you send your own proxy. Any two-letter code is sent, including one that is not listed. Classic proxy countries: BG, GE, DE, HN, MD, UA, GB, US. Premium proxy countries: AF, AL, DZ, AO, AG, AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB, BY, BE, BZ, BJ, BT, BO, BQ, BA, BW, BR, BN, BG, BF, BI, CV, KH, CM, CA, KY, CF, TD, CL, CN, CO, KM, CG, CR, CI, HR, CU, CW, CY, CZ, CD, DK, DJ, DM, DO, EC, EG, SV, GQ, EE, SZ, ET, FO, FJ, FI, FR, GF, PF, GA, GM, GE, DE, GH, GI, GR, GL, GD, GP, GU, GT, GG, GN, GW, GY, HT, HN, HK, HU, IS, IN, ID, IR, IQ, IE, IL, IT, JM, JP, JE, JO, KZ, KE, XK, KW, KG, LA, LV, LB, LS, LR, LY, LT, MO, MG, MW, MY, MV, ML, MT, MQ, MR, MU, YT, MX, MD, MN, ME, MA, MZ, MM, NA, NP, NL, NC, NZ, NI, NE, NG, MK, NO, OM, PK, PS, PA, PG, PY, PE, PH, PL, PT, PR, QA, RE, RO, RU, RW, KN, LC, VC, WS, SA, SN, RS, SC, SL, SG, SK, SI, SB, SO, ZA, KR, SS, ES, LK, SD, SR, SE, CH, SY, TW, TJ, TZ, TH, TL, TG, TO, TT, TN, TR, TM, UG, UA, AE, GB, US, UY, UZ, VE, VN, YE, ZM, ZW.
+    /// - Parameter extractMarkdown: Extracts rendered page content as a structured .md (Markdown) file. Preserves headings, lists, links. Only with output=json.
+    /// - Parameter format: Response format: json (default).
+    /// - Parameter getImageUrls: Extracts all image URLs from the rendered DOM and returns them in structured format. Only with output=json.
+    /// - Parameter gpu: Renders the page with a GPU, including WebGL and canvas content. Adds 20 credits per request.
+    /// - Parameter markdown: Markdown to render instead of loading a URL. Works like custom_html, so you can capture a README or notes without hosting a page.
+    /// - Parameter ocrModel: Recognition model used by the captcha solver: mini-ocr-v1 (default) or ocr-v1.
+    /// - Parameter pdfOptionsFormat: Paper size of the PDF. Applies when file_type is PDF. Without it, width and height are used if set, otherwise the page renders as one long page: A0, A1, A2, A3, A4, A5, A6, Letter, Legal, Tabloid, or Ledger.
+    /// - Parameter pdfOptionsLandscape: Renders the PDF in landscape orientation, swapping the width and height of the paper size. Applies when file_type is PDF.
+    /// - Parameter pdfOptionsMedia: CSS media type used to render the PDF: print or screen.
+    /// - Parameter pdfOptionsPageRange: Pages to keep in the PDF, as start-end, for example 1-3 or 5-5. Pages are rendered first and then trimmed. Has no effect on a single-page PDF. Applies when file_type is PDF.
+    /// - Parameter pdfOptionsPrintBackground: Includes background colors and images in the PDF. Applies when file_type is PDF.
+    /// - Parameter premiumProxy: Loads the page through a residential proxy. Adds 200 credits per request. Used instead of classic_proxy.
+    /// - Parameter scrollDelay: Delay in milliseconds between scroll steps when `lazy_load` is enabled. Use higher values for heavy pages.
+    /// - Parameter selectorToClick: CSS selector for an element to click before capturing the screenshot. Useful for opening dropdowns, modals, or triggering content.
+    /// - Parameter solveCaptcha: Solves a captcha made of text drawn in a picture, then takes the screenshot. Requires captcha_image and captcha_input. Adds 20 credits per request.
+    /// - Parameter stealth: Makes the browser look like a regular visitor for pages that block automated traffic. No extra credits.
+    /// - Parameter timezone: IANA timezone the browser uses while rendering, such as Asia/Karachi or Europe/London. Useful for clocks and localized dates.
+    /// - Parameter video: Records visible viewport only for a specified duration. Use with `duration` parameter. Ideal for dashboards and animations.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func screenshotCapture(apiKey: String, output: ScreenshotCaptureRequestOutput? = nil, fileType: ScreenshotCaptureRequestFileType? = nil, url: String, width: Int? = nil, height: Int? = nil, fullPage: Bool? = nil, fresh: Bool? = nil, noCookieBanners: Bool? = nil, enableCaching: Bool? = nil, blockAds: Bool? = nil, blockChatWidgets: Bool? = nil, extractText: Bool? = nil, extractHtml: Bool? = nil, destroyScreenshot: Bool? = nil, lazyLoad: Bool? = nil, retina: Bool? = nil, darkMode: Bool? = nil, blockTracking: Bool? = nil, enableIncognito: Bool? = nil, omitBackground: Bool? = nil, thumbnailWidth: Int? = nil, adjustTop: Int? = nil, waitForEvent: ScreenshotCaptureRequestWaitForEvent? = nil, grayscale: Int? = nil, delay: Int? = nil, timeout: Int? = nil, ttl: Int? = nil, clipX: Int? = nil, clipY: Int? = nil, clipWidth: Int? = nil, clipHeight: Int? = nil, cssUrl: String? = nil, css: String? = nil, jsUrl: String? = nil, js: String? = nil, blockJs: Bool? = nil, blockStylesheets: Bool? = nil, blockImages: Bool? = nil, blockMedia: Bool? = nil, blockFont: Bool? = nil, blockTextTrack: Bool? = nil, blockXhr: Bool? = nil, blockFetch: Bool? = nil, blockEventSource: Bool? = nil, blockWebSocket: Bool? = nil, blockManifest: Bool? = nil, blockSpecificRequests: String? = nil, blurSelector: String? = nil, removeSelector: String? = nil, resultFileName: String? = nil, scrollingScreenshot: Bool? = nil, scrollSpeed: ScreenshotCaptureRequestScrollSpeed? = nil, scrollBack: Bool? = nil, startImmediately: Bool? = nil, multipleScrolling: Bool? = nil, sizes: String? = nil, duration: Double? = nil, failOnError: Bool? = nil, longitude: Double? = nil, latitude: Double? = nil, proxy: String? = nil, headers: String? = nil, cookies: String? = nil, scrollToElement: String? = nil, selector: String? = nil, userAgent: String? = nil, acceptLanguages: String? = nil, customHtml: String? = nil, imageQuality: Double? = nil, requestOptions: RequestOptions? = nil) async throws -> Data {
+    public func screenshotCapture(apiKey: String, output: ScreenshotCaptureRequestOutput? = nil, fileType: ScreenshotCaptureRequestFileType? = nil, url: String, width: Int? = nil, height: Int? = nil, fullPage: Bool? = nil, fresh: Bool? = nil, noCookieBanners: Bool? = nil, enableCaching: Bool? = nil, blockAds: Bool? = nil, blockChatWidgets: Bool? = nil, extractText: Bool? = nil, extractHtml: Bool? = nil, destroyScreenshot: Bool? = nil, lazyLoad: Bool? = nil, retina: Bool? = nil, darkMode: Bool? = nil, blockTracking: Bool? = nil, enableIncognito: Bool? = nil, omitBackground: Bool? = nil, thumbnailWidth: Int? = nil, adjustTop: Int? = nil, waitForEvent: ScreenshotCaptureRequestWaitForEvent? = nil, grayscale: Int? = nil, delay: Int? = nil, timeout: Int? = nil, ttl: Int? = nil, clipX: Int? = nil, clipY: Int? = nil, clipWidth: Int? = nil, clipHeight: Int? = nil, cssUrl: String? = nil, css: String? = nil, jsUrl: String? = nil, js: String? = nil, blockJs: Bool? = nil, blockStylesheets: Bool? = nil, blockImages: Bool? = nil, blockMedia: Bool? = nil, blockFont: Bool? = nil, blockTextTrack: Bool? = nil, blockXhr: Bool? = nil, blockFetch: Bool? = nil, blockEventSource: Bool? = nil, blockWebSocket: Bool? = nil, blockManifest: Bool? = nil, blockSpecificRequests: String? = nil, blurSelector: String? = nil, removeSelector: String? = nil, resultFileName: String? = nil, scrollingScreenshot: Bool? = nil, scrollSpeed: ScreenshotCaptureRequestScrollSpeed? = nil, scrollBack: Bool? = nil, startImmediately: Bool? = nil, multipleScrolling: Bool? = nil, sizes: [String]? = nil, duration: Double? = nil, failOnError: Bool? = nil, longitude: Double? = nil, latitude: Double? = nil, proxy: String? = nil, headers: String? = nil, cookies: String? = nil, scrollToElement: String? = nil, selector: String? = nil, userAgent: String? = nil, acceptLanguages: String? = nil, customHtml: String? = nil, imageQuality: Double? = nil, captchaError: String? = nil, captchaImage: String? = nil, captchaInput: String? = nil, captchaRefresh: String? = nil, captchaRetries: Int? = nil, captchaSubmit: String? = nil, classicProxy: Bool? = nil, clickRecursion: Int? = nil, country: String? = nil, extractMarkdown: Bool? = nil, format: ScreenshotCaptureRequestFormat? = nil, getImageUrls: Bool? = nil, gpu: Bool? = nil, markdown: String? = nil, ocrModel: ScreenshotCaptureRequestOcrModel? = nil, pdfOptionsFormat: ScreenshotCaptureRequestPdfOptionsFormat? = nil, pdfOptionsLandscape: Bool? = nil, pdfOptionsMedia: ScreenshotCaptureRequestPdfOptionsMedia? = nil, pdfOptionsPageRange: String? = nil, pdfOptionsPrintBackground: Bool? = nil, premiumProxy: Bool? = nil, scrollDelay: Int? = nil, selectorToClick: String? = nil, solveCaptcha: Bool? = nil, stealth: Bool? = nil, timezone: String? = nil, video: Bool? = nil, requestOptions: RequestOptions? = nil) async throws -> ScreenshotCaptureResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/screenshot",
@@ -1961,7 +3314,7 @@ public final class APIFreaks: Sendable {
                 "scroll_back": scrollBack.map { .bool($0) }, 
                 "start_immediately": startImmediately.map { .bool($0) }, 
                 "multiple_scrolling": multipleScrolling.map { .bool($0) }, 
-                "sizes": sizes.map { .string($0) }, 
+                "sizes": sizes.map { .stringArray($0) }, 
                 "duration": duration.map { .double($0) }, 
                 "fail_on_error": failOnError.map { .bool($0) }, 
                 "longitude": longitude.map { .double($0) }, 
@@ -1974,15 +3327,62 @@ public final class APIFreaks: Sendable {
                 "user_agent": userAgent.map { .string($0) }, 
                 "accept_languages": acceptLanguages.map { .string($0) }, 
                 "custom_html": customHtml.map { .string($0) }, 
-                "image_quality": imageQuality.map { .double($0) }
+                "image_quality": imageQuality.map { .double($0) }, 
+                "captcha_error": captchaError.map { .string($0) }, 
+                "captcha_image": captchaImage.map { .string($0) }, 
+                "captcha_input": captchaInput.map { .string($0) }, 
+                "captcha_refresh": captchaRefresh.map { .string($0) }, 
+                "captcha_retries": captchaRetries.map { .int($0) }, 
+                "captcha_submit": captchaSubmit.map { .string($0) }, 
+                "classic_proxy": classicProxy.map { .bool($0) }, 
+                "click_recursion": clickRecursion.map { .int($0) }, 
+                "country": country.map { .string($0) }, 
+                "extract_markdown": extractMarkdown.map { .bool($0) }, 
+                "format": format.map { .string($0.rawValue) }, 
+                "get_image_urls": getImageUrls.map { .bool($0) }, 
+                "gpu": gpu.map { .bool($0) }, 
+                "markdown": markdown.map { .string($0) }, 
+                "ocr_model": ocrModel.map { .string($0.rawValue) }, 
+                "pdf_options[format]": pdfOptionsFormat.map { .string($0.rawValue) }, 
+                "pdf_options[landscape]": pdfOptionsLandscape.map { .bool($0) }, 
+                "pdf_options[media]": pdfOptionsMedia.map { .string($0.rawValue) }, 
+                "pdf_options[page_range]": pdfOptionsPageRange.map { .string($0) }, 
+                "pdf_options[print_background]": pdfOptionsPrintBackground.map { .bool($0) }, 
+                "premium_proxy": premiumProxy.map { .bool($0) }, 
+                "scroll_delay": scrollDelay.map { .int($0) }, 
+                "selector_to_click": selectorToClick.map { .string($0) }, 
+                "solve_captcha": solveCaptcha.map { .bool($0) }, 
+                "stealth": stealth.map { .bool($0) }, 
+                "timezone": timezone.map { .string($0) }, 
+                "video": video.map { .bool($0) }
             ],
             requestOptions: requestOptions,
-            responseType: Data.self
+            responseType: ScreenshotCaptureResponse.self
         )
     }
 
     /// Our Bulk Screenshot API allows you to capture screenshots of multiple webpages simultaneously, saving you time and effort. Instead of manually capturing each page one by one, you can batch process URLs and receive high-quality screenshots in the format you choose.
     ///  Maximum `50 URLs` per request.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkScreenshotCapture(
+    ///         apiKey: "apiKey",
+    ///         request: .init(urls: [
+    ///             BulkScreenshotCaptureRequestUrlsItem(
+    ///                 url: "url"
+    ///             )
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -2002,13 +3402,26 @@ public final class APIFreaks: Sendable {
 
     /// Get live forex rates for all world currencies with customizable update frequency
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyLatestRates(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter base: Base currency for rate calculations
     /// - Parameter symbols: Comma separated list of desired currency codes
     /// - Parameter updates: Exchange rates update period (1d=daily, 1h=hourly, 10m=10 minutes, 1m=1 minute)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyLatestRates(apiKey: String, format: CurrencyLatestRatesRequestFormat? = nil, base: String? = nil, symbols: String? = nil, updates: CurrencyLatestRatesRequestUpdates? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyLatestRatesResponse {
+    public func currencyLatestRates(apiKey: String, format: CurrencyLatestRatesRequestFormat? = nil, base: String? = nil, symbols: [String]? = nil, updates: CurrencyLatestRatesRequestUpdates? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyLatestRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/rates/latest",
@@ -2016,7 +3429,7 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "base": base.map { .string($0) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "updates": updates.map { .string($0.rawValue) }
             ],
             requestOptions: requestOptions,
@@ -2026,13 +3439,29 @@ public final class APIFreaks: Sendable {
 
     /// Get historical exchange rates for any specific date
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyHistoricalRates(
+    ///         apiKey: "apiKey",
+    ///         date: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter base: Base currency for rate calculations
     /// - Parameter symbols: Comma separated list of desired currency codes
     /// - Parameter date: Specific date in YYYY-MM-DD format
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyHistoricalRates(apiKey: String, format: CurrencyHistoricalRatesRequestFormat? = nil, base: String? = nil, symbols: String? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CurrencyHistoricalRatesResponse {
+    public func currencyHistoricalRates(apiKey: String, format: CurrencyHistoricalRatesRequestFormat? = nil, base: String? = nil, symbols: [String]? = nil, date: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CurrencyHistoricalRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/rates/historical",
@@ -2040,7 +3469,7 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "base": base.map { .string($0) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "date": .calendarDate(date)
             ],
             requestOptions: requestOptions,
@@ -2049,6 +3478,23 @@ public final class APIFreaks: Sendable {
     }
 
     /// Convert amount between currencies using the latest exchange rates
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyConvertLatest(
+    ///         apiKey: "apiKey",
+    ///         from: "from",
+    ///         to: "to"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -2076,6 +3522,24 @@ public final class APIFreaks: Sendable {
 
     /// Convert amount between currencies using historical rates
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyConvertHistorical(
+    ///         apiKey: "apiKey",
+    ///         from: "from",
+    ///         to: "to",
+    ///         date: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter from: From currency symbol
@@ -2102,6 +3566,22 @@ public final class APIFreaks: Sendable {
 
     /// Get exchange rates for a time range
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyTimeSeries(
+    ///         apiKey: "apiKey",
+    ///         startDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter startDate: Start date (format YYYY-MM-DD) of the preferred time frame
@@ -2109,7 +3589,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter base: Base currency
     /// - Parameter symbols: comma separated list of desired currencies/ commodities symbols
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyTimeSeries(apiKey: String, format: CurrencyTimeSeriesRequestFormat? = nil, startDate: CalendarDate, endDate: CalendarDate? = nil, base: String? = nil, symbols: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyTimeSeriesResponse {
+    public func currencyTimeSeries(apiKey: String, format: CurrencyTimeSeriesRequestFormat? = nil, startDate: CalendarDate, endDate: CalendarDate? = nil, base: String? = nil, symbols: [String]? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyTimeSeriesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/time-series",
@@ -2119,7 +3599,7 @@ public final class APIFreaks: Sendable {
                 "startDate": .calendarDate(startDate), 
                 "endDate": endDate.map { .calendarDate($0) }, 
                 "base": base.map { .string($0) }, 
-                "symbols": symbols.map { .string($0) }
+                "symbols": symbols.map { .stringArray($0) }
             ],
             requestOptions: requestOptions,
             responseType: CurrencyTimeSeriesResponse.self
@@ -2128,6 +3608,23 @@ public final class APIFreaks: Sendable {
 
     /// Get currency fluctuation data for a time period
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyFluctuation(
+    ///         apiKey: "apiKey",
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         base: "USD"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter startDate: Start date (format YYYY-MM-DD) of the preferred time frame
@@ -2135,7 +3632,7 @@ public final class APIFreaks: Sendable {
     /// - Parameter base: Base currency
     /// - Parameter symbols: comma separated list of desired currencies/ commodities symbols
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func currencyFluctuation(apiKey: String, format: CurrencyFluctuationRequestFormat? = nil, startDate: CalendarDate, endDate: CalendarDate? = nil, base: String? = nil, symbols: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyFluctuationResponse {
+    public func currencyFluctuation(apiKey: String, format: CurrencyFluctuationRequestFormat? = nil, startDate: CalendarDate, endDate: CalendarDate? = nil, base: String? = nil, symbols: [String]? = nil, requestOptions: RequestOptions? = nil) async throws -> CurrencyFluctuationResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/currency/fluctuation",
@@ -2145,7 +3642,7 @@ public final class APIFreaks: Sendable {
                 "startDate": .calendarDate(startDate), 
                 "endDate": endDate.map { .calendarDate($0) }, 
                 "base": base.map { .string($0) }, 
-                "symbols": symbols.map { .string($0) }
+                "symbols": symbols.map { .stringArray($0) }
             ],
             requestOptions: requestOptions,
             responseType: CurrencyFluctuationResponse.self
@@ -2153,6 +3650,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Convert amount using user's location
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyConvertByIp(
+    ///         apiKey: "apiKey",
+    ///         from: "from"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -2180,6 +3693,19 @@ public final class APIFreaks: Sendable {
 
     /// Get list of all supported currencies with their metadata
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencySupported(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -2197,6 +3723,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Get currency symbols and codes
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencySymbols(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -2216,6 +3755,19 @@ public final class APIFreaks: Sendable {
 
     /// Get information about historical data availability and limits
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currencyHistoricalLimits(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -2234,20 +3786,39 @@ public final class APIFreaks: Sendable {
 
     /// Get live commodity rates with customizable update frequency
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityLatestRates(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ],
+    ///         updates: .tenM
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the Response
     /// - Parameter symbols: Comma separated list of desired commodities symbols *(e.g. XAU,XAG,WTI,BRENT)* **Required**
     /// - Parameter updates: Exchange rates update period. Possible values are: (1) `10m` - 10 minute update (2) `1m` - 1 minute update **Required**
     /// - Parameter quote: Specifies the target currency for the exchange rate; default quote currency is the market currency of commodity *(e.g. USD, EUR, INR)*
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityLatestRates(apiKey: String, format: CommodityLatestRatesRequestFormat? = nil, symbols: String? = nil, updates: CommodityLatestRatesRequestUpdates, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesResponse {
+    public func commodityLatestRates(apiKey: String, format: CommodityLatestRatesRequestFormat? = nil, symbols: [String]? = nil, updates: CommodityLatestRatesRequestUpdates, quote: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityLatestRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/rates/latest",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "updates": .string(updates.rawValue), 
                 "quote": quote.map { .string($0) }
             ],
@@ -2258,12 +3829,31 @@ public final class APIFreaks: Sendable {
 
     /// Get historical commodity rates for a specific date
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityHistoricalRates(
+    ///         apiKey: "apiKey",
+    ///         date: CalendarDate("2023-01-15")!,
+    ///         symbols: [
+    ///             "symbols"
+    ///         ]
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter date: Historical date (YYYY-MM-DD)
     /// - Parameter symbols: Comma-separated list of commodity symbols
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityHistoricalRates(apiKey: String, format: CommodityHistoricalRatesRequestFormat? = nil, date: CalendarDate, symbols: String? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesResponse {
+    public func commodityHistoricalRates(apiKey: String, format: CommodityHistoricalRatesRequestFormat? = nil, date: CalendarDate, symbols: [String]? = nil, requestOptions: RequestOptions? = nil) async throws -> CommodityHistoricalRatesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/rates/historical",
@@ -2271,7 +3861,7 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "date": .calendarDate(date), 
-                "symbols": symbols.map { .string($0) }
+                "symbols": symbols.map { .stringArray($0) }
             ],
             requestOptions: requestOptions,
             responseType: CommodityHistoricalRatesResponse.self
@@ -2280,20 +3870,40 @@ public final class APIFreaks: Sendable {
 
     /// Get commodity price fluctuation data for a time period
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityFluctuation(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ],
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         endDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter symbols: Comma-separated list of commodity symbols
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityFluctuation(apiKey: String, format: CommodityFluctuationRequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationResponse {
+    public func commodityFluctuation(apiKey: String, format: CommodityFluctuationRequestFormat? = nil, symbols: [String]? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityFluctuationResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/fluctuation",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -2304,20 +3914,40 @@ public final class APIFreaks: Sendable {
 
     /// Get commodity rates for a time range
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commodityTimeSeries(
+    ///         apiKey: "apiKey",
+    ///         symbols: [
+    ///             "symbols"
+    ///         ],
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         endDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter symbols: Comma-separated list of commodity symbols
     /// - Parameter startDate: Start date (YYYY-MM-DD)
     /// - Parameter endDate: End date (YYYY-MM-DD)
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func commodityTimeSeries(apiKey: String, format: CommodityTimeSeriesRequestFormat? = nil, symbols: String? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesResponse {
+    public func commodityTimeSeries(apiKey: String, format: CommodityTimeSeriesRequestFormat? = nil, symbols: [String]? = nil, startDate: CalendarDate, endDate: CalendarDate, requestOptions: RequestOptions? = nil) async throws -> CommodityTimeSeriesResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/commodity/time-series",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "symbols": symbols.map { .string($0) }, 
+                "symbols": symbols.map { .stringArray($0) }, 
                 "startDate": .calendarDate(startDate), 
                 "endDate": .calendarDate(endDate)
             ],
@@ -2327,6 +3957,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Get list of supported commodities
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.commoditySymbols(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -2346,9 +3989,22 @@ public final class APIFreaks: Sendable {
 
     /// Retrieves a list of supported countries.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.vatSupportedCountries(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response. Default is JSON.
-    /// - Parameter type: Type of supported country. Supported values: IBAN, SWIFT, VAT. By default, it returns all supported countries for all types.
+    /// - Parameter type: Which list to return: VAT (`VAT_Supported_Countries_And_States`), IBAN (`IBAN_Supported_Countries`) or SWIFT (`SWIFT_Supported_Countries`). Each value returns only its own list. If omitted (or unknown), all three lists are returned.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func vatSupportedCountries(apiKey: String, format: VatSupportedCountriesRequestFormat? = nil, type: VatSupportedCountriesRequestType? = nil, requestOptions: RequestOptions? = nil) async throws -> VatSupportedCountriesResponse {
         return try await httpClient.performRequest(
@@ -2365,6 +4021,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Fetches VAT rate based on the specified or originating IP address.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.vatRateByIp(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
@@ -2385,6 +4054,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Fetches VAT rates for a single country or state provided via query parameters.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.vatRateByCountry(
+    ///         apiKey: "apiKey",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
@@ -2408,10 +4093,34 @@ public final class APIFreaks: Sendable {
 
     /// Retrieves VAT details for multiple countries or country-state combinations in a single request. Maximum of `100` entries per request are allowed.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkVatRateByCountry(
+    ///         apiKey: "apiKey",
+    ///         request: .init(countries: [
+    ///             BulkVatRateByCountryRequestCountriesItem(
+    ///                 country: "PAK"
+    ///             ),
+    ///             BulkVatRateByCountryRequestCountriesItem(
+    ///                 country: "United_States",
+    ///                 state: "New_York"
+    ///             )
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func bulkVatRateByCountry(apiKey: String, format: BulkVatRateByCountryRequestFormat? = nil, request: Requests.BulkVatRateByCountryRequest, requestOptions: RequestOptions? = nil) async throws -> BulkVatRateByCountryResponse {
+    public func bulkVatRateByCountry(apiKey: String, format: BulkVatRateByCountryRequestFormat? = nil, request: Requests.BulkVatRateByCountryRequest, requestOptions: RequestOptions? = nil) async throws -> [BulkVatRateByCountryResponseItem] {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/vat/rates/country",
@@ -2421,11 +4130,27 @@ public final class APIFreaks: Sendable {
             ],
             body: request,
             requestOptions: requestOptions,
-            responseType: BulkVatRateByCountryResponse.self
+            responseType: [BulkVatRateByCountryResponseItem].self
         )
     }
 
     /// Validates an EU or UK VAT number and returns registration status details.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.vatValidate(
+    ///         apiKey: "apiKey",
+    ///         vatNumber: "vatNumber"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
@@ -2449,6 +4174,22 @@ public final class APIFreaks: Sendable {
 
     /// Checks an IBAN for structural validity, checksum accuracy, and bank metadata.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.ibanValidate(
+    ///         apiKey: "apiKey",
+    ///         iban: "iban"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
     /// - Parameter iban: IBAN to validate.
@@ -2468,6 +4209,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Fetches SWIFT codes for a given country, bank, and city.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.swiftCodeFind(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
@@ -2493,6 +4247,22 @@ public final class APIFreaks: Sendable {
 
     /// Fetches detailed information about a SWIFT code.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.swiftCodeLookup(
+    ///         apiKey: "apiKey",
+    ///         swiftCode: "swiftCode"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Specify the desired response format. Options: 'json' (default) or 'xml'.
     /// - Parameter swiftCode: SWIFT/BIC code to lookup (must be 8 or 11 characters).
@@ -2511,6 +4281,27 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.zipcodeLookup(
+    ///         apiKey: "apiKey",
+    ///         code: "code"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter code: Comma separated list of postal / zip codes. Max. 100 values.
+    /// - Parameter country: Country code in ISO 3166-1 alpha-2 format. If not provided, search results will be returned from all countries.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func zipcodeLookup(apiKey: String, format: ZipcodeLookupRequestFormat? = nil, code: String, country: String? = nil, requestOptions: RequestOptions? = nil) async throws -> ZipcodeLookupResponse {
         return try await httpClient.performRequest(
             method: .get,
@@ -2527,6 +4318,24 @@ public final class APIFreaks: Sendable {
     }
 
     /// Validates a bulk of ZIP/postal codes and returns result for each. Maximum `100` ZIP/postal codes per request.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkZipcodeLookup(
+    ///         apiKey: "apiKey",
+    ///         request: .init(codes: [
+    ///             "codes"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -2545,6 +4354,30 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.zipcodeSearchByCity(
+    ///         apiKey: "apiKey",
+    ///         city: "city",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter city: Name of the city in which we want to find zipcodes in.
+    /// - Parameter country: Country code in ISO 3166-1 alpha-2 format.
+    /// - Parameter stateName: Name of the state or province associated with the country.
+    /// - Parameter page: Page number to retrieve paginated results.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func zipcodeSearchByCity(apiKey: String, format: ZipcodeSearchByCityRequestFormat? = nil, city: String, country: String, stateName: String? = nil, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> ZipcodeSearchByCityResponse {
         return try await httpClient.performRequest(
             method: .get,
@@ -2562,7 +4395,30 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    public func zipcodeSearchByRegion(apiKey: String, format: ZipcodeSearchByRegionRequestFormat? = nil, country: String, region: String, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> ZipcodeSearchByRegionResponse {
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.zipcodeSearchByRegion(
+    ///         apiKey: "apiKey",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter country: Country code in ISO 3166-1 alpha-2 format.
+    /// - Parameter region: Name of the region, state or province associated with the country. Either region or region_code is required; region_code takes priority if both are given.
+    /// - Parameter page: Page no. to retrieve paginated results.
+    /// - Parameter regionCode: ISO code of the region, state, or province associated with the country. Either region or region_code is required. region_code takes priority if both are given.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func zipcodeSearchByRegion(apiKey: String, format: ZipcodeSearchByRegionRequestFormat? = nil, country: String, region: String? = nil, page: Int? = nil, regionCode: String? = nil, requestOptions: RequestOptions? = nil) async throws -> ZipcodeSearchByRegionResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/zipcode/search/region",
@@ -2570,14 +4426,41 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "country": .string(country), 
-                "region": .string(region), 
-                "page": page.map { .int($0) }
+                "region": region.map { .string($0) }, 
+                "page": page.map { .int($0) }, 
+                "region_code": regionCode.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: ZipcodeSearchByRegionResponse.self
         )
     }
 
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.zipcodeSearchByRadius(
+    ///         apiKey: "apiKey",
+    ///         radius: 1.1
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response.
+    /// - Parameter code: Postal/Zip code to be used as the center point for the search.
+    /// - Parameter lat: Latitude coordinate for the base location.
+    /// - Parameter long: Longitude coordinate for the base location.
+    /// - Parameter country: Country code in ISO 3166-1 alpha-2 format. Required only when using the code parameter.
+    /// - Parameter radius: Search radius for the query. The maximum allowed values are: - 100 km - 100 mi - 109361 yd - 100000 m - 328084 ft - 3937007.75 in
+    /// - Parameter unit: Supported distance units are m, km, mi, ft, yd, in.
+    /// - Parameter page: Page no. to retrieve paginated results.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func zipcodeSearchByRadius(apiKey: String, format: ZipcodeSearchByRadiusRequestFormat? = nil, code: String? = nil, lat: Float? = nil, long: Float? = nil, country: String? = nil, radius: Float, unit: ZipcodeSearchByRadiusRequestUnit? = nil, page: Int? = nil, requestOptions: RequestOptions? = nil) async throws -> ZipcodeSearchByRadiusResponse {
         return try await httpClient.performRequest(
             method: .get,
@@ -2600,6 +4483,27 @@ public final class APIFreaks: Sendable {
 
     /// Get distance between postal codes. Maximum `100` postal codes per request.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.zipcodeDistance(
+    ///         apiKey: "apiKey",
+    ///         request: .init(
+    ///             compare: [
+    ///                 "compare"
+    ///             ],
+    ///             country: "country"
+    ///         )
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -2618,6 +4522,27 @@ public final class APIFreaks: Sendable {
     }
 
     /// Get matching ZIP/postal code pairs within a specified distance. Maximum `100` postal codes per request.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.zipcodeDistanceMatch(
+    ///         apiKey: "apiKey",
+    ///         request: .init(
+    ///             codes: [
+    ///                 "codes"
+    ///             ],
+    ///             country: "country"
+    ///         )
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -2638,8 +4563,21 @@ public final class APIFreaks: Sendable {
 
     /// Get current weather data including temperature, humidity, precipitation, wind conditions, atmospheric pressure, and air quality for any location. Accepts city names, coordinates, or IP addresses. Also includes astronomy data and timezone-aware timestamps.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.currentWeather(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter location: City name, place name, or full address.
     /// - Parameter lat: Latitude of the location.
     /// - Parameter long: Longitude of the location.
@@ -2666,8 +4604,38 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve current weather conditions for up to `50 locations` in a single request. A maximum of 50 locations (city names, IP addresses, or geographic coordinates) can be included in the request body.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkCurrentWeather(
+    ///         apiKey: "apiKey",
+    ///         request: .init(locations: [
+    ///             BulkCurrentWeatherRequestLocationsItem(
+    ///                 location: "lahore"
+    ///             ),
+    ///             BulkCurrentWeatherRequestLocationsItem(
+    ///                 lat: 32.5,
+    ///                 long: 74.5
+    ///             ),
+    ///             BulkCurrentWeatherRequestLocationsItem(
+    ///                 ip: "8.8.8.8"
+    ///             ),
+    ///             BulkCurrentWeatherRequestLocationsItem(
+    ///                 location: "seoul"
+    ///             )
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter timezone: Timezone for the results.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func bulkCurrentWeather(apiKey: String, format: BulkCurrentWeatherRequestFormat? = nil, timezone: String? = nil, request: Requests.BulkCurrentWeatherRequest, requestOptions: RequestOptions? = nil) async throws -> BulkCurrentWeatherResponse {
@@ -2687,8 +4655,21 @@ public final class APIFreaks: Sendable {
 
     /// Access comprehensive weather forecasts with customizable precision - choose from daily overviews, hourly breakdowns, or even minute-by-minute data. Configure your date ranges or use the default 7-day forecast for standard weather planning.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.weatherForecast(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter startDate: Start date for the forecast in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between startDate and endDate must not exceed 16 days.
     /// - Parameter endDate: End date for the forecast in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between startDate and endDate must not exceed 16 days.
     /// - Parameter forecastDays: Number of days for the forecast, from 1 to 16. Default is 7. Maximum value is 16.
@@ -2723,8 +4704,24 @@ public final class APIFreaks: Sendable {
 
     /// Access past weather conditions for specific dates with records going back to 1940. Retrieve comprehensive historical data with both daily and hourly precision options.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.historicalWeather(
+    ///         apiKey: "apiKey",
+    ///         date: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter date: Specific date for which to fetch weather data in YYYY-MM-DD format. Historical dates must be past dates only. Current or future dates are not allowed for historical data. Data available from 1940 onwards.
     /// - Parameter location: City name, place name, or full address.
     /// - Parameter lat: Latitude of the location.
@@ -2755,8 +4752,25 @@ public final class APIFreaks: Sendable {
 
     /// Pull historical weather information for date ranges up to 90 days (daily data) or 7 days (hourly data). Get consistent formatting across your specified date range with reliable historical weather patterns.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.weatherTimeSeries(
+    ///         apiKey: "apiKey",
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         endDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter startDate: Starting date for the data in YYYY-MM-DD format. Historical dates must be past dates only. Current or future dates are not allowed for historical data. Data available from 1940 onwards. For precision=daily, the difference between endDate and startDate must not exceed 90 days. For precision=hourly, the difference must not exceed 7 days.
     /// - Parameter endDate: End date for the data in YYYY-MM-DD format. Historical dates must be past dates only. Current or future dates are not allowed for historical data. Data available from 1940 onwards. For precision=daily, the difference between endDate and startDate must not exceed 90 days. For precision=hourly, the difference must not exceed 7 days.
     /// - Parameter location: City name, place name, or full address.
@@ -2789,8 +4803,21 @@ public final class APIFreaks: Sendable {
 
     /// Provides hourly forecasts of marine conditions including wave heights, wave directions, wave periods, swell info, sea surface temperatures, and ocean currents. Supports multiple geographical points and returns daily max wave statistics for up to 7 days. Ideal for maritime planning, navigation, and coastal activities.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.marineWeather(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter startDate: Starting date for marine forecast data in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between endDate and startDate must not exceed 16 days.
     /// - Parameter endDate: End date for marine forecast data in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between endDate and startDate must not exceed 16 days.
     /// - Parameter location: City name, place name, or full address.
@@ -2823,8 +4850,21 @@ public final class APIFreaks: Sendable {
 
     /// Monitor and predict air quality conditions using European and US AQI standards. Track pollutant concentrations including PM10, PM2.5, carbon monoxide, nitrogen dioxide, sulfur dioxide, ozone, and dust particles. Get current readings plus hourly forecasts up to 5 days ahead, complete with UV index and aerosol measurements for comprehensive air quality assessment.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.airQuality(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter startDate: Starting date for AQI forecast data in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between endDate and startDate must not exceed 5 days.
     /// - Parameter endDate: End date for AQI forecast data in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between endDate and startDate must not exceed 5 days.
     /// - Parameter location: City name, place name, or full address.
@@ -2857,8 +4897,25 @@ public final class APIFreaks: Sendable {
 
     /// Provides flood forecast data for a given location, including river discharge metrics such as mean, median, maximum, minimum, and percentile values (p25, p75). Requires a startDate and endDate, with the date range limited to 16 days. Location can be specified using city name, latitude/longitude, or IP address.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.floodForecast(
+    ///         apiKey: "apiKey",
+    ///         startDate: CalendarDate("2023-01-15")!,
+    ///         endDate: CalendarDate("2023-01-15")!
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
-    /// - Parameter format: Response format returned by the API.
+    /// - Parameter format: Response format returned by the API. Only JSON is supported.
     /// - Parameter startDate: Starting date for flood forecast data in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between endDate and startDate must not exceed 16 days.
     /// - Parameter endDate: End date for flood forecast data in YYYY-MM-DD format. Forecast dates must be current or future dates only. Past dates are not allowed for forecast data. The difference between endDate and startDate must not exceed 16 days.
     /// - Parameter location: City name, place name, or full address.
@@ -2891,6 +4948,19 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve countries, optionally filtered by region or subregion.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getCountries(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
     /// - Parameter region: Optional filter to return countries within a specific region from the region endpoint.
@@ -2911,6 +4981,26 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getCountryDetails(
+    ///         apiKey: "apiKey",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response
+    /// - Parameter country: Country code in ISO 3166-1 alpha-2 format.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getCountryDetails(apiKey: String, format: GetCountryDetailsRequestFormat? = nil, country: String, requestOptions: RequestOptions? = nil) async throws -> GetCountryDetailsResponse {
         return try await httpClient.performRequest(
             method: .get,
@@ -2925,6 +5015,22 @@ public final class APIFreaks: Sendable {
         )
     }
 
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getRegions(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func getRegions(apiKey: String, format: GetRegionsRequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> GetRegionsResponse {
         return try await httpClient.performRequest(
             method: .get,
@@ -2938,14 +5044,31 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    public func getSubregions(apiKey: String, format: GetSubregionsRequestFormat? = nil, region: String, requestOptions: RequestOptions? = nil) async throws -> GetSubregionsResponse {
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getSubregions(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response
+    /// - Parameter region: Name of the region. If omitted, all subregions are returned.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func getSubregions(apiKey: String, format: GetSubregionsRequestFormat? = nil, region: String? = nil, requestOptions: RequestOptions? = nil) async throws -> GetSubregionsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/geo/subregions",
             queryParams: [
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
-                "region": .string(region)
+                "region": region.map { .string($0) }
             ],
             requestOptions: requestOptions,
             responseType: GetSubregionsResponse.self
@@ -2953,6 +5076,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Retrieve administrative units based on ISO 3166-1 alpha-2 country code.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getAdminLevels(
+    ///         apiKey: "apiKey",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
@@ -2974,12 +5113,28 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve administrative divisions for a given country using ISO 3166-1 alpha-2 country codes. You can optionally filter by administrative levels.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getAdminUnits(
+    ///         apiKey: "apiKey",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter country: Country code in ISO 3166-1 alpha-2 format.
-    /// - Parameter adminLevels: Comma-separated list to filter results by one or more administrative levels.
+    /// - Parameter adminLevel: Filter results by one or more administrative level names (e.g. `land`, `state`, `province`), sent as a comma-separated list. Use the admin levels endpoint to list the levels a country has.
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func getAdminUnits(apiKey: String, format: GetAdminUnitsRequestFormat? = nil, country: String, adminLevels: String? = nil, requestOptions: RequestOptions? = nil) async throws -> GetAdminUnitsResponse {
+    public func getAdminUnits(apiKey: String, format: GetAdminUnitsRequestFormat? = nil, country: String, adminLevel: [String]? = nil, requestOptions: RequestOptions? = nil) async throws -> GetAdminUnitsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/geo/admin-units",
@@ -2987,7 +5142,7 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey), 
                 "format": format.map { .string($0.rawValue) }, 
                 "country": .string(country), 
-                "adminLevels": adminLevels.map { .string($0) }
+                "admin_level": adminLevel.map { .stringArray($0) }
             ],
             requestOptions: requestOptions,
             responseType: GetAdminUnitsResponse.self
@@ -2995,6 +5150,23 @@ public final class APIFreaks: Sendable {
     }
 
     /// Retrieve detailed administrative unit information by country and optionally filtered by admin code.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getAdminUnitDetails(
+    ///         apiKey: "apiKey",
+    ///         country: "country",
+    ///         adminUnit: "admin_unit"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -3018,6 +5190,22 @@ public final class APIFreaks: Sendable {
 
     /// Retrieve a list of cities within a country, optionally filtered by an administrative unit code.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getCities(
+    ///         apiKey: "apiKey",
+    ///         country: "country"
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
     /// - Parameter country: Country code in ISO 3166-1 alpha-2 format.
@@ -3040,9 +5228,22 @@ public final class APIFreaks: Sendable {
 
     /// Get list of all supported flags with their metadata
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getSupportedFlags(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func getSupportedFlags(apiKey: String, requestOptions: RequestOptions? = nil) async throws -> [GetSupportedFlagsResponseItem] {
+    public func getSupportedFlags(apiKey: String, requestOptions: RequestOptions? = nil) async throws -> GetSupportedFlagsResponse {
         return try await httpClient.performRequest(
             method: .get,
             path: "/v1.0/flags/supported",
@@ -3050,11 +5251,29 @@ public final class APIFreaks: Sendable {
                 "apiKey": .string(apiKey)
             ],
             requestOptions: requestOptions,
-            responseType: [GetSupportedFlagsResponseItem].self
+            responseType: GetSupportedFlagsResponse.self
         )
     }
 
     /// Retrieve the flag for a specific country
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getFlags(
+    ///         apiKey: "apiKey",
+    ///         name: "name",
+    ///         shape: .flat,
+    ///         type: .country
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter name: Country code in ISO 3166-1 alpha-2 format.
@@ -3081,6 +5300,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Retrieve current time, date, and timezone-related information by specifying a timezone name, location address, location coordinates, IP address, or use the client IP address if no parameter is passed.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.timezoneLookup(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
@@ -3117,6 +5349,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Converts a given time from one timezone to another using various input types like timezone name, coordinates, location, or codes.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.timezoneConvert(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response .
@@ -3166,6 +5411,19 @@ public final class APIFreaks: Sendable {
 
     /// Parse User Agent string to get detailed browser, device, and operating system information
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.userAgentLookup(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -3187,6 +5445,24 @@ public final class APIFreaks: Sendable {
 
     /// Parse up to `20000 User-Agent strings` at once in a single request; exceeding that returns a 413, not a 400.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.bulkUserAgentLookup(
+    ///         apiKey: "apiKey",
+    ///         request: .init(uaStrings: [
+    ///             "uaStrings"
+    ///         ])
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -3205,7 +5481,7 @@ public final class APIFreaks: Sendable {
     }
 
     /// Perform Optical Character Recognition (OCR) on images, PDFs, or ZIP archives. Supports two models: `mini-ocr-v1` for CAPTCHA-optimized OCR and `ocr-v1` for general-purpose document text extraction. Supports zonal OCR to extract text from specific regions of an image.
-    /// 
+    ///
     /// **Notes:**
     /// - The `zone` query parameter cannot be given with .pdf and .zip types as it can only be applied to single image query.
     /// - The `page_range` query parameter cannot be given in any other type except .pdf types.
@@ -3214,22 +5490,66 @@ public final class APIFreaks: Sendable {
     ///     - `page_range` (.pdf types)
     ///     - `zone`
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.ocrPredict(
+    ///         apiKey: "apiKey",
+    ///         model: .miniOcrV1,
+    ///         request: .init(file: .init(data: Data("".utf8)))
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
+    /// - Parameter model: OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR.
+    /// - Parameter url: URL of the image or PDF (required if `file` is not uploaded).
+    /// - Parameter pageRange: Specify page range for multi-page PDFs (e.g., '1,3,5-10' or 'allpages'). **Note:** This parameter can only be used with .pdf file types.
+    /// - Parameter zone: Define OCR zones using coordinates (top:left:height:width). Multiple zones can be defined using commas. Only available for model 'ocr-v1'. **Note:** This parameter cannot be used with .pdf and .zip file types as it can only be applied to single image queries.
+    /// - Parameter newLine: Set to 1 to split output text into individual lines (default: 0). This changes the shape of `OCRText` (see the response).
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func ocrPredict(apiKey: String, request: Requests.OcrPredictRequest, requestOptions: RequestOptions? = nil) async throws -> OcrPredictResponse {
+    public func ocrPredict(apiKey: String, model: OcrPredictRequestModel, url: String? = nil, pageRange: String? = nil, zone: String? = nil, newLine: Int? = nil, request: Requests.OcrPredictRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> OcrPredictResponse {
         return try await httpClient.performRequest(
             method: .post,
             path: "/v1.0/ocr/predict",
+            contentType: .multipartFormData,
             queryParams: [
-                "apiKey": .string(apiKey)
+                "apiKey": .string(apiKey), 
+                "model": .string(model.rawValue), 
+                "url": url.map { .string($0) }, 
+                "page_range": pageRange.map { .string($0) }, 
+                "zone": zone.map { .string($0) }, 
+                "new_line": newLine.map { .int($0) }
             ],
-            body: request,
+            body: request.asMultipartFormData(),
             requestOptions: requestOptions,
             responseType: OcrPredictResponse.self
         )
     }
 
     /// Analyze text for grammar errors and return the exact words flagged as grammatically incorrect with zero-based word positions.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.grammarDetect(
+    ///         apiKey: "apiKey",
+    ///         request: .init(text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
@@ -3248,6 +5568,22 @@ public final class APIFreaks: Sendable {
 
     /// Submit text with grammatical issues and receive a clean grammar-corrected result for proofreading and content workflows.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.grammarCorrect(
+    ///         apiKey: "apiKey",
+    ///         request: .init(text: "The global mental is health crisis is now a serious and compelex problem. It need quick and ongoing action from policymakers, healthcare workers, and the whole society.")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func grammarCorrect(apiKey: String, request: Requests.GrammarCorrectRequest, requestOptions: RequestOptions? = nil) async throws -> GrammarCorrectResponse {
@@ -3265,6 +5601,22 @@ public final class APIFreaks: Sendable {
 
     /// Analyze text and return weak, vague, or filler words with zero-based word positions to help writers produce clearer and more concise content.
     ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.weakWordsDetect(
+    ///         apiKey: "apiKey",
+    ///         request: .init(text: "Many people cannot get the support they need to handle their conditions well.")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
     /// - Parameter apiKey: Your API key
     /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
     public func weakWordsDetect(apiKey: String, request: Requests.WeakWordsDetectRequest, requestOptions: RequestOptions? = nil) async throws -> WeakWordsDetectResponse {
@@ -3281,6 +5633,22 @@ public final class APIFreaks: Sendable {
     }
 
     /// Analyze text readability using industry-standard formulas including Flesch Reading Ease, Flesch-Kincaid Grade Level, Gunning Fog Index, SMOG Index, Coleman-Liau Index, and Automated Readability Index.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.readabilityScore(
+    ///         apiKey: "apiKey",
+    ///         request: .init(text: "The global mental is health crisis is now a serious and compelex problem. It needs quick and ongoing action from policymakers, healthcare workers, and the whole society.")
+    ///     )
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter target: Target audience used to tune sentence difficulty levels
@@ -3302,6 +5670,19 @@ public final class APIFreaks: Sendable {
     }
 
     /// Retrieve sunrise and sunset times, current position of the moon, and other related information by specifying a location address, location coordinates, IP address, or using the client IP address if no parameter is passed.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.astronomyLookup(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
     ///
     /// - Parameter apiKey: Your API key
     /// - Parameter format: Format of the response.
@@ -3330,6 +5711,37 @@ public final class APIFreaks: Sendable {
             ],
             requestOptions: requestOptions,
             responseType: AstronomyLookupResponse.self
+        )
+    }
+
+    /// Returns subscription, subscription-surcharge, and one-off credit balances for the authenticated organization's account.
+    ///
+    /// ```swift
+    /// import Foundation
+    /// import APIFreaks
+    ///
+    /// private func main() async throws {
+    ///     let client = APIFreaks()
+    ///
+    ///     _ = try await client.getCreditsUsage(apiKey: "apiKey")
+    /// }
+    ///
+    /// try await main()
+    /// ```
+    ///
+    /// - Parameter apiKey: Your API key
+    /// - Parameter format: Format of the response. Possible values: json, xml.
+    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
+    public func getCreditsUsage(apiKey: String, format: GetCreditsUsageRequestFormat? = nil, requestOptions: RequestOptions? = nil) async throws -> GetCreditsUsageResponse {
+        return try await httpClient.performRequest(
+            method: .get,
+            path: "/v1.0/credits/usage/info",
+            queryParams: [
+                "apiKey": .string(apiKey), 
+                "format": format.map { .string($0.rawValue) }
+            ],
+            requestOptions: requestOptions,
+            responseType: GetCreditsUsageResponse.self
         )
     }
 }

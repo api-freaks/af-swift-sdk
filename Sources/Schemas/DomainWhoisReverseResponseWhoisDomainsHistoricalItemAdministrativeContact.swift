@@ -5,9 +5,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
     public let status: Bool
     public let domainName: String
     /// Timestamp when the WHOIS query was executed (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
-    public let queryTime: String
-    public let whoisServer: String
-    public let domainRegistered: DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered
+    public let queryTime: String?
+    public let whoisServer: String?
+    public let domainRegistered: DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered?
     public let createDate: CalendarDate?
     public let updateDate: CalendarDate?
     public let expiryDate: CalendarDate?
@@ -28,9 +28,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         num: Int,
         status: Bool,
         domainName: String,
-        queryTime: String,
-        whoisServer: String,
-        domainRegistered: DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered,
+        queryTime: String? = nil,
+        whoisServer: String? = nil,
+        domainRegistered: DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered? = nil,
         createDate: CalendarDate? = nil,
         updateDate: CalendarDate? = nil,
         expiryDate: CalendarDate? = nil,
@@ -73,9 +73,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         self.num = try container.decode(Int.self, forKey: .num)
         self.status = try container.decode(Bool.self, forKey: .status)
         self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.queryTime = try container.decode(String.self, forKey: .queryTime)
-        self.whoisServer = try container.decode(String.self, forKey: .whoisServer)
-        self.domainRegistered = try container.decode(DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered.self, forKey: .domainRegistered)
+        self.queryTime = try container.decodeIfPresent(String.self, forKey: .queryTime)
+        self.whoisServer = try container.decodeIfPresent(String.self, forKey: .whoisServer)
+        self.domainRegistered = try container.decodeIfPresent(DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrativeContactDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)
         self.updateDate = try container.decodeIfPresent(CalendarDate.self, forKey: .updateDate)
         self.expiryDate = try container.decodeIfPresent(CalendarDate.self, forKey: .expiryDate)
@@ -98,9 +98,9 @@ public struct DomainWhoisReverseResponseWhoisDomainsHistoricalItemAdministrative
         try container.encode(self.num, forKey: .num)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.domainName, forKey: .domainName)
-        try container.encode(self.queryTime, forKey: .queryTime)
-        try container.encode(self.whoisServer, forKey: .whoisServer)
-        try container.encode(self.domainRegistered, forKey: .domainRegistered)
+        try container.encodeIfPresent(self.queryTime, forKey: .queryTime)
+        try container.encodeIfPresent(self.whoisServer, forKey: .whoisServer)
+        try container.encodeIfPresent(self.domainRegistered, forKey: .domainRegistered)
         try container.encodeIfPresent(self.createDate, forKey: .createDate)
         try container.encodeIfPresent(self.updateDate, forKey: .updateDate)
         try container.encodeIfPresent(self.expiryDate, forKey: .expiryDate)

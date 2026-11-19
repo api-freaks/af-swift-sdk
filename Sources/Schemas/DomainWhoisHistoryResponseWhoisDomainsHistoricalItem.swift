@@ -8,11 +8,11 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
     /// Domain name which was queried.
     public let domainName: String
     /// The timestamp when the query was made (format YYYY-MM-DD HH:mm:ss, not ISO 8601).
-    public let queryTime: String
+    public let queryTime: String?
     /// The WHOIS server that provided the domain information.
     public let whoisServer: String
     /// Domain registration status.
-    public let domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered
+    public let domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered?
     /// Date when the domain was initially registered.
     public let createDate: CalendarDate?
     /// The date of the most recent update to the domain registration.
@@ -36,9 +36,9 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
         num: Int,
         status: Bool,
         domainName: String,
-        queryTime: String,
+        queryTime: String? = nil,
         whoisServer: String,
-        domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered,
+        domainRegistered: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered? = nil,
         createDate: CalendarDate? = nil,
         updateDate: CalendarDate? = nil,
         expiryDate: CalendarDate? = nil,
@@ -81,9 +81,9 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
         self.num = try container.decode(Int.self, forKey: .num)
         self.status = try container.decode(Bool.self, forKey: .status)
         self.domainName = try container.decode(String.self, forKey: .domainName)
-        self.queryTime = try container.decode(String.self, forKey: .queryTime)
+        self.queryTime = try container.decodeIfPresent(String.self, forKey: .queryTime)
         self.whoisServer = try container.decode(String.self, forKey: .whoisServer)
-        self.domainRegistered = try container.decode(DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered.self, forKey: .domainRegistered)
+        self.domainRegistered = try container.decodeIfPresent(DomainWhoisHistoryResponseWhoisDomainsHistoricalItemDomainRegistered.self, forKey: .domainRegistered)
         self.createDate = try container.decodeIfPresent(CalendarDate.self, forKey: .createDate)
         self.updateDate = try container.decodeIfPresent(CalendarDate.self, forKey: .updateDate)
         self.expiryDate = try container.decodeIfPresent(CalendarDate.self, forKey: .expiryDate)
@@ -106,9 +106,9 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItem: Codable, Has
         try container.encode(self.num, forKey: .num)
         try container.encode(self.status, forKey: .status)
         try container.encode(self.domainName, forKey: .domainName)
-        try container.encode(self.queryTime, forKey: .queryTime)
+        try container.encodeIfPresent(self.queryTime, forKey: .queryTime)
         try container.encode(self.whoisServer, forKey: .whoisServer)
-        try container.encode(self.domainRegistered, forKey: .domainRegistered)
+        try container.encodeIfPresent(self.domainRegistered, forKey: .domainRegistered)
         try container.encodeIfPresent(self.createDate, forKey: .createDate)
         try container.encodeIfPresent(self.updateDate, forKey: .updateDate)
         try container.encodeIfPresent(self.expiryDate, forKey: .expiryDate)

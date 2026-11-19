@@ -11,7 +11,7 @@ public struct TimezoneLookupV2ResponseTimeZone: Codable, Hashable, Sendable {
     /// The current date and time with timezone offset in YYYY-MM-DD HH:mm:ss.SSS±ZZZZ format.
     public let currentTime: String
     /// The Unix timestamp representing the date and time in seconds.
-    public let currentTimeUnix: Float
+    public let currentTimeUnix: Double
     /// The current date in YYYY-MM-DD format.
     public let date: String
     /// The current date and time in YYYY-MM-DD HH:mm:ss format.
@@ -64,7 +64,7 @@ public struct TimezoneLookupV2ResponseTimeZone: Codable, Hashable, Sendable {
         offset: Float,
         offsetWithDst: Float,
         currentTime: String,
-        currentTimeUnix: Float,
+        currentTimeUnix: Double,
         date: String,
         dateTime: String,
         dateTimeTxt: String,
@@ -125,7 +125,7 @@ public struct TimezoneLookupV2ResponseTimeZone: Codable, Hashable, Sendable {
         self.offset = try container.decode(Float.self, forKey: .offset)
         self.offsetWithDst = try container.decode(Float.self, forKey: .offsetWithDst)
         self.currentTime = try container.decode(String.self, forKey: .currentTime)
-        self.currentTimeUnix = try container.decode(Float.self, forKey: .currentTimeUnix)
+        self.currentTimeUnix = try container.decode(Double.self, forKey: .currentTimeUnix)
         self.date = try container.decode(String.self, forKey: .date)
         self.dateTime = try container.decode(String.self, forKey: .dateTime)
         self.dateTimeTxt = try container.decode(String.self, forKey: .dateTimeTxt)

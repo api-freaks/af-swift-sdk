@@ -5,7 +5,7 @@ public struct EmailValidateResponseDomain: Codable, Hashable, Sendable {
     public let disposable: Bool
     public let spam: Bool
     public let free: Bool
-    public let catchAll: Bool
+    public let catchAll: Bool?
     public let validDomain: Bool
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
@@ -15,7 +15,7 @@ public struct EmailValidateResponseDomain: Codable, Hashable, Sendable {
         disposable: Bool,
         spam: Bool,
         free: Bool,
-        catchAll: Bool,
+        catchAll: Bool? = nil,
         validDomain: Bool,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -34,7 +34,7 @@ public struct EmailValidateResponseDomain: Codable, Hashable, Sendable {
         self.disposable = try container.decode(Bool.self, forKey: .disposable)
         self.spam = try container.decode(Bool.self, forKey: .spam)
         self.free = try container.decode(Bool.self, forKey: .free)
-        self.catchAll = try container.decode(Bool.self, forKey: .catchAll)
+        self.catchAll = try container.decodeIfPresent(Bool.self, forKey: .catchAll)
         self.validDomain = try container.decode(Bool.self, forKey: .validDomain)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -46,7 +46,7 @@ public struct EmailValidateResponseDomain: Codable, Hashable, Sendable {
         try container.encode(self.disposable, forKey: .disposable)
         try container.encode(self.spam, forKey: .spam)
         try container.encode(self.free, forKey: .free)
-        try container.encode(self.catchAll, forKey: .catchAll)
+        try container.encodeIfPresent(self.catchAll, forKey: .catchAll)
         try container.encode(self.validDomain, forKey: .validDomain)
     }
 

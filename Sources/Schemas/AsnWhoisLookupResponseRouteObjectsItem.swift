@@ -5,7 +5,8 @@ public struct AsnWhoisLookupResponseRouteObjectsItem: Codable, Hashable, Sendabl
     public let origin: String
     public let originName: String
     public let isp: String
-    public let numberOfIps: Int
+    /// Number of IP addresses in the route. IPv6 routes exceed the 64-bit integer range, so this is a floating-point number.
+    public let numberOfIps: Double
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -14,7 +15,7 @@ public struct AsnWhoisLookupResponseRouteObjectsItem: Codable, Hashable, Sendabl
         origin: String,
         originName: String,
         isp: String,
-        numberOfIps: Int,
+        numberOfIps: Double,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.route = route
@@ -31,7 +32,7 @@ public struct AsnWhoisLookupResponseRouteObjectsItem: Codable, Hashable, Sendabl
         self.origin = try container.decode(String.self, forKey: .origin)
         self.originName = try container.decode(String.self, forKey: .originName)
         self.isp = try container.decode(String.self, forKey: .isp)
-        self.numberOfIps = try container.decode(Int.self, forKey: .numberOfIps)
+        self.numberOfIps = try container.decode(Double.self, forKey: .numberOfIps)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 

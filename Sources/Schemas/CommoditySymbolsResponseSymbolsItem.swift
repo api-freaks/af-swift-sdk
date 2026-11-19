@@ -9,10 +9,24 @@ public struct CommoditySymbolsResponseSymbolsItem: Codable, Hashable, Sendable {
     public let category: String
     /// The current status of the commodity. Possible value: "active".
     public let status: String
-    /// The rate at which this commodity's price is updated.
+    /// The rate at which this commodity's price is updated. New values may be added over time.
     public let updateInterval: CommoditySymbolsResponseSymbolsItemUpdateInterval
     public let currency: CommoditySymbolsResponseSymbolsItemCurrency
     public let unit: CommoditySymbolsResponseSymbolsItemUnit
+    /// Short description of the commodity. May be an empty string for some symbols.
+    public let description: String?
+    /// Data source for the symbol (e.g., World Bank). Present only for some symbols.
+    public let exchange: String?
+    /// Present only when status is "inactive". Date the symbol was deprecated (YYYY-MM-DD).
+    public let deprecationDate: CalendarDate?
+    /// Optional. Present only for dated futures contracts (for example `WTIOIL-FUT-DEC26`). Contract type, currently always `futures`.
+    public let contract: String?
+    /// Optional. Present only for dated futures contracts. Delivery month of the contract (YYYY-MM), for example `2026-12`.
+    public let deliveryMonth: String?
+    /// Optional. Present for most dated futures contracts. Last trading date of the contract (YYYY-MM-DD), for example `2026-11-20`.
+    public let expiresAt: CalendarDate?
+    /// Optional. Present only for dated futures contracts. Symbol of the continuous futures series this contract belongs to (for example `WTIOIL-FUT`).
+    public let underlying: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -24,6 +38,13 @@ public struct CommoditySymbolsResponseSymbolsItem: Codable, Hashable, Sendable {
         updateInterval: CommoditySymbolsResponseSymbolsItemUpdateInterval,
         currency: CommoditySymbolsResponseSymbolsItemCurrency,
         unit: CommoditySymbolsResponseSymbolsItemUnit,
+        description: String? = nil,
+        exchange: String? = nil,
+        deprecationDate: CalendarDate? = nil,
+        contract: String? = nil,
+        deliveryMonth: String? = nil,
+        expiresAt: CalendarDate? = nil,
+        underlying: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.symbol = symbol
@@ -33,6 +54,13 @@ public struct CommoditySymbolsResponseSymbolsItem: Codable, Hashable, Sendable {
         self.updateInterval = updateInterval
         self.currency = currency
         self.unit = unit
+        self.description = description
+        self.exchange = exchange
+        self.deprecationDate = deprecationDate
+        self.contract = contract
+        self.deliveryMonth = deliveryMonth
+        self.expiresAt = expiresAt
+        self.underlying = underlying
         self.additionalProperties = additionalProperties
     }
 
@@ -45,6 +73,13 @@ public struct CommoditySymbolsResponseSymbolsItem: Codable, Hashable, Sendable {
         self.updateInterval = try container.decode(CommoditySymbolsResponseSymbolsItemUpdateInterval.self, forKey: .updateInterval)
         self.currency = try container.decode(CommoditySymbolsResponseSymbolsItemCurrency.self, forKey: .currency)
         self.unit = try container.decode(CommoditySymbolsResponseSymbolsItemUnit.self, forKey: .unit)
+        self.description = try container.decodeIfPresent(String.self, forKey: .description)
+        self.exchange = try container.decodeIfPresent(String.self, forKey: .exchange)
+        self.deprecationDate = try container.decodeIfPresent(CalendarDate.self, forKey: .deprecationDate)
+        self.contract = try container.decodeIfPresent(String.self, forKey: .contract)
+        self.deliveryMonth = try container.decodeIfPresent(String.self, forKey: .deliveryMonth)
+        self.expiresAt = try container.decodeIfPresent(CalendarDate.self, forKey: .expiresAt)
+        self.underlying = try container.decodeIfPresent(String.self, forKey: .underlying)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -58,6 +93,13 @@ public struct CommoditySymbolsResponseSymbolsItem: Codable, Hashable, Sendable {
         try container.encode(self.updateInterval, forKey: .updateInterval)
         try container.encode(self.currency, forKey: .currency)
         try container.encode(self.unit, forKey: .unit)
+        try container.encodeIfPresent(self.description, forKey: .description)
+        try container.encodeIfPresent(self.exchange, forKey: .exchange)
+        try container.encodeIfPresent(self.deprecationDate, forKey: .deprecationDate)
+        try container.encodeIfPresent(self.contract, forKey: .contract)
+        try container.encodeIfPresent(self.deliveryMonth, forKey: .deliveryMonth)
+        try container.encodeIfPresent(self.expiresAt, forKey: .expiresAt)
+        try container.encodeIfPresent(self.underlying, forKey: .underlying)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -69,5 +111,12 @@ public struct CommoditySymbolsResponseSymbolsItem: Codable, Hashable, Sendable {
         case updateInterval
         case currency
         case unit
+        case description
+        case exchange
+        case deprecationDate
+        case contract
+        case deliveryMonth
+        case expiresAt
+        case underlying
     }
 }

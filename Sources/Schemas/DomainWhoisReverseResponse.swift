@@ -1,8 +1,11 @@
 import Foundation
 
 public struct DomainWhoisReverseResponse: Codable, Hashable, Sendable {
+    /// Total results found across the query.
     public let totalResult: Int?
+    /// Total number of pages (50 records per page in default mode, 100 in mini mode).
     public let totalPages: Int?
+    /// Current page number.
     public let currentPage: Int?
     public let whoisDomainsHistorical: [DomainWhoisReverseResponseWhoisDomainsHistoricalItem]?
     /// Additional properties that are not explicitly defined in the schema
@@ -42,9 +45,9 @@ public struct DomainWhoisReverseResponse: Codable, Hashable, Sendable {
 
     /// Keys for encoding/decoding struct properties.
     enum CodingKeys: String, CodingKey, CaseIterable {
-        case totalResult
-        case totalPages
-        case currentPage
+        case totalResult = "total_Result"
+        case totalPages = "total_Pages"
+        case currentPage = "current_Page"
         case whoisDomainsHistorical = "whois_domains_historical"
     }
 }

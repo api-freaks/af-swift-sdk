@@ -8,6 +8,10 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseNetwork: Codable, Hashable
     public let route: String?
     /// true if the IP is anycast (same IP announced from multiple locations).
     public let isAnycast: Bool?
+    /// CDN provider name (e.g. Cloudflare) when is_cdn is true; empty otherwise.
+    public let cdnProviderName: String?
+    /// true if the IP belongs to a content delivery network (CDN) or a cloud provider's network.
+    public let isCdn: Bool?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -15,11 +19,15 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseNetwork: Codable, Hashable
         connectionType: String? = nil,
         route: String? = nil,
         isAnycast: Bool? = nil,
+        cdnProviderName: String? = nil,
+        isCdn: Bool? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.connectionType = connectionType
         self.route = route
         self.isAnycast = isAnycast
+        self.cdnProviderName = cdnProviderName
+        self.isCdn = isCdn
         self.additionalProperties = additionalProperties
     }
 
@@ -28,6 +36,8 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseNetwork: Codable, Hashable
         self.connectionType = try container.decodeIfPresent(String.self, forKey: .connectionType)
         self.route = try container.decodeIfPresent(String.self, forKey: .route)
         self.isAnycast = try container.decodeIfPresent(Bool.self, forKey: .isAnycast)
+        self.cdnProviderName = try container.decodeIfPresent(String.self, forKey: .cdnProviderName)
+        self.isCdn = try container.decodeIfPresent(Bool.self, forKey: .isCdn)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -37,6 +47,8 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseNetwork: Codable, Hashable
         try container.encodeIfPresent(self.connectionType, forKey: .connectionType)
         try container.encodeIfPresent(self.route, forKey: .route)
         try container.encodeIfPresent(self.isAnycast, forKey: .isAnycast)
+        try container.encodeIfPresent(self.cdnProviderName, forKey: .cdnProviderName)
+        try container.encodeIfPresent(self.isCdn, forKey: .isCdn)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -44,5 +56,7 @@ public struct BulkGeolocationLookupV2ResponseItemAbuseNetwork: Codable, Hashable
         case connectionType = "connection_type"
         case route
         case isAnycast = "is_anycast"
+        case cdnProviderName = "cdn_provider_name"
+        case isCdn = "is_cdn"
     }
 }

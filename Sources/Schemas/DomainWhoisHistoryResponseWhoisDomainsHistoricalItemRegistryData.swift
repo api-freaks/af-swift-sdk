@@ -11,8 +11,10 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
     public let expiryDate: CalendarDate?
     public let nameServers: [String]?
     public let domainStatus: [String]?
+    /// Deprecated: the API returns this field as `whois_raw_registery`; read `whois_raw_registery` instead.
     public let whoisRawRegistry: String?
     public let domainRegistrar: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistrar?
+    public let whoisRawRegistery: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
@@ -28,6 +30,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
         domainStatus: [String]? = nil,
         whoisRawRegistry: String? = nil,
         domainRegistrar: DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistrar? = nil,
+        whoisRawRegistery: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
         self.domainName = domainName
@@ -41,6 +44,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
         self.domainStatus = domainStatus
         self.whoisRawRegistry = whoisRawRegistry
         self.domainRegistrar = domainRegistrar
+        self.whoisRawRegistery = whoisRawRegistery
         self.additionalProperties = additionalProperties
     }
 
@@ -57,6 +61,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
         self.domainStatus = try container.decodeIfPresent([String].self, forKey: .domainStatus)
         self.whoisRawRegistry = try container.decodeIfPresent(String.self, forKey: .whoisRawRegistry)
         self.domainRegistrar = try container.decodeIfPresent(DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryDataDomainRegistrar.self, forKey: .domainRegistrar)
+        self.whoisRawRegistery = try container.decodeIfPresent(String.self, forKey: .whoisRawRegistery)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
 
@@ -74,6 +79,7 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
         try container.encodeIfPresent(self.domainStatus, forKey: .domainStatus)
         try container.encodeIfPresent(self.whoisRawRegistry, forKey: .whoisRawRegistry)
         try container.encodeIfPresent(self.domainRegistrar, forKey: .domainRegistrar)
+        try container.encodeIfPresent(self.whoisRawRegistery, forKey: .whoisRawRegistery)
     }
 
     /// Keys for encoding/decoding struct properties.
@@ -89,5 +95,6 @@ public struct DomainWhoisHistoryResponseWhoisDomainsHistoricalItemRegistryData: 
         case domainStatus = "domain_status"
         case whoisRawRegistry = "whois_raw_registry"
         case domainRegistrar = "domain_registrar"
+        case whoisRawRegistery = "whois_raw_registery"
     }
 }

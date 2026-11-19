@@ -5,7 +5,7 @@ public struct DomainReputationResponseEmailDeliverabilityAuthenticationDmarc: Co
     /// Indicates whether a DMARC record was found.
     public let present: Bool
     /// DMARC enforcement policy applied to failing messages (e.g. none, quarantine, reject).
-    public let policy: String
+    public let policy: Nullable<String>
     /// Indicates whether DMARC aggregate / forensic reporting addresses are configured.
     public let reportingConfigured: Bool
     /// Additional properties that are not explicitly defined in the schema
@@ -13,7 +13,7 @@ public struct DomainReputationResponseEmailDeliverabilityAuthenticationDmarc: Co
 
     public init(
         present: Bool,
-        policy: String,
+        policy: Nullable<String>,
         reportingConfigured: Bool,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -26,7 +26,7 @@ public struct DomainReputationResponseEmailDeliverabilityAuthenticationDmarc: Co
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.present = try container.decode(Bool.self, forKey: .present)
-        self.policy = try container.decode(String.self, forKey: .policy)
+        self.policy = try container.decode(Nullable<String>.self, forKey: .policy)
         self.reportingConfigured = try container.decode(Bool.self, forKey: .reportingConfigured)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }

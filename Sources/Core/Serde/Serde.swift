@@ -27,6 +27,19 @@ final class Serde {
                 return date
             }
 
+            // Fallback for timestamps without a UTC offset, e.g. "2026-11-19T10:03:11"
+            // (pdf file-status/list-files fileCreationTime). Interpreted as UTC.
+            // Added by af-sdk-generation/scripts/lib/fix_swift_date_without_offset.py
+            for format in ["yyyy-MM-dd'T'HH:mm:ss.SSSSSS", "yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss"] {
+                let plain = Foundation.DateFormatter()
+                plain.locale = Foundation.Locale(identifier: "en_US_POSIX")
+                plain.timeZone = Foundation.TimeZone(identifier: "UTC")
+                plain.dateFormat = format
+                if let date = plain.date(from: dateString) {
+                    return date
+                }
+            }
+
             throw Swift.DecodingError.dataCorruptedError(
                 in: container, debugDescription: "Invalid date format: \(dateString)")
         }

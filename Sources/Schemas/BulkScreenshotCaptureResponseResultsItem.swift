@@ -2,14 +2,15 @@ import Foundation
 
 public struct BulkScreenshotCaptureResponseResultsItem: Codable, Hashable, Sendable {
     public let status: String
-    public let errorMessage: String?
+    /// Error details for a failed URL; null when the capture succeeded.
+    public let errorMessage: Nullable<String>?
     public let url: BulkScreenshotCaptureResponseResultsItemUrl
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
         status: String,
-        errorMessage: String? = nil,
+        errorMessage: Nullable<String>? = nil,
         url: BulkScreenshotCaptureResponseResultsItemUrl,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -22,7 +23,7 @@ public struct BulkScreenshotCaptureResponseResultsItem: Codable, Hashable, Senda
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.status = try container.decode(String.self, forKey: .status)
-        self.errorMessage = try container.decodeIfPresent(String.self, forKey: .errorMessage)
+        self.errorMessage = try container.decodeNullableIfPresent(String.self, forKey: .errorMessage)
         self.url = try container.decode(BulkScreenshotCaptureResponseResultsItemUrl.self, forKey: .url)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -31,7 +32,7 @@ public struct BulkScreenshotCaptureResponseResultsItem: Codable, Hashable, Senda
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
         try container.encode(self.status, forKey: .status)
-        try container.encodeIfPresent(self.errorMessage, forKey: .errorMessage)
+        try container.encodeNullableIfPresent(self.errorMessage, forKey: .errorMessage)
         try container.encode(self.url, forKey: .url)
     }
 

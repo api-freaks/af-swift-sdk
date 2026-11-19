@@ -1,16 +1,16 @@
 import Foundation
 
 public struct DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomainAvailableResponseItem: Codable, Hashable, Sendable {
-    public let domain: String?
-    public let domainAvailability: Bool?
+    public let domain: String
+    public let domainAvailability: Bool
     /// Extra details if the domain is not registered.
     public let message: String?
     /// Additional properties that are not explicitly defined in the schema
     public let additionalProperties: [String: JSONValue]
 
     public init(
-        domain: String? = nil,
-        domainAvailability: Bool? = nil,
+        domain: String,
+        domainAvailability: Bool,
         message: String? = nil,
         additionalProperties: [String: JSONValue] = .init()
     ) {
@@ -22,8 +22,8 @@ public struct DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomain
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.domain = try container.decodeIfPresent(String.self, forKey: .domain)
-        self.domainAvailability = try container.decodeIfPresent(Bool.self, forKey: .domainAvailability)
+        self.domain = try container.decode(String.self, forKey: .domain)
+        self.domainAvailability = try container.decode(Bool.self, forKey: .domainAvailability)
         self.message = try container.decodeIfPresent(String.self, forKey: .message)
         self.additionalProperties = try decoder.decodeAdditionalProperties(using: CodingKeys.self)
     }
@@ -31,8 +31,8 @@ public struct DomainAvailabilitySuggestionsResponseDomainAvailableResponseDomain
     public func encode(to encoder: Encoder) throws -> Void {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try encoder.encodeAdditionalProperties(self.additionalProperties)
-        try container.encodeIfPresent(self.domain, forKey: .domain)
-        try container.encodeIfPresent(self.domainAvailability, forKey: .domainAvailability)
+        try container.encode(self.domain, forKey: .domain)
+        try container.encode(self.domainAvailability, forKey: .domainAvailability)
         try container.encodeIfPresent(self.message, forKey: .message)
     }
 

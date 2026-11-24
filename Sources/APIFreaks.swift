@@ -5480,59 +5480,6 @@ public final class APIFreaks: Sendable {
         )
     }
 
-    /// Perform Optical Character Recognition (OCR) on images, PDFs, or ZIP archives. Supports two models: `mini-ocr-v1` for CAPTCHA-optimized OCR and `ocr-v1` for general-purpose document text extraction. Supports zonal OCR to extract text from specific regions of an image.
-    ///
-    /// **Notes:**
-    /// - The `zone` query parameter cannot be given with .pdf and .zip types as it can only be applied to single image query.
-    /// - The `page_range` query parameter cannot be given in any other type except .pdf types.
-    /// - PDFs containing images in them are allowed only for processing.
-    /// - The `mini-ocr-v1` model doesn’t support the following query parameters:
-    ///     - `page_range` (.pdf types)
-    ///     - `zone`
-    ///
-    /// ```swift
-    /// import Foundation
-    /// import APIFreaks
-    ///
-    /// private func main() async throws {
-    ///     let client = APIFreaks()
-    ///
-    ///     _ = try await client.ocrPredict(
-    ///         apiKey: "apiKey",
-    ///         model: .miniOcrV1,
-    ///         request: .init(file: .init(data: Data("".utf8)))
-    ///     )
-    /// }
-    ///
-    /// try await main()
-    /// ```
-    ///
-    /// - Parameter apiKey: Your API key
-    /// - Parameter model: OCR model to use. `mini-ocr-v1` for CAPTCHA OCR, `ocr-v1` for general OCR.
-    /// - Parameter url: URL of the image or PDF (required if `file` is not uploaded).
-    /// - Parameter pageRange: Specify page range for multi-page PDFs (e.g., '1,3,5-10' or 'allpages'). **Note:** This parameter can only be used with .pdf file types.
-    /// - Parameter zone: Define OCR zones using coordinates (top:left:height:width). Multiple zones can be defined using commas. Only available for model 'ocr-v1'. **Note:** This parameter cannot be used with .pdf and .zip file types as it can only be applied to single image queries.
-    /// - Parameter newLine: Set to 1 to split output text into individual lines (default: 0). This changes the shape of `OCRText` (see the response).
-    /// - Parameter requestOptions: Additional options for configuring the request, such as custom headers or timeout settings.
-    public func ocrPredict(apiKey: String, model: OcrPredictRequestModel, url: String? = nil, pageRange: String? = nil, zone: String? = nil, newLine: Int? = nil, request: Requests.OcrPredictRequest = .init(), requestOptions: RequestOptions? = nil) async throws -> OcrPredictResponse {
-        return try await httpClient.performRequest(
-            method: .post,
-            path: "/v1.0/ocr/predict",
-            contentType: .multipartFormData,
-            queryParams: [
-                "apiKey": .string(apiKey), 
-                "model": .string(model.rawValue), 
-                "url": url.map { .string($0) }, 
-                "page_range": pageRange.map { .string($0) }, 
-                "zone": zone.map { .string($0) }, 
-                "new_line": newLine.map { .int($0) }
-            ],
-            body: request.asMultipartFormData(),
-            requestOptions: requestOptions,
-            responseType: OcrPredictResponse.self
-        )
-    }
-
     /// Analyze text for grammar errors and return the exact words flagged as grammatically incorrect with zero-based word positions.
     ///
     /// ```swift
